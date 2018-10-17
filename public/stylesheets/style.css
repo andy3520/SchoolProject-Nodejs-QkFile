@@ -185,7 +185,18 @@ section.find-file-section {
   background-size: cover;
   background-position: center center; }
 
-section.upload-section, section.login-section, section.signup-section {
+section.signup-section {
+  height: 95vh;
+  background: url("../images/bg3.jpg");
+  background-size: cover;
+  background-position: center center; }
+
+section.pricing {
+  background: url("../images/bg4.jpg");
+  background-size: cover;
+  background-position: center center; }
+
+section.upload-section, section.login-section, section.howtouse-section {
   height: 95vh; }
 
 .border-color-y {
@@ -198,5 +209,10 @@ section.upload-section, section.login-section, section.signup-section {
   border-radius: 2px;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 12px 30px;
   background: white; }
+
+@media (max-width: 475px) {
+  .icon-auth {
+    width: 30px;
+    height: 30px; } }
 
 /*# sourceMappingURL=style.css.map */
