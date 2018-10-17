@@ -1,0 +1,113 @@
+section#howtouse.portfolio
+  .container
+    .row
+      .col-md-12
+        .section-title
+          h2.font-weight OUR PORTFOLIO
+          span.dots.dt-theme.margin-bottom-1
+          p.font-weight Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+  // Portfolio Filters
+  .container
+    .row
+      .col-sm-12
+        ul.portfolio-filter
+          li.filter.active(data-filter='*') All
+          li.filter(data-filter='.wordpress') Wordpress
+          li.filter(data-filter='.jquery') jQuery
+          li.filter(data-filter='.php') PHP
+          li.filter(data-filter='.css') CSS
+          li.filter(data-filter='.html') HTML
+        // /Portfolio Filters
+        // Portfolio Wrap
+        .row.portfolio-container
+          // single portfolio
+          .col-md-4.col-sm-6.col-xs-12.work.php.wordpress.html
+            .portfolio-item-content
+              img.img-responsive(src='images/gallery-img1.jpg', alt='')
+              .portfolio-item-description
+                ul.list-inline.text-center
+                  li
+                    a.preview-icon(href='#work_id-1', data-title='Project Title', title='Fullscreen')
+                      i.fa.fa-arrow-circle-down
+                  li
+                    a(href='#', title='Details')
+                      i.fa.fa-link
+                h6.font-weight Project Title
+            #work_id-1.mfp-hide.work-popup
+              img(src='images/gallery-img1.jpg', alt='')
+          // single portfolio
+          .col-md-4.col-sm-6.col-xs-12.work.wordpress.jquery
+            .portfolio-item-content
+              img.img-responsive(src='images/gallery-img2.jpg', alt='')
+              .portfolio-item-description
+                ul.list-inline.text-center
+                  li
+                    a.preview-icon(href='#work_id-2', data-title='Project Title', title='Fullscreen')
+                      i.fa.fa-arrow-circle-down
+                  li
+                    a(href='portfolio-details.html', title='Details')
+                      i.fa.fa-link
+                h6.font-weight Project Title
+            #work_id-2.mfp-hide.work-popup
+              img(src='images/gallery-img2.jpg', alt='')
+          // single portfolio
+          .col-md-4.col-sm-6.col-xs-12.work.jquery.php
+            .portfolio-item-content
+              img.img-responsive(src='images/gallery-img3.jpg', alt='')
+              .portfolio-item-description
+                ul.list-inline.text-center
+                  li
+                    a.preview-icon(href='#work_id-3', data-title='Project Title', title='Fullscreen')
+                      i.fa.fa-arrow-circle-down
+                  li
+                    a(href='portfolio-details.html', title='Details')
+                      i.fa.fa-link
+                h6.font-weight Project Title
+            #work_id-3.mfp-hide.work-popup
+              img(src='images/gallery-img3.jpg', alt='')
+          // single portfolio
+          .col-md-4.col-sm-6.col-xs-12.work.php.css.wordpress
+            .portfolio-item-content
+              img.img-responsive(src='images/gallery-img4.jpg', alt='')
+              .portfolio-item-description
+                ul.list-inline.text-center
+                  li
+                    a.preview-icon(href='#work_id-4', data-title='Project Title', title='Fullscreen')
+                      i.fa.fa-arrow-circle-down
+                  li
+                    a(href='portfolio-details.html', title='Details')
+                      i.fa.fa-link
+                h6.font-weight Project Title
+            #work_id-4.mfp-hide.work-popup
+              img(src='images/gallery-img4.jpg', alt='')
+          // single portfolio
+          .col-md-4.col-sm-6.col-xs-12.work.css.php.html
+            .portfolio-item-content
+              img.img-responsive(src='images/gallery-img5.jpg', alt='')
+              .portfolio-item-description
+                ul.list-inline.text-center
+                  li
+                    a.preview-icon(href='#work_id-5', data-title='Project Title', title='Fullscreen')
+                      i.fa.fa-arrow-circle-down
+                  li
+                    a(href='portfolio-details.html', title='Details')
+                      i.fa.fa-link
+                h6.font-weight Project Title
+            #work_id-5.mfp-hide.work-popup
+              img(src='images/gallery-img5.jpg', alt='')
+          // single portfolio
+          .col-md-4.col-sm-6.col-xs-12.work.html.css
+            .portfolio-item-content
+              img.img-responsive(src='images/gallery-img6.jpg', alt='')
+              .portfolio-item-description
+                ul.list-inline.text-center
+                  li
+                    a.preview-icon(href='#work_id-6', data-title='Project Title', title='Fullscreen')
+                      i.fa.fa-arrow-circle-down
+                  li
+                    a(href='portfolio-details.html', title='Details')
+                      i.fa.fa-link
+                h6.font-weight Project Title
+            #work_id-6.mfp-hide.work-popup
+              img(src='images/gallery-img6.jpg', alt='')
+  // /Portfolio Wrap

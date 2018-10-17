@@ -1,0 +1,246 @@
+// Scroll button custom start
+
+@media (min-width: 340px) {
+  a.btn.upload-scroll-custom {
+    background: #fdc318;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    border-radius: 4px 0 0 4px;
+    font-size: 15px;
+    height: 50px;
+    opacity: 0.9;
+  }
+
+  a.btn.find-scroll-custom {
+    background: #fdc318;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    border-radius: 0 4px 4px 0;
+    height: 50px;
+    font-size: 15px;
+    opacity: 0.9;
+  }
+
+  a.btn.find-scroll-custom:hover {
+    background: #FFF71C;
+    border: 1px solid #FFF71C;
+    font-weight: bold;
+    transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    opacity: 1;
+  }
+
+  a.btn.upload-scroll-custom:hover {
+    background: #FFF71C;
+    border: 1px solid #FFF71C;
+    font-weight: bold;
+    transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    opacity: 1;
+  }
+}
+// Scroll button custom end
+
+// Custom upload bar start
+.file-upload {
+  display: block;
+  text-align: center;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+}
+
+.file-upload .file-select {
+  display: block;
+  border: 1px solid #fdc318;
+  color: #34495e;
+  cursor: pointer;
+  height: 40px;
+  line-height: 40px;
+  text-align: left;
+  border-radius: 4px;
+  background: #FFFFFF;
+  overflow: hidden;
+  position: relative;
+}
+
+.file-upload .file-select .file-select-button {
+  background: #fdc318;
+  color: #FFFFFF;
+  padding: 0 10px;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+}
+
+.file-upload .file-select .file-select-name {
+  line-height: 40px;
+  display: inline;
+  padding: 0 10px;
+  color: #fdc318;
+}
+
+.file-upload .file-select:hover {
+  border-color: #FFF71C;
+  transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+}
+
+.file-upload .file-select:hover .file-select-button {
+  background: #FFF71C;
+  color: #FFFFFF;
+  transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+}
+
+.file-upload.active .file-select {
+  border-color: #3fa46a;
+  transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+}
+
+.file-upload.active .file-select .file-select-name {
+  color: #3fa46a;
+  transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+}
+
+.file-upload.active .file-select .file-select-button {
+  background: #3fa46a;
+  color: #FFFFFF;
+  transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+}
+
+.file-upload .file-select input[type=file] {
+  z-index: 100;
+  cursor: pointer;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+.file-upload .file-select.file-select-disabled {
+  opacity: 0.65;
+}
+
+.file-upload .file-select.file-select-disabled:hover {
+  cursor: default;
+  display: block;
+  border: 2px solid #dce4ec;
+  color: #34495e;
+  cursor: pointer;
+  height: 40px;
+  line-height: 40px;
+  margin-top: 5px;
+  text-align: left;
+  background: #FFFFFF;
+  overflow: hidden;
+  position: relative;
+}
+
+.file-upload .file-select.file-select-disabled:hover .file-select-button {
+  background: #dce4ec;
+  color: #666666;
+  padding: 0 10px;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+}
+
+.file-upload .file-select.file-select-disabled:hover .file-select-name {
+  line-height: 40px;
+  display: inline-block;
+  padding: 0 10px;
+}
+
+// Custom upload bar end
+
+// Custom upload button
+a.btn.upload-btn.active {
+  border: 1px solid #3fa46a;
+  color: #3fa46a;
+  transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+}
+
+a.btn.upload-btn.active:hover {
+  background: #3fa46a;
+  color: #FFFFFF;
+  transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+}
+
+// Custom button end
+
+// Input code start
+#findcode.input-code, #findpass.input-code {
+  border: 1px solid #fdc318;
+  height: 45px;
+  color: #fdc318;
+}
+
+#findcode.input-code.active, #findpass.input-code.active {
+  border: 1px solid #3fa46a;
+  color: #3fa46a;
+  transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+}
+
+.transform-color.active {
+  color:#3fa46a !important;
+}
+// Input code end
+
+ // Background custom start
+section.find-file-section{
+  height: 95vh;
+  background: url('../images/bg1.jpg');
+  background-size: cover;
+  background-position: center center;
+}
+
+section.upload-section, section.login-section, section.signup-section{
+  height: 95vh;
+}
+// Background custom end
+
+// Custom input start
+.border-color-y{
+  border: 1px solid #fdc318 !important;
+  color: #fdc318 !important;
+}
+// Custom input end
+
+// Icon authenticate start
+.icon-auth{
+  width: 50px;
+  height: 50px;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 12px 30px;
+  background: rgb(255, 255, 255);
+}
+// Icon authenticate end

@@ -1,0 +1,152 @@
+/*
+    Template Name    : Peace
+	Description		 : Responsive HTML5 Template.
+    Version          : 1.0
+*/
+
+/*
+================================================
+/* Table of Content
+==================================================
+
+01. Font                        
+   02. Style                            
+   03. Footer                                                      
+
+/*
+================================================
+1. Fonts - Raleway and Opensans
+================================================
+*/
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600|Raleway:400,500,600,700,800,900');
+/*
+================================================
+2. Common CSS
+================================================
+*/
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
+	line-height: 23px;
+	font-weight: 400;
+	overflow-x: hidden;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Raleway', sans-serif;
+	margin-top: 0;
+	text-transform: none;
+}
+h5 {
+  font-size: 18px;
+}
+h6 {
+    font-size: 16px;
+}
+h4{
+font-weight:600;
+}
+p{
+font-size:14px;
+color:#666;
+}
+a, a:hover, a:active, a:focus {
+	outline: none;
+	border: none;
+	font-family:Montserrat,sans-serif;	
+	text-decoration:none;
+}
+a {
+	
+	transition: all 0.3s ease 0s;
+}
+a:focus, a:hover {
+	color: #101010;
+}
+body, html {
+	height: 100%;
+}
+.mb{
+margin-bottom:40px;
+}
+.light-bg {
+  background: #fff;
+  box-shadow: 0 3px 16px rgba(0, 0, 0, 0.2);
+  margin-bottom: 16px;
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  -ms-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.light-bg:hover {
+    -webkit-box-shadow: 0 4px 20px 0 rgba(168,182,191,.6);
+    box-shadow: 0 4px 26px rgba(0, 0, 0, 0.5);
+}
+
+ul li {
+  list-style: none;
+}
+
+/*
+================================================
+2. Style
+================================================
+*/
+
+.demo {
+  text-align: center;
+  padding-top: 50px;
+}
+
+.demo h1  {
+  font-size: 50px;
+    color: #000;
+    display: inline-block;
+    padding: 4px 10px;
+    font-weight: 900;
+    background: #FEEA0E;
+}
+
+.demo h3 {
+  margin-top: 0;
+  padding-bottom: 40px;
+  font-weight: 300;
+  font-size: 24px;
+}
+
+.demo h4 {
+    display: block;
+    margin: 0;
+    padding: 20px 0;
+    font-weight: 600;
+    font-size: 18px;
+    padding-left: 20px;
+	color:#000;
+}
+
+
+
+
+/*
+================================================
+3. Footer
+================================================
+*/
+
+footer{
+padding: 25px 0;
+    width: 100%;
+    float: left;
+}
+footer p {
+    color: #777;
+    text-align: center;
+    margin: 0;
+	}
+	
+	

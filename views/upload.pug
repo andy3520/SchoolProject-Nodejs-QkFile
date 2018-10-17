@@ -1,0 +1,26 @@
+section#upload.contactus.upload-section
+  .container
+    .row
+      .col-md-12
+        .section-title
+          h2.font-weight.color-y.font-weight-h.text-transform.transform-color Upload File
+  .section.contact-us
+    .container
+      .outer-box.text-center
+        // Contact Form Start
+        .form-box.clearfix
+          form#uploadform.shake.scroll-reveal(data-toggle='validator' )
+            .form-group.col-12
+              .file-upload
+                .file-select
+                  #fileName.file-select-button Choose File
+                  #noFile.file-select-name No file chosen...
+                  input#chooseFile(type='file' name='chooseFile')
+            .row
+              .form-group.col-xs-12.col-md-6
+                input#findcode.form-control.input-code(type='text', placeholder='Find code(auto generate if null)')
+              .form-group.col-xs-12.col-md-6
+                input#findpass.form-control.input-code(type='text', placeholder='Password(optional)')
+              .col-xs-12
+                a.btn.upload-btn(href='#') Upload
+                #msgSubmit

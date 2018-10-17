@@ -1,0 +1,54 @@
+header#home
+  .header-top-area
+    .container
+      .row
+        .col-md-3
+          // START LOGO
+          .logo
+            a(href='index.html') QKFILE
+          // END LOGO
+        .col-md-9
+          // START MAIN MENU
+          nav.navbar.navbar-default
+            // Brand and toggle get grouped for better mobile display
+            .navbar-header
+              button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1', aria-expanded='false')
+                span.sr-only Toggle navigation
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+              // Logo
+            // Collect the nav links, forms, and other content for toggling
+            #bs-example-navbar-collapse-1.collapse.navbar-collapse
+              ul.nav.navbar-nav
+                li
+                  a.smoth-scroll(href='#home') Home
+                li
+                  a.smoth-scroll(href='#upload') Upload file
+                li
+                  a.smoth-scroll(href='#findfile') Search file
+                li
+                  a.smoth-scroll(href='#login') Login
+                li
+                  a.smoth-scroll(href='#signup') Sign up
+                li
+                  a.smoth-scroll(href='#howtouse') How to use
+                li
+                  a.smoth-scroll(href='#pricing') Price
+            // /.navbar-collapse
+          // END MAIN MENU
+  // Start Image Slider Area
+  section#particle-area.particle-area
+    #particles-js
+    .container
+      .row
+        .col-md-12
+          .col-md-8.col-md-offset-2
+            .banner-text.text-center
+              h1.font-weight-h.text-transform.margin-bottom-2.color-w
+                | QK
+                span.color-y FILE
+              h3.font-weight.text-transform.ptb-20.color-w The fastest way to share a file
+              a.btn.upload-scroll-custom.smoth-scroll(href='#upload') Upload file
+              a.btn.find-scroll-custom.smoth-scroll(href='#findfile') Search file
+  // End Image Slider Area
