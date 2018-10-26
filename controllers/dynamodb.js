@@ -195,26 +195,51 @@ exports.addNewFile = (req, res) => {
 }
 
 exports.deleteFileUploadByCustomer = () => {
-  var docClient = new AWS.DynamoDB.DocumentClient();
-  
+    var docClient = new AWS
+        .DynamoDB
+        .DocumentClient();
+
+    var params = {
+        TableName: "Customer",
+        Key: {
+            "id": req.body.id,
+            "username": req.body.username
+        },
+        ConditionExpression: "files.fileName = :val",
+        ExpressionAttributeValues: {
+            ":val": req.body.fileName
+        }
+    };
+
+    console.log("Attempting a conditional delete...");
+    docClient.delete(params, function (err, data) {
+        if (err) {
+            console.error(
+                "Unable to delete item. Error JSON:",
+                JSON.stringify(err, null, 2)
+            );
+        } else {
+            console.log("DeleteItem succeeded:", JSON.stringify(data, null, 2));
+        }
+    });
+}
+
+exports.deleteFileByLink = (req, res) => {
+  const documentClient = new AWS.DynamoDB.DocumentClient();
+
   var params = {
       TableName: "Customer",
-      Key:{
+      Key: {
           "id": req.body.id,
-          "username": req.body.username
+          "username": req.body.username,
       },
-      ConditionExpression:"files.fileName = :val",
-      ExpressionAttributeValues: {
-          ":val": req.body.fileName
-      }
+      UpdateExpression: `remove files[${req.body.index}]`,
+      ReturnValues: "UPDATED_NEW",
   };
   
-  console.log("Attempting a conditional delete...");
-  docClient.delete(params, function(err, data) {
-      if (err) {
-          console.error("Unable to delete item. Error JSON:", JSON.stringify(err, null, 2));
-      } else {
-          console.log("DeleteItem succeeded:", JSON.stringify(data, null, 2));
-      }
-  });
+  documentClient.update(params, (err, data) => {
+      if (err) console.error(`Error when updating ${JSON.stringify(err, null, 2)}`)
+      else
+          console.log(`Success full when updating ${JSON.stringify(data, null, 2)}`)
+  })
 }
