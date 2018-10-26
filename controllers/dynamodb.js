@@ -8,7 +8,7 @@ AWS
 
 exports.createDB = (req, res) => {
 
-    const DynamoDB = new AWS.DynamoDB();
+    const dynamodb = new AWS.DynamoDB();
 
     var params = {
         TableName: "Customer",
@@ -59,7 +59,7 @@ exports.createDB = (req, res) => {
 
 exports.createDB = (req, res) => {
 
-    const DynamoDB = new AWS.DynamoDB();
+    const dynamodb = new AWS.DynamoDB();
 
     var params = {
         TableName: "Customer",
@@ -120,12 +120,12 @@ exports.create = (req, res) => {
             "username": req.body.username,
             "email": req.body.email,
             "password": req.body.password,
-            "restrict": req.body.restrict,
+            "limited_method": req.body.limited_method,
             "files": [
                 {
-                    file_name: req.body.file_name,
-                    link: req.body.link,
-                    short_link: req.body.short_link
+                    "file_name": req.body.file_name,
+                    "link": req.body.link,
+                    "short_link": req.body.short_link
                 }
             ]
         }
@@ -135,9 +135,86 @@ exports.create = (req, res) => {
     docClient.put(params, function (err, data) {
         if (err) {
             console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
-            req.status(404).send({error: JSON.stringify(err, null, 2)});
+            req
+                .status(404)
+                .send({
+                    error: JSON.stringify(err, null, 2)
+                });
         } else {
-          req.status(200).send(JSON.stringify(err, null, 2));
+            req
+                .status(200)
+                .send(JSON.stringify(err, null, 2));
         }
     });
+}
+
+exports.addNewFile = (req, res) => {
+
+    var docClient = new AWS
+        .DynamoDB
+        .DocumentClient()
+
+    var table = "Customer";
+
+    const params = {
+        TableName: "Customer",
+        Key: {
+            "id": req.body.id,
+            "username": req.body.id
+        },
+        UpdateExpression: "SET #attrName = list_append(#attrName, :attrValue)",
+        ExpressionAttributeNames: {
+            "#attrName": "files"
+        },
+        ExpressionAttributeValues: {
+            ":attrValue": [
+                {
+                    "file_name": req.body.fileName,
+                    "link": req.body.link,
+                    "short_link": req.body.short_link
+                }
+            ]
+        },
+        ReturnValues: "UPDATED_NEW"
+    };
+    docClient.update(params, function (err, data) {
+        if (err) {
+            req
+                .status(404)
+                .send({
+                    message: JSON.stringify(err, null, 2)
+                })
+        } else {
+            req
+                .status(200)
+                .send({
+                    message: JSON.stringify(data, null, 2)
+                })
+        }
+    });
+}
+
+exports.deleteFileUploadByCustomer = () => {
+  var docClient = new AWS.DynamoDB.DocumentClient();
+  
+  var params = {
+      TableName: "Customer",
+      Key:{
+          "id": req.body.id,
+          "username": req.body.username
+      },
+      ConditionExpression:"files.fileName = :val",
+      ExpressionAttributeValues: {
+          ":val": req.body.fileName
+      }
+  };
+  
+  console.log("Attempting a conditional delete...");
+  docClient.delete(params, function(err, data) {
+      if (err) {
+          console.error("Unable to delete item. Error JSON:", JSON.stringify(err, null, 2));
+      } else {
+          console.log("DeleteItem succeeded:", JSON.stringify(data, null, 2));
+      }
+  });
 }
