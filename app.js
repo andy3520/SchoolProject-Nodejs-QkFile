@@ -27,9 +27,11 @@ app.use(sassMiddleware({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.get('/', (req, res) => {
+  res.render('test');
+} )
 app.use('/users', usersRouter);
-app.use('/test', testRouter);
+app.use('/files', testRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
