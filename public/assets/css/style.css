@@ -531,20 +531,6 @@ a.slide-btn:hover {
   background-attachment: fixed !important
 }
 
-.slide-1, .text-slide {
-  background: url(../images/banner2.jpg);
-  background-size: cover
-}
-
-.slide-2 {
-  background: url(../images/banner3.jpg);
-  background-size: cover
-}
-
-.slide-3 {
-  background: url(../images/banner4.jpg);
-  background-size: cover
-}
 
 .single-slide-item {
   position: relative;
@@ -682,13 +668,6 @@ a.welcome-control:focus, a.welcome-control:hover i {
 ================================================
 */
 /*Version-3*/
-.slider-sec {
-  text-align: center;
-  position: relative;
-  background: url(../images/banner1.jpg);
-  background-size: cover;
-  z-index: 1;
-}
 
 .slider-sec h1 {
   color: #FFFFFF;
@@ -716,14 +695,7 @@ a.btn-slider:hover {
 ================================================
 */
 /*Version-4*/
-#main-section {
-  overflow: hidden;
-  padding: 300px 0 185px;
-  margin-bottom: 0;
-  font-size: 18px;
-  line-height: 28px;
-  background-image: url(../images/video-bg.jpg);
-}
+
 
 #main-section h1 {
   margin-bottom: 16px;
@@ -812,14 +784,6 @@ a.btn-slider:hover {
 ================================================
 */
 /*Version-5*/
-.banner-area {
-  text-align: center;
-  position: relative;
-  background: url(../images/1.jpg);
-  background-size: cover;
-  z-index: 1;
-
-}
 
 .banner-text {
   padding: 160px 0px 0px 0px;
@@ -1264,16 +1228,7 @@ a.main-btn {
   z-index: -1;
 }
 
-.counters {
-  background: url(../images/bg.jpg) no-repeat fixed left top;
-  margin: 0;
-  padding: 74px 0 76px;
-  position: relative;
-  width: 100%;
-  float: left;
-  text-align: center;
-  z-index: 9;
-}
+
 
 .counters .counter .counter-icon-box {
   color: #bbb;
@@ -1440,13 +1395,6 @@ a.main-btn {
 16. Testimonials Wrapper 
 ================================================
 */
-.testimonials-wrapper {
-  width: 100%;
-  float: left;
-  background: url(../images/counters-bg.jpg) repeat left top;
-  padding: 65px 0 80px;
-  background-attachment: fixed;
-}
 
 .testimonials-wrapper blockquote {
   border-left: none;
