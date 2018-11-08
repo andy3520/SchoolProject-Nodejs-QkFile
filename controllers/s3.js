@@ -12,22 +12,35 @@ const s3 = new AWS.S3();
 
 exports.upload = function (req, res) {
     var form = new formidable.IncomingForm();
+    console.log(req.body);
     form.parse(req);
+
+    var fileupload = {
+        filename: '',
+        filesize: '',
+        filetype: '',
+        filepass: ''
+    };
 
     form.on('file', function (name, file) {
         var params = {
-            Bucket: config.Bucket,
+            Bucket: 'mphung97',
             Body: fs.createReadStream(file.path),
             Key: Date.now() + "_" + file.name
         };
-
-        s3.upload(params, function (err, data) {  
+        s3.upload(params, function (err, data) {
+            //handle error
             if (err)
                 console.log("Error", err);
-            if (data)
-                console.log("Uploaded:", data);
+            //success
+            if (data) {
+                fileupload.filename = data.key,
+                fileupload.filesize = file.size,
+                fileupload.filetype = file.type
+
+                console.log(fileupload);
+            }
         });
-    });
 }
 
 exports.dowload = function(req, res){
