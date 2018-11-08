@@ -216,28 +216,36 @@ a.btn.upload-btn.active:hover {
 // Input code end
 
  // Background custom start
-section.find-file-section{
-  height: 95vh;
-  background: url('../images/bg1.jpg');
+section.find-file-section, section.signup-section, section.pricing, section.upload-section, section.login-section, section.howtouse-section {
+  min-height: 95vh;
   background-size: cover;
-  background-position: center center;
+}
+
+section.find-file-section{
+  background: url('../images/bg1.jpg') center center;
 }
 section.signup-section{
-  height: 95vh;
-  background: url('../images/bg3.jpg');
-  background-size: cover;
-  background-position: center center;
+  background: url('../images/bg7.jpg') center center;
 }
-
 section.pricing{
-  background: url('../images/bg4.jpg');
-  background-size: cover;
-  background-position: center center;
+  background: url('../images/bg4.jpg') center center;
+}
+section.upload-section{
+  background: url('../images/bg5.jpg') center center;
 }
 
-section.upload-section, section.login-section, section.howtouse-section{
-  height: 95vh;
+section.login-section{
+  background: url('../images/bg6.jpg') center center;
 }
+
+section.howtouse-section{
+  background: url('../images/bg3.jpg') center center;
+}
+
+section.contact-section{
+  background: url('../images/bg8.jpg') center center;
+}
+
 // Background custom end
 
 // Custom input start
