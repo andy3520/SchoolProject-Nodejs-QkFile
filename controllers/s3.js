@@ -19,7 +19,6 @@ exports.upload = function (req, res) {
             Bucket: config.Bucket,
             Body: fs.createReadStream(file.path),
             Key: Date.now() + "_" + file.name
-
         };
 
         s3.upload(params, function (err, data) {  
