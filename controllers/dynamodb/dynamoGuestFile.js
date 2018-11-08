@@ -8,7 +8,7 @@ AWS.config.update({
 });
 
 // Tạo bảng cho File của guest (không tài khoản)
-exports.createTable = (req, res) => {
+exports.createTable = () => {
   const dynamodb = new AWS.DynamoDB();
 
   var params = {
@@ -31,26 +31,26 @@ exports.createTable = (req, res) => {
     }
   };
 
-  dynamodb.createTable(params, function (err, data) {
+  return dynamodb.createTable(params, function (err, data) {
     if (err) {
       console.error(
         "Unable to create table. Error JSON:",
         JSON.stringify(err, null, 2)
       );
-      res.status(404).send({message: `Create fail`});
+      return err;
     } else {
       console.log(
         "Created table. Table description JSON:",
         JSON.stringify(data, null, 2)
       );
-      res.status(200).send(JSON.stringify(data, null, 2))
+      return data;
     }
   });
 };
 /// ^^^
 
 // Tạo file 
-exports.createFile = (req, res, code, fileName, pass, fileType, fileSize) => {
+exports.createFile = (code, fileName, pass, fileType, fileSize) => {
   var docClient = new AWS.DynamoDB.DocumentClient();
 
   var params = {
@@ -64,12 +64,18 @@ exports.createFile = (req, res, code, fileName, pass, fileType, fileSize) => {
     }
   };
   
-  docClient.put(params, function (err, data) {
+  return docClient.put(params, function (err, data) {
     if (err) {
       console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
-      res.status(404).send({error: JSON.stringify(err, null, 2)});
+      return err;
     } else {
-      res.status(200).send(JSON.stringify(data, null, 2));
+      console.log(
+        "Created file: ",
+        JSON.stringify(params.Item, null, 2)
+      );
+      return params.Item;
     }
   });
 };
+
+// Tim file
