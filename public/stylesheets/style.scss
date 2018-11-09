@@ -43,6 +43,7 @@
     opacity: 1;
   }
 }
+
 // Scroll button custom end
 
 // Custom upload bar start
@@ -174,7 +175,31 @@
 // Custom upload bar end
 
 // Custom upload button
-a.btn.upload-btn.active {
+input.btn.upload-btn {
+  padding: 10px 20px;
+  border: 1px solid #fdc318;
+  color: #fdc318;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+input.btn.upload-btn:hover {
+  background: #fdc318;
+  color: #FFFFFF;
+  border: 1px solid #fdc318;
+  transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  opacity: 1;
+}
+
+input.btn.upload-btn.active {
   border: 1px solid #3fa46a;
   color: #3fa46a;
   transition: all .2s ease-in-out;
@@ -183,7 +208,7 @@ a.btn.upload-btn.active {
   -o-transition: all .2s ease-in-out;
 }
 
-a.btn.upload-btn.active:hover {
+input.btn.upload-btn.active:hover {
   background: #3fa46a;
   color: #FFFFFF;
   transition: all .2s ease-in-out;
@@ -211,44 +236,57 @@ a.btn.upload-btn.active:hover {
 }
 
 .transform-color.active {
-  color:#3fa46a !important;
+  color: #3fa46a !important;
 }
+
 // Input code end
 
- // Background custom start
-section.find-file-section{
-  height: 95vh;
-  background: url('../images/bg1.jpg');
+// Background custom start
+section.find-file-section, section.signup-section, section.pricing, section.upload-section, section.login-section, section.howtouse-section {
+  min-height: 95vh;
   background-size: cover;
-  background-position: center center;
-}
-section.signup-section{
-  height: 95vh;
-  background: url('../images/bg3.jpg');
-  background-size: cover;
-  background-position: center center;
 }
 
-section.pricing{
-  background: url('../images/bg4.jpg');
-  background-size: cover;
-  background-position: center center;
+section.find-file-section {
+  background: url('../images/bg1.jpg') center center;
 }
 
-section.upload-section, section.login-section, section.howtouse-section{
-  height: 95vh;
+section.signup-section {
+  background: url('../images/bg7.jpg') center center;
 }
+
+section.pricing {
+  background: url('../images/bg4.jpg') center center;
+}
+
+section.upload-section {
+  background: url('../images/bg5.jpg') center center;
+}
+
+section.login-section {
+  background: url('../images/bg6.jpg') center center;
+}
+
+section.howtouse-section {
+  background: url('../images/bg3.jpg') center center;
+}
+
+section.contact-section {
+  background: url('../images/bg8.jpg') center center;
+}
+
 // Background custom end
 
 // Custom input start
-.border-color-y{
+.border-color-y {
   border: 1px solid #fdc318 !important;
   color: #fdc318 !important;
 }
+
 // Custom input end
 
 // Icon authenticate start
-.icon-auth{
+.icon-auth {
   width: 50px;
   height: 50px;
   border-radius: 2px;
@@ -257,9 +295,49 @@ section.upload-section, section.login-section, section.howtouse-section{
 }
 
 @media (max-width: 475px) {
-  .icon-auth{
+  .icon-auth {
     width: 30px;
     height: 30px;
   }
 }
+
 // Icon authenticate end
+
+// Modal start
+.custom-modal {
+
+}
+
+h1#modalTitle,h2#codeResult {
+  color: #78B345;
+  font-weight: 800;
+}
+
+button.custom-btn-modal {
+  border: 1px solid #78B345;
+  background: #78B345;
+  color: #FFFFFF;
+  font-weight: 500;
+  border-radius: 4px;
+  font-size: 15px;
+  opacity: 0.9;
+}
+
+button.custom-btn-modal:hover {
+  background: #85ba5a;
+  border: 1px solid #85ba5a;
+  color: #FFFFFF;
+  font-weight: bold;
+  transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  opacity: 1;
+}
+
+img#iconSuccress{
+  width: 72px;
+  display: none;
+}
+
+// Modal end
