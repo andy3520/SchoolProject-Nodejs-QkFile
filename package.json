@@ -19,9 +19,6 @@
     "node-fetch": "^2.2.1",
     "node-sass-middleware": "0.11.0",
     "pug": "2.0.0-beta11",
-<<<<<<< HEAD
-    "request": "^2.88.0"
-=======
     "randomstring": "^1.1.5",
     "body-parser": "latest"
   },
@@ -29,6 +26,5 @@
     "eslint": "^5.8.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0"
->>>>>>> 8a40f71489da7225742b5153133536bf6e964878
   }
 }
