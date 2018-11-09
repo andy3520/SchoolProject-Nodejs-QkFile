@@ -7,15 +7,16 @@ section#findfile.contactus.find-file-section
   .section.contact-us
     .container-fluid
       .row
-        .col-xs-10.col-xs-offset-1.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
+        .col-xs-12.col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
           .outer-box.text-center
             // Contact Form Start
             .form-box.clearfix
-              form#findform.shake.scroll-reveal(data-toggle='validator' )
+              form#findform.shake.scroll-reveal(data-toggle='validator' action='/guest/find' method='post')
                 .form-group.col-xs-12
-                  input#findcode-find.border-color-y.form-control.margin-bottom-1.input-code(type='text', placeholder='Enter File Code')
-                  input#p-assfind.border-color-y.form-control.input-code(type='text', placeholder='Enter password if exist')
+                  input#findcode-find.border-color-y.form-control.margin-bottom-1.input-code(type='text', placeholder='Enter File Code' name='code')
+                  input#pass-find.border-color-y.form-control.input-code(type='password', placeholder='Enter password if exist' name='pass')
                 .col-xs-12
-                  a.btn(href='#') Find
+                  input(type="submit" value="Find").btn.upload-btn
+                  //a.btn(href='#') Find
                   #msgSubmit
 .clearfix

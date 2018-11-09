@@ -147,7 +147,29 @@
   display: inline-block;
   padding: 0 10px; }
 
-a.btn.upload-btn.active {
+input.btn.upload-btn {
+  padding: 10px 20px;
+  border: 1px solid #fdc318;
+  color: #fdc318;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle; }
+
+input.btn.upload-btn:hover {
+  background: #fdc318;
+  color: #FFFFFF;
+  border: 1px solid #fdc318;
+  transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  opacity: 1; }
+
+input.btn.upload-btn.active {
   border: 1px solid #3fa46a;
   color: #3fa46a;
   transition: all .2s ease-in-out;
@@ -155,7 +177,7 @@ a.btn.upload-btn.active {
   -webkit-transition: all .2s ease-in-out;
   -o-transition: all .2s ease-in-out; }
 
-a.btn.upload-btn.active:hover {
+input.btn.upload-btn.active:hover {
   background: #3fa46a;
   color: #FFFFFF;
   transition: all .2s ease-in-out;
@@ -219,5 +241,32 @@ section.contact-section {
   .icon-auth {
     width: 30px;
     height: 30px; } }
+h1#modalTitle, h2#codeResult {
+  color: #78B345;
+  font-weight: 800; }
+
+button.custom-btn-modal {
+  border: 1px solid #78B345;
+  background: #78B345;
+  color: #FFFFFF;
+  font-weight: 500;
+  border-radius: 4px;
+  font-size: 15px;
+  opacity: 0.9; }
+
+button.custom-btn-modal:hover {
+  background: #85ba5a;
+  border: 1px solid #85ba5a;
+  color: #FFFFFF;
+  font-weight: bold;
+  transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  opacity: 1; }
+
+img#iconSuccress {
+  width: 72px;
+  display: none; }
 
 /*# sourceMappingURL=style.css.map */
