@@ -24,6 +24,9 @@ exports.upload = req => new Promise((resolve, reject) => {
 
   form.on('field', (name, value) => {
     if (name === 'pass') {
+      if (String(value) === "" || value === undefined) {
+        pass = " ";
+      }
       fileUpload.pass = value;
     }
   });

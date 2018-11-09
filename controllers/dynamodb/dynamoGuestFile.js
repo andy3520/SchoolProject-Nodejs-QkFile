@@ -42,6 +42,9 @@ exports.createTable = () => new Promise((resolve, reject) => {
 
 // Tạo file
 exports.createFile = (code, fileName, pass, fileType, fileSize) => new Promise((resolve, reject) => {
+  if (String(pass) === "" || pass === undefined) {
+    pass = " ";
+  }
   const docClient = new AWS.DynamoDB.DocumentClient();
   const params = {
     TableName: 'GuestFile',
