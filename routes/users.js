@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var {poolData, pool_region, RegisterUser, userPool} = require('../controllers/cognito/index')
+var {poolData, pool_region, RegisterUser, userPool,
+userData, cognitoUser, authenticationDetails, Signin, ValidateCurrentUser} = require('../controllers/cognito/index')
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
@@ -12,12 +13,26 @@ router.post('/register', (req, res, next) => {
     .then( result => {
       res.redirect('/');
     }, err => {
-      res.send('alert("Error")');
-    })
+       res.send(`<script>alert('${err.message}')</script>`)
+    });
 });
 
-router.post('/signin' ,(req, res) => {
+router.post('/login' ,(req, res) => {
+  var userPoolConfig = userPool(poolData);
+  var userDataCustom = userData(req, userPoolConfig);
+  var cognitoUserCustom = cognitoUser(userDataCustom);
+  var authenticationDetailsCustom = authenticationDetails(req);
+  Signin(cognitoUserCustom, authenticationDetailsCustom);
+})
 
+router.get('/validate', (req, res) => {
+  userPoolConfig = userPool(poolData);
+  ValidateCurrentUser(userPoolConfig)
+    .then(result => {
+      res.json(result);
+    }, err => {
+      res.json(err);
+    })
 })
 
 module.exports = router;
