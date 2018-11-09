@@ -38,8 +38,13 @@ $('form#uploadform').submit((e)=>{
           $('img#iconSuccress').attr("src","images/success-icon-0.png");
         },1200);
         $('#codeResult').html(data.code);
-        $("#noFile").text("No file chosen...");
         $('form#uploadform')[0].reset();
+        $(".file-upload").removeClass('active');
+        $(".upload-btn").removeClass('active');
+        $("#findcode").removeClass('active');
+        $("#findpass").removeClass('active');
+        $(".transform-color").removeClass('active');
+        $("#noFile").text("No file chosen...");
       }
     },
     cache: false,
