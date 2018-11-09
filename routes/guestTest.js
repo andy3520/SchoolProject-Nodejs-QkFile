@@ -70,8 +70,7 @@ router.post('/upload', (req, res) => {
       dynamoGuestFile.createFile(fileUpload.code, fileUpload.fileName, fileUpload.pass, fileUpload.fileType, fileUpload.fileSize)
         .then((item) => {
           console.log('3.thanhcong ' + JSON.stringify(fileUpload));
-
-          res.send(JSON.stringify(item));
+          res.json({'code': "Your code: "+item.code, 'flag': true});
         })
         .catch((err) => {
           console.log('4.??? ' + JSON.stringify(fileUpload));
