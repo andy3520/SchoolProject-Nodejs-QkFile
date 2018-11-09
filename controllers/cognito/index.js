@@ -10,9 +10,29 @@ exports.poolData = {
   UserPoolId: "us-west-2_YYCZS19k2",
   ClientId: "447t3hs1nsi0t7ode1oi9af587", 
 };
+
+exports.userData = (req, userPool) => {
+  return (
+    {
+      Username: req.body.email,
+      Pool: userPool
+    }
+  );
+};
+
 exports.pool_region = "us-west-2";
 
-exports.userPool = (poolData) => ( new AmazonCognitoIdentity.CognitoUserPool(poolData));
+exports.userPool = poolData =>  new AmazonCognitoIdentity.CognitoUserPool(poolData);
+
+exports.cognitoUser = userData => { 
+  return new AmazonCognitoIdentity.CognitoUser(userData)};
+
+exports.authenticationDetails = req =>  new AmazonCognitoIdentity.AuthenticationDetails(
+  {
+    Username: req.body.email,
+    Password: req.body.password
+  }
+);
 
 exports.RegisterUser = (userPool, req) => { return new Promise((resolve, reject) => {
   var attributeList = [];
@@ -26,13 +46,39 @@ exports.RegisterUser = (userPool, req) => { return new Promise((resolve, reject)
     attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"custom:user_role",Value:"member"})),
     attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"nickname",Value:req.body.username})),
     userPool.signUp(req.body.email, req.body.password, attributeList, null, function(err, result){
-      console.log(attributeList);
       if (err) {
         reject(err);
       }else {
         resolve(result);
       }
     })
+  )
+}
+)};
+
+exports.ValidateCurrentUser = (userPool) => { return new Promise((resolve, reject) => {
+  var cognitoUser = userPool.getCurrentUser();
+  if(cognitoUser != null) {
+    return(
+    cognitoUser.getSession((err, session) => {
+      if(err) reject(err);
+      else resolve(session.isValid());
+    })
   )}
-)}
+})};  
+
+exports.Signin = (cognitoUser, authenticationDetails) => { return new Promise((resolve, reject) => {
+  return (
+    cognitoUser.authenticateUser(authenticationDetails, {
+      onSuccess: (result) => {
+        var accessToken = result.getAccessToken().getJwtToken();
+        var idToken = result.idToken.jwtToken;
+        console.log(result);
+      },
+      onFailure: (err) => {
+        console.log(err);
+      }
+    })
+  )
+})}
 
