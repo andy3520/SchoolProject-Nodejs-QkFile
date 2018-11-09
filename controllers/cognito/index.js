@@ -7,34 +7,32 @@ const jwt = require('jsonwebtoken');
 global.fetch = require('node-fetch');
 
 exports.poolData = {
-  UserPoolId: "ap-southeast-1_9R9ZGSuOX",
-  ClientId: "59hu3rcn5490a5jp7b8uu3sbuk", 
+  UserPoolId: "us-west-2_YYCZS19k2",
+  ClientId: "447t3hs1nsi0t7ode1oi9af587", 
 };
-exports.pool_region = "ap-southeast-1";
+exports.pool_region = "us-west-2";
 
 exports.userPool = (poolData) => ( new AmazonCognitoIdentity.CognitoUserPool(poolData));
 
-exports.RegisterUser = (userPool) => {
+exports.RegisterUser = (userPool, req) => { return new Promise((resolve, reject) => {
   var attributeList = [];
   return (
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"name",Value:"NamDepTrai"})),
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"gender",Value:"male"})),
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"birthdate",Value:"1991-06-21"})),
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"address",Value:"CMB"})),
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"email",Value:"andy.annguyen3520@gmail.com"})),
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"phone_number",Value:"+5412614324321"})),
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"custom:user_type",Value:"admin"})),
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"locale",Value:"admin"})),
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"profile",Value:"null"})),
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"picture",Value:"null"})),
-    userPool.signUp('andy.annguyen3520@gmail.com', 'NamTran123', attributeList, null, function(err, result){
+    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"name",Value:req.body.name})),
+    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"gender",Value:req.body.gender})),
+    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"birthdate",Value:req.body.birthdate})),
+    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"address",Value:req.body.addreqs})),
+    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"email",Value:req.body.email})),
+    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"phone_number",Value:req.body.phone_number})),
+    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"custom:user_role",Value:"member"})),
+    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"nickname",Value:req.body.username})),
+    userPool.signUp(req.body.email, req.body.password, attributeList, null, function(err, result){
       console.log(attributeList);
       if (err) {
-        console.log(err);
-        return;
+        reject(err);
+      }else {
+        resolve(result);
       }
-      cognitoUser = result.user;
-      console.log(cognitoUser);
-      console.log('user name is ' + cognitoUser.getUsername());
     })
   )}
+)}
+

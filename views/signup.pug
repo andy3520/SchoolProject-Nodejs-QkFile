@@ -10,15 +10,15 @@ section#signup.aboutus.signup-section
           .outer-box.text-center
             // Contact Form Start
             .form-box.clearfix
-              form#signupform.shake.scroll-reveal(data-toggle='validator' action='/signup' method='post')
+              form#signupform.shake.scroll-reveal(data-toggle='validator' action='/users/register' method='post')
                 .form-group.col-xs-12
                   input#email-signup.border-color-y.form-control.input-code(type='email' placeholder='Email' name='email')
                 .form-group.col-xs-12.col-sm-6
-                  input#username-signup.border-color-y.form-control.input-code(type='text' placeholder='Username' name='username')
+                  input#username-signup.border-color-y.form-control.input-code(type='text' placeholder='Nickname' name='nickname')
                 .form-group.col-xs-12.col-sm-6
-                  input#phone-signup.border-color-y.form-control.input-code(type='text' placeholder='Phone number' name='phone')
+                  input#phone-signup.border-color-y.form-control.input-code(type='text' placeholder='Phone number' name='phone_number')
                 .form-group.col-xs-12.col-sm-6
-                  input#name-signup.border-color-y.form-control.input-code(type='text' placeholder='Name' name='name')
+                  input#name-signup.border-color-y.form-control.input-code(type='text' placeholder='Full name' name='name')
                 .form-group.col-xs-12.col-sm-6
                   select#gender-signup.border-color-y.form-control.input-code(name="gender")
                     option(selected="true" disabled="true") Gender
