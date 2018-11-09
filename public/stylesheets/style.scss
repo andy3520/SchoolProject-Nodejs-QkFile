@@ -43,6 +43,7 @@
     opacity: 1;
   }
 }
+
 // Scroll button custom end
 
 // Custom upload bar start
@@ -174,7 +175,31 @@
 // Custom upload bar end
 
 // Custom upload button
-a.btn.upload-btn.active {
+input.btn.upload-btn {
+  padding: 10px 20px;
+  border: 1px solid #fdc318;
+  color: #fdc318;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+input.btn.upload-btn:hover {
+  background: #fdc318;
+  color: #FFFFFF;
+  border: 1px solid #fdc318;
+  transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  opacity: 1;
+}
+
+input.btn.upload-btn.active {
   border: 1px solid #3fa46a;
   color: #3fa46a;
   transition: all .2s ease-in-out;
@@ -183,7 +208,7 @@ a.btn.upload-btn.active {
   -o-transition: all .2s ease-in-out;
 }
 
-a.btn.upload-btn.active:hover {
+input.btn.upload-btn.active:hover {
   background: #3fa46a;
   color: #FFFFFF;
   transition: all .2s ease-in-out;
@@ -211,52 +236,57 @@ a.btn.upload-btn.active:hover {
 }
 
 .transform-color.active {
-  color:#3fa46a !important;
+  color: #3fa46a !important;
 }
+
 // Input code end
 
- // Background custom start
+// Background custom start
 section.find-file-section, section.signup-section, section.pricing, section.upload-section, section.login-section, section.howtouse-section {
   min-height: 95vh;
   background-size: cover;
 }
 
-section.find-file-section{
+section.find-file-section {
   background: url('../images/bg1.jpg') center center;
 }
-section.signup-section{
+
+section.signup-section {
   background: url('../images/bg7.jpg') center center;
 }
-section.pricing{
+
+section.pricing {
   background: url('../images/bg4.jpg') center center;
 }
-section.upload-section{
+
+section.upload-section {
   background: url('../images/bg5.jpg') center center;
 }
 
-section.login-section{
+section.login-section {
   background: url('../images/bg6.jpg') center center;
 }
 
-section.howtouse-section{
+section.howtouse-section {
   background: url('../images/bg3.jpg') center center;
 }
 
-section.contact-section{
+section.contact-section {
   background: url('../images/bg8.jpg') center center;
 }
 
 // Background custom end
 
 // Custom input start
-.border-color-y{
+.border-color-y {
   border: 1px solid #fdc318 !important;
   color: #fdc318 !important;
 }
+
 // Custom input end
 
 // Icon authenticate start
-.icon-auth{
+.icon-auth {
   width: 50px;
   height: 50px;
   border-radius: 2px;
@@ -265,9 +295,10 @@ section.contact-section{
 }
 
 @media (max-width: 475px) {
-  .icon-auth{
+  .icon-auth {
     width: 30px;
     height: 30px;
   }
 }
+
 // Icon authenticate end
