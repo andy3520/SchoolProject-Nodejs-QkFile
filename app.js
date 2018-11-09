@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 
 const indexRouter = require('./routes/index');
 const guestRouter = require('./routes/guestTest');
+const users = require('./routes/users');
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/guest', guestRouter);
+app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
