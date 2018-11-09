@@ -147,7 +147,29 @@
   display: inline-block;
   padding: 0 10px; }
 
-a.btn.upload-btn.active {
+input.btn.upload-btn {
+  padding: 10px 20px;
+  border: 1px solid #fdc318;
+  color: #fdc318;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle; }
+
+input.btn.upload-btn:hover {
+  background: #fdc318;
+  color: #FFFFFF;
+  border: 1px solid #fdc318;
+  transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  opacity: 1; }
+
+input.btn.upload-btn.active {
   border: 1px solid #3fa46a;
   color: #3fa46a;
   transition: all .2s ease-in-out;
@@ -155,7 +177,7 @@ a.btn.upload-btn.active {
   -webkit-transition: all .2s ease-in-out;
   -o-transition: all .2s ease-in-out; }
 
-a.btn.upload-btn.active:hover {
+input.btn.upload-btn.active:hover {
   background: #3fa46a;
   color: #FFFFFF;
   transition: all .2s ease-in-out;
@@ -179,25 +201,30 @@ a.btn.upload-btn.active:hover {
 .transform-color.active {
   color: #3fa46a !important; }
 
+section.find-file-section, section.signup-section, section.pricing, section.upload-section, section.login-section, section.howtouse-section {
+  min-height: 95vh;
+  background-size: cover; }
+
 section.find-file-section {
-  height: 95vh;
-  background: url("../images/bg1.jpg");
-  background-size: cover;
-  background-position: center center; }
+  background: url("../images/bg1.jpg") center center; }
 
 section.signup-section {
-  height: 95vh;
-  background: url("../images/bg3.jpg");
-  background-size: cover;
-  background-position: center center; }
+  background: url("../images/bg7.jpg") center center; }
 
 section.pricing {
-  background: url("../images/bg4.jpg");
-  background-size: cover;
-  background-position: center center; }
+  background: url("../images/bg4.jpg") center center; }
 
-section.upload-section, section.login-section, section.howtouse-section {
-  height: 95vh; }
+section.upload-section {
+  background: url("../images/bg5.jpg") center center; }
+
+section.login-section {
+  background: url("../images/bg6.jpg") center center; }
+
+section.howtouse-section {
+  background: url("../images/bg3.jpg") center center; }
+
+section.contact-section {
+  background: url("../images/bg8.jpg") center center; }
 
 .border-color-y {
   border: 1px solid #fdc318 !important;
