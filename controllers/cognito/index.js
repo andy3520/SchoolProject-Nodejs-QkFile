@@ -80,5 +80,25 @@ exports.Signin = (cognitoUser, authenticationDetails) => { return new Promise((r
       }
     })
   )
-})}
+})};
 
+exports.ChangePassword = ( cognitoUser, req ) => (new Promise( (resolve, reject) => {
+  return (
+    cognitoUser.changePassword(req.body.oldPassword, req.body.newPassword, (err, result) => {
+      if(err) reject(err);
+      else resolve(result);
+    })
+  )
+}));
+
+exports.UpdateInfo = (cognitoUser, req) => (new Promise( (resolve, reject) => {
+  var attributes = [];
+  Object.keys(req.body).forEach(key => {
+    var attribute = {
+      Name: key,
+      Value: req.body[key]
+    };
+    attributes.push(attribute);
+  });
+  
+}))
