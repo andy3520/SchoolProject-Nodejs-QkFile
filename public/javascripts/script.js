@@ -47,6 +47,10 @@ $('form#uploadform').submit((e)=>{
         $("#noFile").text("No file chosen...");
       }
     },
+    error: function (params) {
+      $('#preloadModal').modal('hide');
+      if (!data.flag){}
+    },
     cache: false,
     contentType: false,
     processData: false

@@ -70,11 +70,12 @@ router.post('/upload', (req, res) => {
       dynamoGuestFile.createFile(fileUpload.code, fileUpload.fileName, fileUpload.pass, fileUpload.fileType, fileUpload.fileSize)
         .then((item) => {
           console.log('3.thanhcong ' + JSON.stringify(fileUpload));
-          res.json({'code': "Your code: "+item.code, 'flag': true});
+          res.json({ 'code': "Your code: " + item.code, 'flag': true });
         })
         .catch((err) => {
+          //flag:false
           console.log('4.??? ' + JSON.stringify(fileUpload));
-          res.send(JSON.stringify(err));
+          res.json({ 'code': err, 'flag': false });
         });
     })
     .catch((err) => {
@@ -91,7 +92,8 @@ router.post('/find', (req, res) => {
         req.body.pass = " ";
       }
       if (String(req.body.pass) === String(data.Item.pass)) {
-        s3.download(data.Item.fileName, res);
+        //s3.download(data.Item.fileName, res);
+        res.json({ 'data': data.Item, 'flag': true });
       } else {
         res.send(JSON.stringify({ message: 'Sai mật khẩu' }));
       }
@@ -99,6 +101,10 @@ router.post('/find', (req, res) => {
     .catch((err) => {
       res.send(JSON.stringify(err));
     });
+});
+
+router.post('/download', (req, res) => {
+    s3.download(req.fileName, res);
 });
 
 module.exports = router;
