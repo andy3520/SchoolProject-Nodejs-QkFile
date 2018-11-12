@@ -84,14 +84,14 @@ router.post('/upload', (req, res) => {
 });
 
 
-router.post('/find', (req, res) => {
-  console.log(req.body.code);
-  dynamoGuestFile.getFile(String(req.body.code))
+/* router.post('/find', (req, res) => {
+ console.log(req.body.code);
+  dynamoGuestFile.getFile(String(req.query.code))
     .then((data) => {
-      if (req.body.pass === undefined || req.body.pass === "") {
-        req.body.pass = " ";
+      if (req.query.pass === undefined || req.query.pass === "") {
+        req.query.pass = " ";
       }
-      if (String(req.body.pass) === String(data.Item.pass)) {
+      if (String(req.query.pass) === String(data.Item.pass)) {
         //s3.download(data.Item.fileName, res);
         res.json({ 'data': data.Item, 'flag': true });
       } else {
@@ -101,10 +101,14 @@ router.post('/find', (req, res) => {
     .catch((err) => {
       res.send(JSON.stringify(err));
     });
+}); */
+
+router.post('/find', (req, res) => {
+  console.log(JSON.stringify(req.body));
 });
 
 router.post('/download', (req, res) => {
-    s3.download(req.fileName, res);
+  s3.download(req.fileName, res);
 });
 
 module.exports = router;

@@ -82,6 +82,7 @@ exports.getFile = code => new Promise((resolve, reject) => {
       reject(err);
     } else {
       resolve(data);
+//console.log('data dynamo get: '+ data);
     }
   });
 });
