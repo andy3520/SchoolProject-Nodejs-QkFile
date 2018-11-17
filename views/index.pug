@@ -114,6 +114,7 @@ html(lang='en')
               minlength: 6
             },
             confirmpass:{
+              required: true,
               equalTo: '#password'
             }
           },
@@ -132,10 +133,11 @@ html(lang='en')
             },
             birthday: "Please choose a birthday",
             password: {
-              required: "Confirm password is required",
+              required: "Password is required",
               minlength: "Min length 6"
             },
             confirmpass:{
+              required: "Confirm password is required",
               equalTo: "Please enter the same value again"
             }
           }
