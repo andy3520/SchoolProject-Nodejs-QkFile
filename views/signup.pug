@@ -4,41 +4,92 @@ section#signup.aboutus.signup-section
       .col-md-12
         .section-title
           h2.font-weight.color-y Sign Up
-  .section.contact-us.container-fluid
-      .row
-        .col-xs-12.col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
-          .outer-box.text-center
-            // Contact Form Start
-            .form-box.clearfix
-              form#signupform.shake.scroll-reveal(data-toggle='validator' action='/users/register' method='post')
-                .form-group.col-xs-12
-                  input#email-signup.border-color-y.form-control.input-code(type='email' placeholder='Email' name='email')
-                .form-group.col-xs-12.col-sm-6
-                  input#username-signup.border-color-y.form-control.input-code(type='text' placeholder='Nickname' name='nickname')
-                .form-group.col-xs-12.col-sm-6
-                  input#phone-signup.border-color-y.form-control.input-code(type='text' placeholder='Phone number' name='phone_number')
-                .form-group.col-xs-12.col-sm-6
-                  input#name-signup.border-color-y.form-control.input-code(type='text' placeholder='Full name' name='name')
-                .form-group.col-xs-12.col-sm-6
-                  select#gender-signup.border-color-y.form-control.input-code(name="gender")
-                    option(selected="true" disabled="true") Gender
-                    option Male
-                    option Female
-                .clearfix
-                .form-group.col-xs-12.col-sm-6
-                  input#address-signup.border-color-y.form-control.input-code(type='text' placeholder='Address' name='address')
-                .form-group.col-xs-12.col-sm-6
-                  input#birthday-signup.border-color-y.form-control.input-code(type='date' placeholder='Date of birth' name='birthday')
-                .form-group.col-xs-12.col-sm-6
-                  input#loginpass-signup.border-color-y.form-control.input-code(type='password' placeholder='Password' name="password")
-                .form-group.col-xs-12.col-sm-6
-                  input#retypepass-signup.border-color-y.form-control.input-code(type='password' placeholder='Password' name="retype-pass")
-                .col-xs-3.col-sm-2
-                  img.icon-auth.pull-left(src="images/fb-icon.png" width="50px")
-                .col-xs-3.col-sm-2
-                  img.icon-auth.pull-left(src="images/gg-icon.png" width="50px")
-                .col-xs-12.col-sm-8
-                  input(type="submit" value="Signup").btn.upload-btn.pull-right
-                  //a.btn.upload-btn.pull-right(href='#') Sign Up
-                  #msgSubmit
+        .section.contact-us.container-fluid
+          .row
+            .col-xs-12.col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
+              .outer-box.text-center
+                // Contact Form Start
+                .form-box.clearfix
+                  form#signupform.shake.scroll-reveal(data-toggle='validator' action='/signup' method='post')
+                    .form-group.col-12
+                      label(id="email-signup-error" class="error" for="email-signup")
+                      input#email-signup.border-color-y.form-control.input-code(type='email' placeholder='Email' name='email')
+                    .form-group.col-12
+                      label(id="username-signup-error" class="error" for="username-signup")
+                      input#username-signup.border-color-y.form-control.input-code(type='text' placeholder='Username' name='username')
+                    .form-group.col-12
+                      label(id="phone-signup-error" class="error" for="phone-signup")
+                      input#phone-signup.border-color-y.form-control.input-code(type='text' placeholder='Phone number' name='phone')
+                    .form-group.col-12
+                      label(id="name-signup-error" class="error" for="name-signup")
+                      input#name-signup.border-color-y.form-control.input-code(type='text' placeholder='Name' name='name')
+                    .form-group.col-12
+                      label(id="gender-signup-error" class="error" for="gender-signup")
+                      select#gender-signup.border-color-y.form-control.input-code(name="gender")
+                        option(selected="true" disabled="true") Gender
+                        option Male
+                        option Female
+                    .clearfix
+                    .form-group.col-12
+                      label(id="address-signup-error" class="error" for="address-signup")
+                      input#address-signup.border-color-y.form-control.input-code(type='text' placeholder='Address' name='address')
+                    .form-group.col-12
+                      label(id="birthday-signup" class="error" for="birthday-signup")
+                      input#birthday-signup.border-color-y.form-control.input-code(type='date' placeholder='Date of birth' name='birthday')
+                    .form-group.col-12
+                      label(class="error" for="password")
+                      input#password.border-color-y.form-control.input-code(type='password' placeholder='Password' name="password")
+                    .form-group.col-12
+                      label(class="error" for="confirmpass")
+                      input#confirmpass.border-color-y.form-control.input-code(type='password' placeholder='Password' name="confirmpass")
+                    .col-xs-3.col-sm-2
+                      img.icon-auth.pull-left(src="images/fb-icon.png" width="50px")
+                    .col-xs-3.col-sm-2
+                      img.icon-auth.pull-left(src="images/gg-icon.png" width="50px")
+                    .col-xs-12.col-sm-8
+                      input(type="submit" value="Signup").btn.upload-btn.pull-right
+                      //a.btn.upload-btn.pull-right(href='#') Sign Up
+                      #msgSubmit
 .clearfix
+//<<<<<<< HEAD
+//  .section.contact-us.container-fluid
+//      .row
+//        .col-xs-12.col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
+//          .outer-box.text-center
+//            // Contact Form Start
+//            .form-box.clearfix
+//              form#signupform.shake.scroll-reveal(data-toggle='validator' action='/users/register' method='post')
+//                .form-group.col-xs-12
+//                  input#email-signup.border-color-y.form-control.input-code(type='email' placeholder='Email' name='email')
+//                .form-group.col-xs-12.col-sm-6
+//                  input#username-signup.border-color-y.form-control.input-code(type='text' placeholder='Nickname' name='nickname')
+//                .form-group.col-xs-12.col-sm-6
+//                  input#phone-signup.border-color-y.form-control.input-code(type='text' placeholder='Phone number' name='phone_number')
+//                .form-group.col-xs-12.col-sm-6
+//                  input#name-signup.border-color-y.form-control.input-code(type='text' placeholder='Full name' name='name')
+//                .form-group.col-xs-12.col-sm-6
+//                  select#gender-signup.border-color-y.form-control.input-code(name="gender")
+//                    option(selected="true" disabled="true") Gender
+//                    option Male
+//                    option Female
+//                .clearfix
+//                .form-group.col-xs-12.col-sm-6
+//                  input#address-signup.border-color-y.form-control.input-code(type='text' placeholder='Address' name='address')
+//                .form-group.col-xs-12.col-sm-6
+//                  input#birthday-signup.border-color-y.form-control.input-code(type='date' placeholder='Date of birth' name='birthday')
+//                .form-group.col-xs-12.col-sm-6
+//                  input#loginpass-signup.border-color-y.form-control.input-code(type='password' placeholder='Password' name="password")
+//                .form-group.col-xs-12.col-sm-6
+//                  input#retypepass-signup.border-color-y.form-control.input-code(type='password' placeholder='Password' name="retype-pass")
+//                .col-xs-3.col-sm-2
+//                  img.icon-auth.pull-left(src="images/fb-icon.png" width="50px")
+//                .col-xs-3.col-sm-2
+//                  img.icon-auth.pull-left(src="images/gg-icon.png" width="50px")
+//                .col-xs-12.col-sm-8
+//                  input(type="submit" value="Signup").btn.upload-btn.pull-right
+//                  //a.btn.upload-btn.pull-right(href='#') Sign Up
+//                  #msgSubmit
+//.clearfix
+//=======
+//>>>>>>> cf5ce9ea8a735b09688ee77e8db13e9f0e68e56e
+

@@ -71,6 +71,7 @@ html(lang='en')
     include footer
     // Footer end
 
+    include resultModal
     // jQuery (necessary for Bootstrap's JavaScript plugins)
     script(src='assets/jquery/jquery-3.2.1.min.js')
     // Include all compiled plugins (below), or include individual files as needed
@@ -82,6 +83,8 @@ html(lang='en')
     script(src='assets/particle/particles.min.js')
     script(src='assets/particle/app.js')
     script(src='assets/number-animation/jquery.animateNumber.min.js')
+    script(type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js")
+    
     // Contact Form Script
     script(src='assets/contact-form/js/validator.min.js')
     script(src='assets/contact-form/js/form-scripts.js')
@@ -89,3 +92,54 @@ html(lang='en')
     script(src='assets/js/custom.js')
     //Public js
     script(src='javascripts/script.js')
+    script.
+      $(document).ready(function() {
+        $("#signupform").validate({
+          rules: {
+            email: {
+              required : true,
+              email: true
+            },
+            username: "required",
+            phone:"required",
+            name: "required",
+            gender: "required",
+            address: {
+              required: true,
+              minlength: 2
+            },
+            birthday: "required",
+            password: {
+              required: true,
+              minlength: 6
+            },
+            confirmpass:{
+              required: true,
+              equalTo: '#password'
+            }
+          },
+          messages: {
+            email:{
+              required: "Email is required",
+              email : "Please enter a valid email address"
+            },
+            username: "Username is required",
+            name: "Name is required",
+            phone:"Phone is required",
+            gender: "Please choose a gender",
+            address: {
+              required: "Address is required",
+              minlength: "too short!"
+            },
+            birthday: "Please choose a birthday",
+            password: {
+              required: "Password is required",
+              minlength: "Min length 6"
+            },
+            confirmpass:{
+              required: "Confirm password is required",
+              equalTo: "Please enter the same value again"
+            }
+          }
+        });
+      });
