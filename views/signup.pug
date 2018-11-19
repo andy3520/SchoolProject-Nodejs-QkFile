@@ -10,7 +10,7 @@ section#signup.aboutus.signup-section
               .outer-box.text-center
                 // Contact Form Start
                 .form-box.clearfix
-                  form#signupform.shake.scroll-reveal(data-toggle='validator' action='/signup' method='post')
+                  form#signupform.shake.scroll-reveal(data-toggle='validator' action='/users/register' method='post')
                     .form-group.col-12
                       label(id="email-signup-error" class="error" for="email-signup")
                       input#email-signup.border-color-y.form-control.input-code(type='email' placeholder='Email' name='email')
@@ -34,7 +34,7 @@ section#signup.aboutus.signup-section
                       label(id="address-signup-error" class="error" for="address-signup")
                       input#address-signup.border-color-y.form-control.input-code(type='text' placeholder='Address' name='address')
                     .form-group.col-12
-                      label(id="birthday-signup" class="error" for="birthday-signup")
+                      label(id="birthday-signup-error" class="error" for="birthday-signup")
                       input#birthday-signup.border-color-y.form-control.input-code(type='date' placeholder='Date of birth' name='birthday')
                     .form-group.col-12
                       label(class="error" for="password")
