@@ -54,7 +54,7 @@ router.post('/upload', (req, res) => {
   generateCode.generate(6)
     .then((code) => {
       fileUpload.code = code;
-      console.log('1.gen ' + JSON.stringify(fileUpload));
+      // console.log('1.gen ' + JSON.stringify(fileUpload));
     })
     .catch((err) => {
       res.send(JSON.stringify(err));
@@ -66,16 +66,16 @@ router.post('/upload', (req, res) => {
       fileUpload.fileSize = file.fileSize;
       fileUpload.fileType = file.fileType;
       fileUpload.pass = file.pass;
-      console.log('2.up ' + JSON.stringify(fileUpload));
+      // console.log('2.up ' + JSON.stringify(fileUpload));
       dynamoGuestFile.createFile(fileUpload.code, fileUpload.fileName, fileUpload.pass, fileUpload.fileType, fileUpload.fileSize)
         .then((item) => {
-          console.log('3.thanhcong ' + JSON.stringify(fileUpload));
-          res.json({ 'code': "Your code: " + item.code, 'flag': true });
+          // console.log('3.thanhcong ' + JSON.stringify(fileUpload));
+          res.json({'code': "Your code: " + item.code, 'flag': true});
         })
         .catch((err) => {
           //flag:false
-          console.log('4.??? ' + JSON.stringify(fileUpload));
-          res.json({ 'code': err, 'flag': false });
+          // console.log('4.??? ' + JSON.stringify(fileUpload));
+          res.json({'code': err, 'flag': false});
         });
     })
     .catch((err) => {
@@ -84,31 +84,27 @@ router.post('/upload', (req, res) => {
 });
 
 
-/* router.post('/find', (req, res) => {
- console.log(req.body.code);
+router.post('/find', (req, res) => {
+  console.log(req.body.code);
   dynamoGuestFile.getFile(String(req.query.code))
     .then((data) => {
-      if (req.query.pass === undefined || req.query.pass === "") {
+      if (req.body.pass === undefined || req.body.pass === "") {
         req.query.pass = " ";
       }
-      if (String(req.query.pass) === String(data.Item.pass)) {
+      if (String(req.body.pass) === String(data.Item.pass)) {
         //s3.download(data.Item.fileName, res);
-        res.json({ 'data': data.Item, 'flag': true });
+        res.json({'data': data.Item, 'flag': true});
       } else {
-        res.send(JSON.stringify({ message: 'Sai mật khẩu' }));
+        res.send(JSON.stringify({message: 'Sai mật khẩu'}));
       }
     })
     .catch((err) => {
       res.send(JSON.stringify(err));
     });
-}); */
-
-router.post('/find', (req, res) => {
-  console.log(JSON.stringify(req.body));
 });
 
 router.post('/download', (req, res) => {
-  s3.download(req.fileName, res);
+  s3.download(req.body.fileName, res);
 });
 
 module.exports = router;

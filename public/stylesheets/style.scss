@@ -241,6 +241,10 @@ input.btn.upload-btn.active:hover {
 
 // Input code end
 
+section{
+
+}
+
 // Background custom start
 section.find-file-section, section.signup-section, section.pricing, section.upload-section, section.login-section, section.howtouse-section {
   min-height: 95vh;
@@ -335,7 +339,7 @@ button.custom-btn-modal:hover {
   opacity: 1;
 }
 
-img#iconSuccress{
+img#iconSuccess{
   width: 72px;
   display: none;
 }

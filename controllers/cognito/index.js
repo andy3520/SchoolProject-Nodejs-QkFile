@@ -101,4 +101,4 @@ exports.UpdateInfo = (cognitoUser, req) => (new Promise( (resolve, reject) => {
     attributes.push(attribute);
   });
   
-}))
+}));
