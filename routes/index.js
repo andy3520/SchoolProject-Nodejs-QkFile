@@ -25,10 +25,10 @@ router.post('/upload', (req, res) => {
     .then((code) => {
       // Thành công sẽ thêm code attribute vào schema
       fileUpload.code = code;
+      console.log(code);
     })
     .catch(() => {
-      // Trả lỗi 500
-      res.status(500).send({ err: 'Lỗi hệ thống không thể generate code' });
+      res.status(500).json({err: 'Lỗi hệ thống không thể generate code'});
     });
 
   // Upload file lên s3
@@ -43,16 +43,17 @@ router.post('/upload', (req, res) => {
       dynamoGuestFile.createFile(fileUpload)
         .then((item) => {
           // Thêm thành công sẽ trả về code tìm file
-          res.status(200).json({ code: `Your code: ${item.code}` });
+          console.log(JSON.stringify(item));
+          res.status(200).json({code: `Code tìm kiếm: ${item.code}`});
         })
         .catch(() => {
           // Thêm thất bại trả về error
-          res.status(500).json({ err: 'Lỗi không thể thêm file vào database' });
+          res.status(500).json({err: 'Lỗi không thể thêm file vào database'});
         });
     })
     .catch((err) => {
       // Bắt lỗi file rỗng ở đây
-      res.status(500).send({ err });
+      res.status(411).json({err: err.err});
     });
 });
 
@@ -67,14 +68,14 @@ router.post('/find', (req, res) => {
       }
       // Check password
       if (String(req.body.pass) === String(data.Item.pass)) {
-        res.status(200).json({ data: data.Item });
+        res.status().json({data: data.Item});
       } else {
-        res.status(401).json({ err: 'Lỗi sai mật khẩu' });
+        res.json({err: 'Lỗi sai mật khẩu'});
       }
     })
     .catch(() => {
       // Lỗi get file dynamo
-      res.status(400).send({ err: 'Lỗi không thể get file từ database' });
+      res.send({err: 'Lỗi không thể get file từ database'});
     });
 });
 

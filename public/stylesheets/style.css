@@ -147,7 +147,7 @@
   display: inline-block;
   padding: 0 10px; }
 
-input.btn.upload-btn {
+input.btn.upload-btn, input.btn.find-btn {
   padding: 10px 20px;
   border: 1px solid #fdc318;
   color: #fdc318;
@@ -159,7 +159,7 @@ input.btn.upload-btn {
   white-space: nowrap;
   vertical-align: middle; }
 
-input.btn.upload-btn:hover {
+input.btn.upload-btn:hover, input.btn.find-btn:hover {
   background: #fdc318;
   color: #FFFFFF;
   border: 1px solid #fdc318;
@@ -205,7 +205,11 @@ section.find-file-section, section.signup-section, section.pricing, section.uplo
   min-height: 95vh;
   background-size: cover; }
 
+section#particle-area {
+  padding-top: 20vh; }
+
 section.find-file-section {
+  padding-top: 20vh;
   background: url("../images/bg1.jpg") center center; }
 
 section.signup-section {
@@ -215,9 +219,11 @@ section.pricing {
   background: url("../images/bg4.jpg") center center; }
 
 section.upload-section {
+  padding-top: 20vh;
   background: url("../images/bg5.jpg") center center; }
 
 section.login-section {
+  padding-top: 20vh;
   background: url("../images/bg6.jpg") center center; }
 
 section.howtouse-section {
@@ -268,5 +274,29 @@ button.custom-btn-modal:hover {
 img#iconSuccess {
   width: 72px;
   display: none; }
+
+button.err-btn-modal {
+  border: 1px solid red;
+  background: red;
+  color: #FFFFFF;
+  font-weight: 500;
+  border-radius: 4px;
+  font-size: 15px;
+  opacity: 0.9; }
+
+button.err-btn-modal:hover {
+  background: orangered;
+  border: 1px solid orangered;
+  color: #FFFFFF;
+  font-weight: bold;
+  transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  opacity: 1; }
+
+h2#errorMessage {
+  color: red;
+  font-weight: 800; }
 
 /*# sourceMappingURL=style.css.map */

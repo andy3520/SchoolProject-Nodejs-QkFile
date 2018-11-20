@@ -42,17 +42,17 @@ exports.createTable = () => new Promise((resolve, reject) => {
 // / ^^^
 
 // Tạo file, truyền object file vào
-exports.createFile = (file) => new Promise((resolve, reject) => {
+exports.createFile = file => new Promise((resolve, reject) => {
   // Do dynamodb không chấp nhận rỗng nên sẽ thay thế rỗng bằng một dấu cách
-  if (String(file.pass) === "" || file.pass === undefined) {
-    file.pass = " ";
+  if (String(file.pass) === '' || file.pass === undefined) {
+    file.pass = ' ';
   }
   const docClient = new AWS.DynamoDB.DocumentClient();
   const params = {
     TableName: 'GuestFile',
     ConditionExpression: 'attribute_not_exists(code)',
     Item: {
-      code: String(code),
+      code: String(file.code),
       fileName: String(file.fileName),
       pass: String(file.pass),
       fileType: String(file.fileType),
@@ -63,7 +63,7 @@ exports.createFile = (file) => new Promise((resolve, reject) => {
   // Tiến hành thêm vào csdl
   docClient.put(params, (err) => {
     if (err) {
-      // Xảy ra lỗi 
+      // Xảy ra lỗi
       console.log(`dynamoGuestFile.js createFile error ${err}`);
       reject(err);
     } else {
@@ -73,7 +73,7 @@ exports.createFile = (file) => new Promise((resolve, reject) => {
   });
 });
 
-// Tim file trong database bằng code 
+// Tim file trong database bằng code
 exports.getFile = code => new Promise((resolve, reject) => {
   const docClient = new AWS.DynamoDB.DocumentClient();
   const params = {
@@ -89,7 +89,7 @@ exports.getFile = code => new Promise((resolve, reject) => {
       console.log(`dynamoGuestFile.js getFile error ${err}`);
       reject(err);
     } else {
-      // Thành công trả thông tin file về 
+      // Thành công trả thông tin file về
       resolve(data);
     }
   });

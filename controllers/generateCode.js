@@ -4,8 +4,8 @@ const dynamoGuestFile = require('./dynamodb/dynamoGuestFile');
 // Tạo mã ngẫu nhiên
 exports.generate = function generateCode(length) {
   return new Promise((resolve, reject) => {
-    // Gọi func tạo mã 
-    let tempCode = randomstring.generate(length);
+    // Gọi func tạo mã
+    const tempCode = randomstring.generate(length);
     // Tìm mã trong database để check trùng
     dynamoGuestFile.getFile(tempCode)
       .then((data) => {

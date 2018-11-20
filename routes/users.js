@@ -1,40 +1,41 @@
-var express = require('express');
-var router = express.Router();
-var {
+const express = require('express');
+
+const router = express.Router();
+const {
   poolData, pool_region, RegisterUser, userPool,
-  userData, cognitoUser, authenticationDetails, Signin, ValidateCurrentUser
+  userData, cognitoUser, authenticationDetails, Signin, ValidateCurrentUser,
 } = require('../controllers/cognito/index');
 /* GET users listing. */
-router.get('/', function (req, res, next) {
+router.get('/', (req, res, next) => {
   res.send('respond with a resource');
 });
 
 router.post('/register', (req, res, next) => {
-  userPoolConfig = userPool(poolData);
+  let userPoolConfig = userPool(poolData);
   RegisterUser(userPoolConfig, req)
-    .then(result => {
+    .then((result) => {
       res.redirect('/');
-    }, err => {
-      res.send(`<script>alert('${err.message}')</script>`)
+    }, (err) => {
+      res.send(`<script>alert('${err.message}')</script>`);
     });
 });
 
 router.post('/login', (req, res) => {
-  var userPoolConfig = userPool(poolData);
-  var userDataCustom = userData(req, userPoolConfig);
-  var cognitoUserCustom = cognitoUser(userDataCustom);
-  var authenticationDetailsCustom = authenticationDetails(req);
+  const userPoolConfig = userPool(poolData);
+  const userDataCustom = userData(req, userPoolConfig);
+  const cognitoUserCustom = cognitoUser(userDataCustom);
+  const authenticationDetailsCustom = authenticationDetails(req);
   Signin(cognitoUserCustom, authenticationDetailsCustom);
 });
 
 router.get('/validate', (req, res) => {
-  userPoolConfig = userPool(poolData);
+  let userPoolConfig = userPool(poolData);
   ValidateCurrentUser(userPoolConfig)
-    .then(result => {
+    .then((result) => {
       res.json(result);
-    }, err => {
+    }, (err) => {
       res.json(err);
-    })
+    });
 });
 
 module.exports = router;

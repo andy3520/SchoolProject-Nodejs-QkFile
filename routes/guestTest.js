@@ -70,12 +70,12 @@ router.post('/upload', (req, res) => {
       dynamoGuestFile.createFile(fileUpload.code, fileUpload.fileName, fileUpload.pass, fileUpload.fileType, fileUpload.fileSize)
         .then((item) => {
           // console.log('3.thanhcong ' + JSON.stringify(fileUpload));
-          res.json({'code': "Your code: " + item.code, 'flag': true});
+          res.json({ code: `Your code: ${item.code}`, flag: true });
         })
         .catch((err) => {
-          //flag:false
+          // flag:false
           // console.log('4.??? ' + JSON.stringify(fileUpload));
-          res.json({'code': err, 'flag': false});
+          res.json({ code: err, flag: false });
         });
     })
     .catch((err) => {
@@ -88,14 +88,14 @@ router.post('/find', (req, res) => {
   console.log(req.body.code);
   dynamoGuestFile.getFile(String(req.query.code))
     .then((data) => {
-      if (req.body.pass === undefined || req.body.pass === "") {
-        req.query.pass = " ";
+      if (req.body.pass === undefined || req.body.pass === '') {
+        req.query.pass = ' ';
       }
       if (String(req.body.pass) === String(data.Item.pass)) {
-        //s3.download(data.Item.fileName, res);
-        res.json({'data': data.Item, 'flag': true});
+        // s3.download(data.Item.fileName, res);
+        res.json({ data: data.Item, flag: true });
       } else {
-        res.send(JSON.stringify({message: 'Sai mật khẩu'}));
+        res.send(JSON.stringify({ message: 'Sai mật khẩu' }));
       }
     })
     .catch((err) => {

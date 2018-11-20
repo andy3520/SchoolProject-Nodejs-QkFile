@@ -30,8 +30,8 @@ exports.upload = req => new Promise((resolve, reject) => {
   form.on('field', (name, value) => {
     // Do dynamo ko chấp nhận null khi ko có pass nên pass mặc định là một dấu cách nếu ko có pass
     if (name === 'pass') {
-      if (String(value) === "" || value === undefined) {
-        value = " ";
+      if (String(value) === '' || value === undefined) {
+        value = ' ';
       }
       fileUpload.pass = value;
     }
@@ -39,22 +39,24 @@ exports.upload = req => new Promise((resolve, reject) => {
 
   // Lấy data file và fill schema params để lưu lên s3
   form.on('file', (name, file) => {
-    const params = {
-      Bucket: config.Bucket,
-      Body: fs.createReadStream(file.path),
-      // Tạo tên file unique ( do s3 get file bằng tên )
-      Key: `${Date.now()}_${file.name}`,
-    };
-    // Tiến hành upload
-    s3.upload(params, (err, data) => {
-      if (err) {
-        console.log(`s3 upload error ${err}`);
-        reject(err);
-      } else {
-        if (data.size <= 0) {
-          // Check file 0b, reject 
+    if (file.size<=0) {
+      reject({ err: 'Lỗi file size <=0B không hợp lệ' });
+    } else {
+      const params = {
+        Bucket: config.Bucket,
+        Body: fs.createReadStream(file.path),
+        // Tạo tên file unique ( do s3 get file bằng tên )
+        Key: `${Date.now()}_${file.name}`,
+      };
+      // Tiến hành upload
+      s3.upload(params, (err, data) => {
+        if (err) {
+          console.log(`s3 upload error ${err}`);
+          reject(err);
+        } else if (data.size <= 0) {
+          // Check file 0b, reject
           console.log(`s3 upload file 0b error ${err}`);
-          reject({err: "Lỗi file 0b không hợp lệ"});
+          reject({ err: 'Lỗi file 0b không hợp lệ' });
         } else {
           fileUpload.fileName = data.key;
           fileUpload.fileSize = file.size;
@@ -62,8 +64,8 @@ exports.upload = req => new Promise((resolve, reject) => {
           // Thành công
           resolve(fileUpload);
         }
-      }
-    });
+      });
+    }
   });
 });
 
