@@ -64,7 +64,7 @@ exports.createFile = file => new Promise((resolve, reject) => {
   docClient.put(params, (err) => {
     if (err) {
       // Xảy ra lỗi
-      console.log(`dynamoGuestFile.js createFile error ${err}`);
+      // console.log(`dynamoGuestFile.js createFile error ${err}`);
       reject(err);
     } else {
       // Thành công trả thông tin file thêm về
@@ -86,8 +86,8 @@ exports.getFile = code => new Promise((resolve, reject) => {
   docClient.get(params, (err, data) => {
     if (err) {
       // Thất bại
-      console.log(`dynamoGuestFile.js getFile error ${err}`);
-      reject(err);
+      // console.log(`dynamoGuestFile.js getFile error ${err}`);
+      reject(err); 
     } else {
       // Thành công trả thông tin file về
       resolve(data);

@@ -302,9 +302,6 @@ section.contact-section {
 /////////////////////////////////////////////////////////////////////
 
 // Css cho các modal
-.custom-modal {
-
-}
 
 h1#modalTitle,h2#codeResult {
   color: #78B345;
@@ -364,3 +361,8 @@ h2#errorMessage{
   font-weight: 800;
 }
 ////////////////////////////////////////////////////////////////////////
+
+// Giảm margin của modal download
+.des-download{
+  margin-top: 10vh !important;
+}

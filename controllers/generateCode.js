@@ -19,7 +19,7 @@ exports.generate = function generateCode(length) {
       })
       .catch((err) => {
         // Xảy ra lỗi hệ thống
-        console.log(`generateCode.js error ${err}`);
+        // console.log(`generateCode.js error ${err}`);
         reject(err);
       });
   });

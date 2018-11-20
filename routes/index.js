@@ -28,7 +28,7 @@ router.post('/upload', (req, res) => {
       console.log(code);
     })
     .catch(() => {
-      res.status(500).json({err: 'Lỗi hệ thống không thể generate code'});
+      res.status(500).json({err: 'Hệ thống không thể generate code'});
     });
 
   // Upload file lên s3
@@ -48,7 +48,7 @@ router.post('/upload', (req, res) => {
         })
         .catch(() => {
           // Thêm thất bại trả về error
-          res.status(500).json({err: 'Lỗi không thể thêm file vào database'});
+          res.status(500).json({err: 'Không thể thêm file vào database'});
         });
     })
     .catch((err) => {
@@ -60,28 +60,30 @@ router.post('/upload', (req, res) => {
 // Tìm file trong dynamodb và hiển thị thông tin trước khi download
 router.post('/find', (req, res) => {
   // Tìm file
-  dynamoGuestFile.getFile(String(req.query.code))
-    .then((data) => {
-      // Không có pass thì mặc định pass là 1 dấu cách
-      if (req.body.pass === undefined || req.body.pass === '') {
-        req.query.pass = ' ';
-      }
-      // Check password
-      if (String(req.body.pass) === String(data.Item.pass)) {
-        res.status().json({data: data.Item});
-      } else {
-        res.json({err: 'Lỗi sai mật khẩu'});
-      }
-    })
-    .catch(() => {
-      // Lỗi get file dynamo
-      res.send({err: 'Lỗi không thể get file từ database'});
-    });
+  if (req.body.code === undefined || req.body.code === "") {
+    res.status(401).json({err: "Vui lòng nhập mã tìm kiếm"});
+  } else {
+    dynamoGuestFile.getFile(String(req.body.code))
+      .then((data) => {
+        // Check password
+        if (String(req.body.pass) === String(data.Item.pass)) {
+          res.status(200).json({data: data.Item});
+        } else {
+          res.status(401).json({err: 'Sai mật khẩu'});
+        }
+      })
+      .catch((err) => {
+        // Lỗi get file dynamo
+        res.status(404).json({err: 'Không tìm thấy file'});
+      });
+  }
 });
 
 // Tải file về
-router.post('/download', (req, res) => {
-  s3.download(req.body.fileName, res);
-});
+router.get('/download/:filename', (req, res) => {
+  console.log(req.params.filename);
+  s3.download(req.params.filename, res);
+}); 
 
 module.exports = router;
+  

@@ -86,7 +86,7 @@ router.post('/upload', (req, res) => {
 
 router.post('/find', (req, res) => {
   console.log(req.body.code);
-  dynamoGuestFile.getFile(String(req.query.code))
+  dynamoGuestFile.getFile(String(req.body.code))
     .then((data) => {
       if (req.body.pass === undefined || req.body.pass === '') {
         req.query.pass = ' ';
@@ -99,7 +99,7 @@ router.post('/find', (req, res) => {
       }
     })
     .catch((err) => {
-      res.send(JSON.stringify(err));
+      res.json(err);
     });
 });
 
