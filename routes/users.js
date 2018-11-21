@@ -5,6 +5,7 @@ const {
   poolData, pool_region, RegisterUser, userPool,
   userData, cognitoUser, authenticationDetails, Signin, ValidateCurrentUser,
 } = require('../controllers/cognito/index');
+
 /* GET users listing. */
 router.get('/', (req, res, next) => {
   res.send('respond with a resource');

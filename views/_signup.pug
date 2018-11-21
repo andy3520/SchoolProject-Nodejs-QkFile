@@ -13,8 +13,8 @@ section#signup.signup-section
                   form#signupform.container-fluid(data-toggle='validator' action='/users/register' method='post')
                     .row
                       .form-group.col-xs-12
-                        label(id="email-signup-error" class="error" for="email-signup" style="display:none;")
-                        input#email-signup.border-color-y.form-control.input-code(type='email' placeholder='Email' name='email')
+                        label(class="error" for="email-signup" style="display:none;")
+                        input#email-signup.border-color-y.form-control.input-code(type='text' placeholder='Email' name='email')
                     .row
                       .col-xs-12.col-md-6.hidden-sm.visible-md.visible-lg
                         label(class="error" for="username-signup" style="display:none;")
@@ -28,11 +28,11 @@ section#signup.signup-section
                       .col-xs-12.col-md-6.hidden-md.visible-sm.visible-xs
                         label(class="error" for="phone-signup" style="display:none;")
                       .form-group.col-xs-12.col-md-6
-                        input#phone-signup.border-color-y.form-control.input-code(type='text' placeholder='Phone number' name='phone')
+                        input#phone-signup.border-color-y.form-control.input-code(type='text' placeholder='Số điện thoại' name='phone')
                     .row
                       .form-group.col-xs-12
                         label(class="error" for="name-signup" style="display:none;")
-                        input#name-signup.border-color-y.form-control.input-code(type='text' placeholder='Name' name='name')
+                        input#name-signup.border-color-y.form-control.input-code(type='text' placeholder='Họ và tên' name='name')
                     .row
                       .col-xs-12.col-md-6.hidden-sm.visible-md.visible-lg
                         label(class="error" for="gender-signup" style="display:none;")
@@ -44,16 +44,16 @@ section#signup.signup-section
                       .form-group.col-xs-12.col-md-6
                         select#gender-signup.border-color-y.form-control.input-code(name="gender")
                           option(selected="true" disabled="true") Gender
-                          option Male
-                          option Female
+                          option Nam
+                          option Nữ
                       .col-xs-12.hidden-md.visible-sm.visible-xs
                         label(class="error" for="birthday-signup" style="display:none;")
                       .form-group.col-xs-12.col-md-6
-                        input#birthday-signup.border-color-y.form-control.input-code(type='date' placeholder='Date of birth' name='birthday')
+                        input#birthday-signup.border-color-y.form-control.input-code(type='date' placeholder='Ngày sinh' name='birthday')
                     .row
                       .form-group.col-xs-12
                         label(class="error" for="address-signup" style="display:none;")
-                        input#address-signup.border-color-y.form-control.input-code(type='text' placeholder='Address' name='address')
+                        input#address-signup.border-color-y.form-control.input-code(type='text' placeholder='Địa chỉ' name='address')
                     .row
                       .col-xs-12.col-md-6.hidden-sm.visible-md.visible-lg
                         label(class="error" for="password" style="display:none;")
@@ -67,7 +67,7 @@ section#signup.signup-section
                       .col-xs-12.hidden-md.visible-sm.visible-xs
                         label(class="error" for="confirmpass" style="display:none;")
                       .form-group.col-xs-12.col-md-6
-                        input#confirmpass.border-color-y.form-control.input-code(type='password' placeholder='Re-Password' name="confirmpass")
+                        input#confirmpass.border-color-y.form-control.input-code(type='password' placeholder='Nhập lại mật khẩu' name="confirmpass")
                     .row
                       .form-group.col-xs-12
                         img.icon-auth.pull-left(src="images/fb-icon.png" width="50px" style="margin-right:20px;")
