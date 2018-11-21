@@ -87,7 +87,7 @@ exports.getFile = code => new Promise((resolve, reject) => {
     if (err) {
       // Thất bại
       // console.log(`dynamoGuestFile.js getFile error ${err}`);
-      reject(err); 
+      reject(err);
     } else {
       // Thành công trả thông tin file về
       resolve(data);

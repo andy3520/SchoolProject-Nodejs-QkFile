@@ -8,7 +8,7 @@
             .col-12
               img#iconSuccess.center-block(src="images/success-icon.gif")
             .col-12
-              h2#codeResult.text-center(style="padding:10px")
+              h2#codeResult.text-center(style="padding:10px;overflow-wrap: break-word;" )
         button#hideModalUpload.btn.btn-default.custom-btn-modal.center-block(type='button', data-dismiss='modal') Ok
 
 #preloadModal.modal.fade(role='dialog')
@@ -31,5 +31,5 @@
             .col-12
               img#iconError.center-block(src="images/fail.png" width="72px")
             .col-12
-              h2#errorMessage(style="padding:10px").text-center
+              h2#errorMessage(style="padding:10px;overflow-wrap: break-word;").text-center
         button.btn.btn-default.err-btn-modal.center-block(type='button', data-dismiss='modal') Ok

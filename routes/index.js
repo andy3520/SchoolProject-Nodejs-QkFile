@@ -25,7 +25,7 @@ router.post('/upload', (req, res) => {
     .then((code) => {
       // Thành công sẽ thêm code attribute vào schema
       fileUpload.code = code;
-      console.log(code);
+      // console.log(code);
     })
     .catch(() => {
       res.status(500).json({err: 'Hệ thống không thể generate code'});
@@ -43,7 +43,7 @@ router.post('/upload', (req, res) => {
       dynamoGuestFile.createFile(fileUpload)
         .then((item) => {
           // Thêm thành công sẽ trả về code tìm file
-          console.log(JSON.stringify(item));
+          // console.log("Lưu dynamo run"+JSON.stringify(item));
           res.status(200).json({code: `Code tìm kiếm: ${item.code}`});
         })
         .catch(() => {
@@ -83,7 +83,7 @@ router.post('/find', (req, res) => {
 router.get('/download/:filename', (req, res) => {
   console.log(req.params.filename);
   s3.download(req.params.filename, res);
-}); 
+});
 
 module.exports = router;
   

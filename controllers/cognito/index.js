@@ -35,21 +35,27 @@ exports.authenticationDetails = req => new AmazonCognitoIdentity.AuthenticationD
 exports.RegisterUser = (userPool, req) => new Promise((resolve, reject) => {
   const attributeList = [];
   return (
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({ Name: 'name', Value: req.body.name })),
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({ Name: 'gender', Value: req.body.gender })),
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({ Name: 'birthdate', Value: req.body.birthdate })),
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({ Name: 'address', Value: req.body.addreqs })),
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({ Name: 'email', Value: req.body.email })),
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({ Name: 'phone_number', Value: req.body.phone_number })),
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({ Name: 'custom:user_role', Value: 'member' })),
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({ Name: 'nickname', Value: req.body.username })),
-    userPool.signUp(req.body.email, req.body.password, attributeList, null, (err, result) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(result);
-      }
-    })
+    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name: 'name', Value: req.body.name})),
+      attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name: 'gender', Value: req.body.gender})),
+      attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({
+        Name: 'birthdate',
+        Value: req.body.birthdate
+      })),
+      attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name: 'address', Value: req.body.addreqs})),
+      attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name: 'email', Value: req.body.email})),
+      attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({
+        Name: 'phone_number',
+        Value: req.body.phone_number
+      })),
+      attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name: 'custom:user_role', Value: 'member'})),
+      attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name: 'nickname', Value: req.body.username})),
+      userPool.signUp(req.body.email, req.body.password, attributeList, null, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      })
   );
 });
 

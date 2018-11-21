@@ -39,26 +39,27 @@ exports.upload = req => new Promise((resolve, reject) => {
 
   // Lấy data file và fill schema params để lưu lên s3
   form.on('file', (name, file) => {
-    if (file.size<=0) {
-      reject({ err: 'Lỗi file size <=0B không hợp lệ' });
+    if (file.size <= 0) {
+      reject({err: 'Lỗi file size <=0B không hợp lệ'});
     } else {
       const params = {
         Bucket: config.Bucket,
         Body: fs.createReadStream(file.path),
         // Tạo tên file unique ( do s3 get file bằng tên )
-        Key: `${Date.now()}_${file.name}`,
+        Key: `${Date.now()}_${file.name}`
       };
       // Tiến hành upload
       s3.upload(params, (err, data) => {
+        // console.log("Run upload" + JSON.stringify(data));
         if (err) {
-          console.log(`s3 upload error ${err}`);
+          // console.log(`s3 upload error ${err}`);
           reject(err);
-        } else if (data.size <= 0) {
+        } else if (file.size <= 0) {
           // Check file 0b, reject
-          console.log(`s3 upload file 0b error ${err}`);
-          reject({ err: 'Lỗi file 0b không hợp lệ' });
+          // console.log(`s3 upload file 0b error ${err}`);
+          reject({err: 'Lỗi file 0b không hợp lệ'});
         } else {
-          fileUpload.fileName = data.key;
+          fileUpload.fileName = data.Key;
           fileUpload.fileSize = file.size;
           fileUpload.fileType = file.type;
           // Thành công
