@@ -302,4 +302,7 @@ h2#errorMessage {
 .des-download {
   margin-top: 10vh !important; }
 
+.error {
+  color: red; }
+
 /*# sourceMappingURL=style.css.map */
