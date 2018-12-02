@@ -1,11 +1,16 @@
 var express = require('express');
 var router = express.Router();
 var {poolData, pool_region, RegisterUser, userPool,
-userData, cognitoUser, authenticationDetails, Signin, ValidateCurrentUser} = require('../controllers/cognito/index')
+userData, cognitoUser, authenticationDetails, Signin, 
+ValidateCurrentUser, GetAll} = require('../controllers/cognito/index')
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
+
+router.get('/facebook', (req, res, next) => {
+  res.render('views/loginFacebook');
+})
 
 router.post('/register', (req, res, next) => {
   userPoolConfig =  userPool(poolData);
@@ -35,4 +40,12 @@ router.get('/validate', (req, res) => {
     })
 })
 
+router.get('/getUsers', (req, res) => {
+ GetAll(poolData)
+  .then(result => {
+    res.json(result);
+  }, err => {
+    res.json(err); 
+ })
+});
 module.exports = router;

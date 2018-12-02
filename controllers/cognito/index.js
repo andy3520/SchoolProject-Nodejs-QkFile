@@ -56,7 +56,7 @@ exports.RegisterUser = (userPool, req) => { return new Promise((resolve, reject)
 }
 )};
 
-exports.ValidateCurrentUser = (userPool) => { return new Promise((resolve, reject) => {
+exports.ValidateCurrentUser = (userPool) => (new Promise((resolve, reject) => {
   var cognitoUser = userPool.getCurrentUser();
   if(cognitoUser != null) {
     return(
@@ -65,9 +65,9 @@ exports.ValidateCurrentUser = (userPool) => { return new Promise((resolve, rejec
       else resolve(session.isValid());
     })
   )}
-})};  
+}));  
 
-exports.Signin = (cognitoUser, authenticationDetails) => { return new Promise((resolve, reject) => {
+exports.Signin = (cognitoUser, authenticationDetails) => (new Promise((resolve, reject) => {
   return (
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: (result) => {
@@ -80,7 +80,7 @@ exports.Signin = (cognitoUser, authenticationDetails) => { return new Promise((r
       }
     })
   )
-})};
+}));
 
 exports.ChangePassword = ( cognitoUser, req ) => (new Promise( (resolve, reject) => {
   return (
@@ -100,5 +100,53 @@ exports.UpdateInfo = (cognitoUser, req) => (new Promise( (resolve, reject) => {
     };
     attributes.push(attribute);
   });
+  cognitoUser.updateAttributes(attributeList, (err, result) => {
+    if(err) reject(err);
+    else  resolve(result);
+  })  
+}));
+
+exports.ForgotPassword = (cognitoUser, req) => (new Promse((resolve, reject) => {
+  cognitoUser.forgotPassword({
+  onSuccess: (result) => {
+    resolve(result);
+  },
+  onFailure: (err)  => {
+    reject(err);
+  },
+  inputVerificationCode(){
+    var verificationCode = prompt('Please input verification code','');
+    var newPassword = req.body.password;
+    cognitoUser.confirmPassword(verificationCode, newPassword, this);
+  }});
+}));
+
+exports.DeleteUser = (cognitoUser, req) => (new Promise((resolve, reject) => {
+  cognitoUser.deleteUser((err, result) => {
+    if(err) reject(err);
+    else resolve(result);
+  });
+}));
+
+exports.SignOut = (cognitoUser) => {
+  if(cognitoUser != null)
+    cognitoUser.signOut();
+}
+
+exports.GetAll = (poolData) => (new Promise((resolve, reject) => {
+  AWS.config.update({ region: 'us-west-2', 'accessKeyId': 'AKIAIN2TIOJKKK3MDNGQ', 'secretAccessKey': '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'}); 
+  var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
+  var params = {
+  UserPoolId: "us-west-2_YYCZS19k2",
   
+  AttributesToGet: [
+    'email',
+    'phone_number',
+    /* more items */
+  ],
+   };
+  cognitoidentityserviceprovider.listUsers(params, function(err, data) {
+    if (err) reject(err, err.stack); // an error occurred
+    else     resolve(data.Users);           // successful response
+  });
 }))
