@@ -1,0 +1,147 @@
+
+
+function hasRepository()
+{
+  [ "$TV_PKGTYPE" == 'DEB' ]
+}
+
+function ConfigureUpateDEB()
+{
+  hasRepository || return 0
+
+  cmdExists apt-key || return
+
+  apt-key add "$TV_SCRIPT_DIR/TeamViewer2017.asc" &> "$TV_BASE_DIR/logfiles/signaturekey.log"
+}
+
+function PrintHelpRepo()
+{
+  hasRepository || return
+
+  ABecho 'teamviewer repo'                            'show current repository configuration'
+  ABecho 'teamviewer repo list'                       'list available packages'
+  ABecho 'teamviewer repo default'                    'restore default configuration'
+  ABecho 'teamviewer repo disable'                    'disable repository updates'
+  ABecho 'teamviewer repo main [stable]'              'make all TeamViewer packages available (default)'
+  ABecho 'teamviewer repo tv14 [stable]'              'make TeamViewer 14 packages available'
+  ABecho '                      stable'               'omit preview and beta releases'
+  echo
+}
+
+function Run_Repository()
+{
+  local action="$1"
+  local stable="$2"
+
+  local stableStr=
+  local default='/opt/teamviewer/tv_bin/script/teamviewer.list'
+  local repoFile='/etc/apt/sources.list.d/teamviewer.list'
+
+  hasRepository || return 0
+
+  echo
+
+  if [ -n "$stable" ]; then
+    [ "$stable" = 'stable' ] || die "Unknown option '$stable'"
+    stableStr='(stable) '
+  fi
+
+  if [ -n "$action" ]; then
+    case "$action" in
+      ( default     )  RepoDefault           ;;
+      ( disable     )  RepoDisable           ;;
+      ( main | tv14 )  RepoEnable            ;;
+      ( list        )  RepoList;   return    ;;
+      ( * ) die "Unknown option '$action'"
+    esac
+  fi
+  RepoConfig
+}
+
+function RepoCheckSuperUser()
+{
+  isSuperUser || die 'You need root permissions for this operation'
+}
+
+function RepoDefault()
+{
+  RepoCheckSuperUser
+  echo "Restoring defaults from $default ..."
+
+  cp $default $repoFile
+}
+
+function RepoDisable()
+{
+  RepoCheckSuperUser
+  echo "Disabling repository ..."
+
+  RepoRemove
+}
+
+function RepoEnable()
+{
+  RepoCheckSuperUser
+  echo "Enabling $action repository $stableStr..."
+
+  RepoRemove
+  RepoAdd
+}
+
+function RepoList()
+{
+  echo "Available TeamViewer packages"
+  echo
+
+  cmdExists apt-cache || die 'apt-cache not found'
+
+  local data="$(apt-cache madison teamviewer teamviewer-host 2>/dev/null | sed -e 's/teamviewer |/teamviewer      |/g')"
+  echo "$data" | grep -q teamviewer || { Yecho 'No packages found. Make sure the repository is enabled (teamviewer repo default) and up to date (apt update)'; return; }
+  echo "$data"
+}
+
+function RepoRemove()
+{
+  grep -v -e '^\s*#*\s*deb ' $default > $repoFile
+}
+
+function RepoAdd()
+{
+  echo "# Modified via 'teamviewer repo' command"  >> $repoFile
+
+  RepoAddLine stable main   >> $repoFile
+  RepoAddLine preview main  >> $repoFile
+  RepoAddLine stable tv14   >> $repoFile
+  RepoAddLine preview tv14  >> $repoFile
+}
+
+function RepoAddLine()
+{
+  local dist=$1
+  local group=$2
+  local repoUri="deb http://linux.teamviewer.com/deb $dist $group"
+  local prefix=
+  EnableEntry || prefix='### '
+
+  echo "${prefix}$repoUri"
+}
+
+function EnableEntry()
+{
+  [ $action = $group ] || return 1
+  [ $dist = 'stable' ] && return 0  # always add stable
+  [ -z "$stable" ]                  # add preview, if allowed
+}
+
+function RepoConfig()
+{
+  BDecho "Active configuration lines in '$repoFile':"
+
+  grep -e '^\s*deb ' "$repoFile"
+
+  if (( $? != 0 )); then
+    echo '< repository disabled / no active configuration lines >'
+  fi
+
+  echo
+}

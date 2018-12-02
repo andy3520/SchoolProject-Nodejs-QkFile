@@ -1,0 +1,50 @@
+doctype html
+html(lang='vi')
+  head
+    // Required meta tags
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    // The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags
+    title User-QKFILE
+    //Favicon
+    base(href="/")
+    link(rel="icon" href="images/qkfile.ico")
+
+    // Custom css
+    link(href='stylesheets/bootstrap4.min.css', rel='stylesheet')
+    link(href='stylesheets/userMenu.css', rel='stylesheet')
+    link(href='stylesheets/userStyle.css', rel='stylesheet')
+    title Hello, world!
+  body
+    nav.menu(tabindex='0')
+      .smartphone-menu-trigger
+      header.avatar
+        img(src='../images/qkfile.ico')
+        h2 QKFile
+        if username
+          h3 Hello #{username}
+      ul
+        a(href="/users/upload")
+          li.icon-upload(tabindex='0')
+            span.pl-1 Upload file
+        a(href="/users")
+          li.icon-dashboard(tabindex='0')
+            span.pl-1 Quản lý file
+        a(href="/users/account")
+          li.icon-users(tabindex='0')
+            span.pl-1 Tài khoản
+        a(href="/users/changepassword")
+          li.icon-customers(tabindex='0')
+            span.pl-1 Đổi mật khẩu
+        a(href="/users/upgrade")
+          li.icon-settings(tabindex='0')
+            span.pl-1 Nâng cấp
+    main
+      block content
+    // Optional JavaScript
+    // jQuery first, then Popper.js, then Bootstrap JS
+    script(src='javascripts/jquery-3.3.1.slim.min.js')
+    script(src='javascripts/popper.min.js')
+    script(src='javascripts/bootstrap4.min.js')
+    script(src='javascripts/userScript.js')

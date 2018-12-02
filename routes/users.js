@@ -1,19 +1,24 @@
 const express = require('express');
 
 const router = express.Router();
-const {
-  poolData, pool_region, RegisterUser, userPool,
-  userData, cognitoUser, authenticationDetails, Signin, ValidateCurrentUser,
-} = require('../controllers/cognito/index');
+const COGNITO = require('../controllers/cognito/cognito');
+const config = require('../config/env');
 
-/* GET users listing. */
-router.get('/', (req, res, next) => {
-  res.send('respond with a resource');
+router.get('/', (req, res) => {
+  res.render('_userFile');
 });
 
-router.post('/register', (req, res, next) => {
-  let userPoolConfig = userPool(poolData);
-  RegisterUser(userPoolConfig, req)
+router.get('/upload', (req, res) => {
+  res.render('_userUpload');
+});
+
+router.get('/account', (req, res) => {
+  res.render('_userAccount');
+});
+
+router.post('/register', (req, res) => {
+  let userPoolConfig = COGNITO.userPool(config.poolData);
+  COGNITO.registerUser(userPoolConfig, req) 
     .then((result) => {
       res.redirect('/');
     }, (err) => {
@@ -22,16 +27,16 @@ router.post('/register', (req, res, next) => {
 });
 
 router.post('/login', (req, res) => {
-  const userPoolConfig = userPool(poolData);
-  const userDataCustom = userData(req, userPoolConfig);
-  const cognitoUserCustom = cognitoUser(userDataCustom);
-  const authenticationDetailsCustom = authenticationDetails(req);
-  Signin(cognitoUserCustom, authenticationDetailsCustom);
+  const userPoolConfig = COGNITO.userPool(config.poolData);
+  const userDataCustom = COGNITO.userData(req, userPoolConfig);
+  const cognitoUserCustom = COGNITO.cognitoUser(userDataCustom);
+  const authenticationDetailsCustom = COGNITO.authenticationDetails(req);
+  COGNITO.signin(cognitoUserCustom, authenticationDetailsCustom);
 });
 
 router.get('/validate', (req, res) => {
-  let userPoolConfig = userPool(poolData);
-  ValidateCurrentUser(userPoolConfig)
+  let userPoolConfig = COGNITO.userPool(config.poolData);
+  COGNITO.validateCurrentUser(userPoolConfig)
     .then((result) => {
       res.json(result);
     }, (err) => {
