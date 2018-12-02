@@ -1,5 +1,4 @@
-// Scroll button custom start
-
+// 2 nút upfile và find file ở màn hình mới vào
 @media (min-width: 340px) {
   a.btn.upload-scroll-custom {
     background: #fdc318;
@@ -43,10 +42,8 @@
     opacity: 1;
   }
 }
-
-// Scroll button custom end
-
-// Custom upload bar start
+/////////////////////////////////////////////////////////////////////////
+// Custom input upload
 .file-upload {
   display: block;
   text-align: center;
@@ -171,11 +168,10 @@
   display: inline-block;
   padding: 0 10px;
 }
-
-// Custom upload bar end
+///////////////////////////////////////////////////////////////////
 
 // Custom upload button
-input.btn.upload-btn {
+input.btn.upload-btn,input.btn.find-btn {
   padding: 10px 20px;
   border: 1px solid #fdc318;
   color: #fdc318;
@@ -188,7 +184,7 @@ input.btn.upload-btn {
   vertical-align: middle;
 }
 
-input.btn.upload-btn:hover {
+input.btn.upload-btn:hover ,input.btn.find-btn:hover {
   background: #fdc318;
   color: #FFFFFF;
   border: 1px solid #fdc318;
@@ -216,10 +212,9 @@ input.btn.upload-btn.active:hover {
   -webkit-transition: all .2s ease-in-out;
   -o-transition: all .2s ease-in-out;
 }
+/////////////////////////////////////////////////////////////////////////////////
 
-// Custom button end
-
-// Input code start
+// Input code start ( find file section )
 #findcode.input-code, #findpass.input-code {
   border: 1px solid #fdc318;
   height: 45px;
@@ -239,15 +234,19 @@ input.btn.upload-btn.active:hover {
   color: #3fa46a !important;
 }
 
-// Input code end
-
+///////////////////////////////////////////////////////////////////////////////
 // Background custom start
 section.find-file-section, section.signup-section, section.pricing, section.upload-section, section.login-section, section.howtouse-section {
   min-height: 95vh;
   background-size: cover;
 }
 
+section#particle-area{
+  padding-top: 20vh;
+}
+
 section.find-file-section {
+  padding-top: 20vh;
   background: url('../images/bg1.jpg') center center;
 }
 
@@ -260,10 +259,12 @@ section.pricing {
 }
 
 section.upload-section {
+  padding-top: 20vh;
   background: url('../images/bg5.jpg') center center;
 }
 
 section.login-section {
+  padding-top: 20vh;
   background: url('../images/bg6.jpg') center center;
 }
 
@@ -275,15 +276,13 @@ section.contact-section {
   background: url('../images/bg8.jpg') center center;
 }
 
-// Background custom end
-
+///////////////////////////////////////////////////////////////////////////////
 // Custom input start
 .border-color-y {
   border: 1px solid #fdc318 !important;
   color: #fdc318 !important;
 }
-
-// Custom input end
+////////////////////////////////////////////////////////////////////////////////////
 
 // Icon authenticate start
 .icon-auth {
@@ -300,5 +299,77 @@ section.contact-section {
     height: 30px;
   }
 }
+/////////////////////////////////////////////////////////////////////
 
-// Icon authenticate end
+// Css cho các modal
+
+h1#modalTitle,h2#codeResult {
+  color: #78B345;
+  font-weight: 800;
+}
+
+button.custom-btn-modal {
+  border: 1px solid #78B345;
+  background: #78B345;
+  color: #FFFFFF;
+  font-weight: 500;
+  border-radius: 4px;
+  font-size: 15px;
+  opacity: 0.9;
+}
+
+button.custom-btn-modal:hover {
+  background: #85ba5a;
+  border: 1px solid #85ba5a;
+  color: #FFFFFF;
+  font-weight: bold;
+  transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  opacity: 1;
+}
+
+img#iconSuccess{
+  width: 72px;
+  display: none;
+}
+
+button.err-btn-modal{
+  border: 1px solid red;
+  background: red;
+  color: #FFFFFF;
+  font-weight: 500;
+  border-radius: 4px;
+  font-size: 15px;
+  opacity: 0.9;
+}
+
+button.err-btn-modal:hover {
+  background: orangered;
+  border: 1px solid orangered;
+  color: #FFFFFF;
+  font-weight: bold;
+  transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  opacity: 1;
+}
+h2#errorMessage{
+  color: red;
+  font-weight: 800;
+}
+////////////////////////////////////////////////////////////////////////
+
+// Giảm margin của modal download
+.des-download{
+  margin-top: 10vh !important;
+}
+
+//////////////////////////////////////////////////////////////////////
+
+// Đổi error thành màu đỏ
+.error {
+  color: red;
+}

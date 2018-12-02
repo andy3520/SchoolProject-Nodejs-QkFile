@@ -1,4 +1,5 @@
 const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
+
 const CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
 const AWS = require('aws-sdk');
 const request = require('request');
@@ -7,54 +8,56 @@ const jwt = require('jsonwebtoken');
 global.fetch = require('node-fetch');
 
 exports.poolData = {
-  UserPoolId: "us-west-2_YYCZS19k2",
-  ClientId: "447t3hs1nsi0t7ode1oi9af587", 
+  UserPoolId: 'us-west-2_YYCZS19k2',
+  ClientId: '447t3hs1nsi0t7ode1oi9af587',
 };
 
-exports.userData = (req, userPool) => {
-  return (
-    {
-      Username: req.body.email,
-      Pool: userPool
-    }
-  );
-};
-
-exports.pool_region = "us-west-2";
-
-exports.userPool = poolData =>  new AmazonCognitoIdentity.CognitoUserPool(poolData);
-
-exports.cognitoUser = userData => { 
-  return new AmazonCognitoIdentity.CognitoUser(userData)};
-
-exports.authenticationDetails = req =>  new AmazonCognitoIdentity.AuthenticationDetails(
+exports.userData = (req, userPool) => (
   {
     Username: req.body.email,
-    Password: req.body.password
+    Pool: userPool,
   }
 );
 
-exports.RegisterUser = (userPool, req) => { return new Promise((resolve, reject) => {
-  var attributeList = [];
+exports.pool_region = 'us-west-2';
+
+exports.userPool = poolData => new AmazonCognitoIdentity.CognitoUserPool(poolData);
+
+exports.cognitoUser = userData => new AmazonCognitoIdentity.CognitoUser(userData);
+
+exports.authenticationDetails = req => new AmazonCognitoIdentity.AuthenticationDetails(
+  {
+    Username: req.body.email,
+    Password: req.body.password,
+  },
+);
+
+exports.RegisterUser = (userPool, req) => new Promise((resolve, reject) => {
+  const attributeList = [];
   return (
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"name",Value:req.body.name})),
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"gender",Value:req.body.gender})),
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"birthdate",Value:req.body.birthdate})),
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"address",Value:req.body.addreqs})),
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"email",Value:req.body.email})),
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"phone_number",Value:req.body.phone_number})),
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"custom:user_role",Value:"member"})),
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name:"nickname",Value:req.body.username})),
-    userPool.signUp(req.body.email, req.body.password, attributeList, null, function(err, result){
-      if (err) {
-        reject(err);
-      }else {
-        resolve(result);
-      }
-    })
-  )
-}
-)};
+    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name: 'name', Value: req.body.name})),
+      attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name: 'gender', Value: req.body.gender})),
+      attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({
+        Name: 'birthdate',
+        Value: req.body.birthdate
+      })),
+      attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name: 'address', Value: req.body.addreqs})),
+      attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name: 'email', Value: req.body.email})),
+      attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({
+        Name: 'phone_number',
+        Value: req.body.phone_number
+      })),
+      attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name: 'custom:user_role', Value: 'member'})),
+      attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({Name: 'nickname', Value: req.body.username})),
+      userPool.signUp(req.body.email, req.body.password, attributeList, null, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      })
+  );
+});
 
 exports.ValidateCurrentUser = (userPool) => (new Promise((resolve, reject) => {
   var cognitoUser = userPool.getCurrentUser();
@@ -82,21 +85,19 @@ exports.Signin = (cognitoUser, authenticationDetails) => (new Promise((resolve, 
   )
 }));
 
-exports.ChangePassword = ( cognitoUser, req ) => (new Promise( (resolve, reject) => {
-  return (
-    cognitoUser.changePassword(req.body.oldPassword, req.body.newPassword, (err, result) => {
-      if(err) reject(err);
-      else resolve(result);
-    })
-  )
-}));
+exports.ChangePassword = (cognitoUser, req) => (new Promise((resolve, reject) => (
+  cognitoUser.changePassword(req.body.oldPassword, req.body.newPassword, (err, result) => {
+    if (err) reject(err);
+    else resolve(result);
+  })
+)));
 
-exports.UpdateInfo = (cognitoUser, req) => (new Promise( (resolve, reject) => {
-  var attributes = [];
-  Object.keys(req.body).forEach(key => {
-    var attribute = {
+exports.UpdateInfo = (cognitoUser, req) => (new Promise((resolve, reject) => {
+  const attributes = [];
+  Object.keys(req.body).forEach((key) => {
+    const attribute = {
       Name: key,
-      Value: req.body[key]
+      Value: req.body[key],
     };
     attributes.push(attribute);
   });
@@ -144,7 +145,7 @@ exports.GetAll = (poolData) => (new Promise((resolve, reject) => {
     'phone_number',
     /* more items */
   ],
-   };
+};
   cognitoidentityserviceprovider.listUsers(params, function(err, data) {
     if (err) reject(err, err.stack); // an error occurred
     else     resolve(data.Users);           // successful response

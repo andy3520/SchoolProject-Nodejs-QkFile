@@ -1,0 +1,35 @@
+#resultModal.modal.fade(role='dialog')
+  #modal-dialog.modal-dialog(style="margin-top:30vh")
+    // Modal content
+    .modal-content
+      .modal-body.custom-modal
+        .container-fluid
+          .row
+            .col-12
+              img#iconSuccess.center-block(src="images/success-icon.gif")
+            .col-12
+              h2#codeResult.text-center(style="padding:10px;overflow-wrap: break-word;" )
+        button#hideModalUpload.btn.btn-default.custom-btn-modal.center-block(type='button', data-dismiss='modal') Ok
+
+#preloadModal.modal.fade(role='dialog')
+  .modal-dialog
+    // Modal content
+    .modal-content(style="background-color: transparent;")
+      .modal-body.custom-modal
+        .container-fluid
+          .row
+            .col-12
+              img#preloader(style="width:100%" src="images/preloadFile.gif").center-block
+
+#errorModal.modal.fade(role='dialog')
+  .modal-dialog(style="margin-top:30vh")
+    // Modal content
+    .modal-content
+      .modal-body.custom-modal
+        .container-fluid
+          .row
+            .col-12
+              img#iconError.center-block(src="images/fail.png" width="72px")
+            .col-12
+              h2#errorMessage(style="padding:10px;overflow-wrap: break-word;").text-center
+        button.btn.btn-default.err-btn-modal.center-block(type='button', data-dismiss='modal') Ok

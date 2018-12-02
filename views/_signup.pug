@@ -1,0 +1,79 @@
+section#signup.signup-section
+  .container-fluid
+    .row
+      .col-md-12
+        .section-title
+          h2.font-weight.color-y Sign Up
+        .section.contact-us.container-fluid
+          .row
+            .col-xs-12.col-md-8.col-md-offset-2
+              .outer-box
+                // Contact Form Start
+                .form-box.clearfix
+                  form#signupform.container-fluid(data-toggle='validator' action='/users/register' method='post')
+                    .row
+                      .form-group.col-xs-12
+                        label(class="error" for="email-signup" style="display:none;")
+                        input#email-signup.border-color-y.form-control.input-code(type='text' placeholder='Email' name='email')
+                    .row
+                      .col-xs-12.col-md-6.hidden-sm.visible-md.visible-lg
+                        label(class="error" for="username-signup" style="display:none;")
+                      .col-xs-12.col-md-6.hidden-sm.visible-md.visible-lg
+                        label(class="error" for="phone-signup" style="display:none;")
+                    .row
+                      .col-xs-12.hidden-md.visible-sm.visible-xs
+                        label(class="error" for="username-signup" style="display:none;")
+                      .form-group.col-xs-12.col-md-6
+                        input#username-signup.border-color-y.form-control.input-code(type='text' placeholder='Username' name='username')
+                      .col-xs-12.col-md-6.hidden-md.visible-sm.visible-xs
+                        label(class="error" for="phone-signup" style="display:none;")
+                      .form-group.col-xs-12.col-md-6
+                        input#phone-signup.border-color-y.form-control.input-code(type='text' placeholder='Số điện thoại' name='phone')
+                    .row
+                      .form-group.col-xs-12
+                        label(class="error" for="name-signup" style="display:none;")
+                        input#name-signup.border-color-y.form-control.input-code(type='text' placeholder='Họ và tên' name='name')
+                    .row
+                      .col-xs-12.col-md-6.hidden-sm.visible-md.visible-lg
+                        label(class="error" for="gender-signup" style="display:none;")
+                      .col-xs-12.col-md-6.hidden-sm.visible-md.visible-lg
+                        label(class="error" for="birthday-signup" style="display:none;")
+                    .row
+                      .col-xs-12.hidden-md.visible-sm.visible-xs
+                        label(class="error" for="gender-signup" style="display:none;")
+                      .form-group.col-xs-12.col-md-6
+                        select#gender-signup.border-color-y.form-control.input-code(name="gender")
+                          option(selected="true" disabled="true") Gender
+                          option Nam
+                          option Nữ
+                      .col-xs-12.hidden-md.visible-sm.visible-xs
+                        label(class="error" for="birthday-signup" style="display:none;")
+                      .form-group.col-xs-12.col-md-6
+                        input#birthday-signup.border-color-y.form-control.input-code(type='date' placeholder='Ngày sinh' name='birthday')
+                    .row
+                      .form-group.col-xs-12
+                        label(class="error" for="address-signup" style="display:none;")
+                        input#address-signup.border-color-y.form-control.input-code(type='text' placeholder='Địa chỉ' name='address')
+                    .row
+                      .col-xs-12.col-md-6.hidden-sm.visible-md.visible-lg
+                        label(class="error" for="password" style="display:none;")
+                      .col-xs-12.col-md-6.hidden-sm.visible-md.visible-lg
+                        label(class="error" for="confirmpass" style="display:none;")
+                    .row
+                      .col-xs-12.hidden-md.visible-sm.visible-xs
+                        label(class="error" for="password" style="display:none;")
+                      .form-group.col-xs-12.col-md-6
+                        input#password.border-color-y.form-control.input-code(type='password' placeholder='Password' name="password")
+                      .col-xs-12.hidden-md.visible-sm.visible-xs
+                        label(class="error" for="confirmpass" style="display:none;")
+                      .form-group.col-xs-12.col-md-6
+                        input#confirmpass.border-color-y.form-control.input-code(type='password' placeholder='Nhập lại mật khẩu' name="confirmpass")
+                    .row
+                      .form-group.col-xs-12
+                        img.icon-auth.pull-left(src="images/fb-icon.png" width="50px" style="margin-right:20px;")
+                        img.icon-auth.pull-left(src="images/gg-icon.png" width="50px")
+                    .row
+                      .form-group.col-xs-12
+                        input(type="submit" value="Signup").btn.upload-btn.pull-right
+.clearfix
+
