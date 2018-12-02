@@ -1,0 +1,25 @@
+section#login.aboutus.login-section
+  .container
+    .row
+      .col-md-12
+        .section-title
+          h2.font-weight.color-y Login
+        .section.contact-us.container-fluid
+          .row
+            .col-xs-12.col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
+              .outer-box.text-center
+                // Contact Form Start
+                .form-box.clearfix
+                  form#loginform.shake.scroll-reveal(data-toggle='validator' action='/users/login' method='post')
+                    .form-group.col-xs-12
+                      input#username.border-color-y.form-control.input-code(type='email' placeholder='Email' name='email')
+                    .form-group.col-xs-12
+                      input#loginpass.border-color-y.form-control.input-code(type='password' placeholder='Password' name='password')
+                    .col-xs-3.col-sm-2
+                      img.icon-auth.pull-left(src="images/fb-icon.png" width="50px")
+                    .col-xs-3.col-sm-2
+                      img.icon-auth.pull-left(src="images/gg-icon.png" width="50px")
+                    .col-xs-12.col-sm-8
+                      input(type="submit" value="Login").btn.upload-btn.pull-right
+                      #msgSubmit
+.clearfix

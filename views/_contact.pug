@@ -1,0 +1,47 @@
+section#contactus.contactus.contact-section
+  .container
+    .row
+      .col-md-12
+        .section-title
+          h2.font-weight Contact Us
+          span.dots.dt-theme.margin-bottom-1
+          p.font-weight Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+  .section.contact-us
+    .container
+      .outer-box
+        .company-data
+          ul.row
+            li.col-md-4.col-sm-4.col-xs-12
+              .box
+                span.lnr.lnr-location
+                |                            8544 Walnut
+                br
+                |                            St. Burnsville, MN 55337
+            li.col-md-4.col-sm-4.col-xs-12
+              .box
+                span.lnr.lnr-phone
+                |                            +1-952-356-9282
+                br
+                | +1-385-200-5438
+            li.col-md-4.col-sm-4.col-xs-12
+              .box
+                span.lnr.lnr-bubble
+                |                            lank@yourdomain.com
+                br
+                |                            info@yourdomain.com
+        // Contact Form Start
+        .form-box.clearfix
+          form#contactform.shake.scroll-reveal(data-toggle='validator')
+            .form-group.col-sm-6
+              input#name.form-control(type='text', placeholder='Your name', required='', data-error='Name missing')
+              .help-block.with-errors
+            .form-group.col-sm-6
+              input#email.form-control(type='email', placeholder='Your email', required='')
+              .help-block.with-errors
+            .form-group.col-sm-12
+              textarea#message.form-control(rows='6', placeholder='Write your message here', required='')
+              .help-block.with-errors
+            .col-sm-12
+              a.btn(href='#') Upload
+              #msgSubmit
+        // Contact Form End

@@ -1,4 +1,94 @@
-extends layout
-block content
-  h1= title
-  p Welcome to #{title}
+doctype html
+html(lang='vi')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    // The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags
+    title QKFILE
+    //Favicon
+    link(rel="icon" href="images/qkfile.ico")
+
+    // Bootstrap Css
+    link(href='assets/bootstrap/css/bootstrap.min.css', rel='stylesheet')
+    // Normalize Css
+    link(href='assets/Normalize/normalize.css', rel='stylesheet')
+    // Font Awesome Css
+    link(href='assets/font-awesome/css/font-awesome.min.css', rel='stylesheet')
+    // Linear icon Css
+    link(href='assets/linearicons/css/icon-font.min.css', rel='stylesheet')
+    // Animate Css
+    link(href='assets/animate/animate.css', rel='stylesheet')
+    // Portfolio Css
+    link(href='assets/css/ionicons.min.css', rel='stylesheet')
+    link(href='assets/css/magnific-popup.css', rel='stylesheet')
+    // Modernizr Js
+    script(src='assets/js/vendor/modernizr-3.5.0.min.js')
+
+    // Custom Css
+    link(href='assets/css/style.css', rel='stylesheet')
+
+    // HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
+    // WARNING: Respond.js doesn't work if you view the page via file://
+    //if lt IE 9
+    script(src='https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js')
+    script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
+
+    // public css
+    link(href='stylesheets/style.css', rel='stylesheet')
+  body
+    // Pre Loader
+    #loader
+
+    // Header
+    include _header
+
+    // Upload form
+    include _upload
+
+    // Find file
+    include _findfile
+
+    // Login
+    include  _login
+
+    // Sign up
+    include _signup
+
+    // How to use
+    include _howtouse
+
+    // Pricing
+    include _pricing
+
+    // Contact
+    include _contact
+
+    // Footer
+    include _footer
+
+    // Các modal
+    include _resultModal
+
+    // jQuery (necessary for Bootstrap's JavaScript plugins)
+    script(src='assets/jquery/jquery-3.2.1.min.js')
+
+    // Include all compiled plugins (below), or include individual files as needed
+    script(src='assets/bootstrap/js/bootstrap.min.js')
+    script(src='assets/easing/jquery.easing.min.js')
+    script(src='assets/isotope/jquery.isotope.js')
+    script(src='assets/jquery/imagesloaded.pkgd.min.js')
+    script(src='assets/jquery/jquery.magnific-popup.min.js')
+    script(src='assets/particle/particles.min.js')
+    script(src='assets/particle/app.js')
+    script(src='assets/number-animation/jquery.animateNumber.min.js')
+    script(type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js")
+
+    // Contact Form Script
+    script(src='assets/contact-form/js/validator.min.js')
+    script(src='assets/contact-form/js/form-scripts.js')
+    script(src='assets/jquery/plugins.js')
+    script(src='assets/js/custom.js')
+    //Public js
+    script(src='javascripts/script.js')
+    script(src='javascripts/signupValidator.js')

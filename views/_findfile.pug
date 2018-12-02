@@ -1,0 +1,20 @@
+section#findfile.find-file-section
+  .container
+    .row
+      .col-xs-12
+        .section-title
+          h2.font-weight.color-y.font-weight-h.text-transform Find File
+  .section.contact-us
+    .container-fluid
+      .row
+        .col-xs-12.col-md-8.col-md-offset-2
+          .outer-box.text-center
+            // Contact Form Start
+            .form-box.clearfix
+              form#findform.shake.scroll-reveal(data-toggle='validator' action='/find' method='post')
+                .form-group.col-xs-12
+                  input#findcode-find.border-color-y.form-control.margin-bottom-1.input-code(type='text', placeholder='Enter File Code' name='code')
+                  input#pass-find.border-color-y.form-control.input-code(type='password', placeholder='Enter password if exist' name='pass')
+                .col-xs-12
+                  input(type="submit" value="Find").btn.find-btn
+.clearfix
