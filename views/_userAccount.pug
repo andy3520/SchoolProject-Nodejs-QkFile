@@ -1,0 +1,53 @@
+extends userLayout
+
+block content
+  .main-account.container-fluid.w-100.h-100.pt-3.pb-3
+    .card.w-100.h-100
+      h2.text-color-theme.text-center.mt-5 Tài khoản
+      form#signupform.container-fluid(data-toggle='validator' action='/users/register' method='post')
+        .row
+          .form-group.col-12
+            label(class="error" for="email-signup" style="display:none;")
+            input#email-signup.border-color-y.form-control.input-code(type='text' placeholder='Email' name='email')
+        .row
+          .col-md-12.col-xl-6.d-sm-none.d-md-block
+            label(class="error" for="username-signup" style="display:none;")
+          .col-md-12.col-xl-6.d-sm-none.d-md-block
+            label(class="error" for="phone-signup" style="display:none;")
+        .row
+          .col-xs-12.d-md-none.d-sm-block
+            label(class="error" for="username-signup" style="display:none;")
+          .form-group.col-md-12.col-xl-6
+            input#username-signup.border-color-y.form-control.input-code(type='text' placeholder='Username' name='username')
+          .col-xs-12.d-md-none.d-sm-block
+            label(class="error" for="phone-signup" style="display:none;")
+          .form-group.col-md-12.col-xl-6
+            input#phone-signup.border-color-y.form-control.input-code(type='text' placeholder='Số điện thoại' name='phone')
+        .row
+          .form-group.col-12
+            label(class="error" for="name-signup" style="display:none;")
+            input#name-signup.border-color-y.form-control.input-code(type='text' placeholder='Họ và tên' name='name')
+        .row
+          .col-md-12.col-xl-6.d-sm-none.d-md-block
+            label(class="error" for="gender-signup" style="display:none;")
+          .col-md-12.col-xl-6.d-sm-none.d-md-block
+            label(class="error" for="birthday-signup" style="display:none;")
+        .row
+          .col-12.d-md-none.d-sm-block
+            label(class="error" for="gender-signup" style="display:none;")
+          .form-group.col-md-12.col-xl-6
+            select#gender-signup.border-color-y.form-control.input-code(name="gender")
+              option(selected="true" disabled="true") Gender
+              option Nam
+              option Nữ
+          .col-12.d-md-none.d-sm-block
+            label(class="error" for="birthday-signup" style="display:none;")
+          .form-group.col-md-12.col-xl-6
+            input#birthday-signup.border-color-y.form-control.input-code(type='date' placeholder='Ngày sinh' name='birthday')
+        .row
+          .form-group.col-12
+            label(class="error" for="address-signup" style="display:none;")
+            input#address-signup.border-color-y.form-control.input-code(type='text' placeholder='Địa chỉ' name='address')
+        .row
+          .form-group.col-12
+            input(type="submit" value="Save").btn.upload-btn.pull-right
