@@ -1,0 +1,19 @@
+extends userLayout
+
+block content
+  .main-upload.container-fluid.w-100.h-100.pt-3.pb-3
+    .card.w-100.h-100
+      .container-fluid.h-100
+        h1.text-color-theme.text-center.mt-5.title Upload
+        .row
+          form#uploadform(action="/upload" method="post" enctype="multipart/form-data").col-lg-10.offset-lg-1
+            .form-group
+              .file-upload
+                .file-select
+                  #fileName.file-select-button Choose File
+                  #noFile.file-select-name No file chosen...
+                  input#chooseFile(type='file' name='file')
+            .form-group
+              input#findpass.form-control.input-code(type='password', placeholder='Password(optional)' name='pass')
+            .w-100.text-center
+              input#uploadAjax(type="submit" value="Upload").btn.upload-btn

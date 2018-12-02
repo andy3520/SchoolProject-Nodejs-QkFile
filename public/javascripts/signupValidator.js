@@ -1,6 +1,6 @@
 $.validator.addMethod(
   "regex",
-  function(value, element, regexp) {
+  function (value, element, regexp) {
     let re = new RegExp(regexp);
     return this.optional(element) || re.test(value);
   },
@@ -28,7 +28,7 @@ $(document).ready(() => {
       gender: 'required',
       address: {
         required: true,
-        regex: "^[a-zA-Z0-9àáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹýÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝ\\s]{15,}$",
+        regex: "^[a-zA-Z0-9àáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹýÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝ\\s,/]{15,}$",
       },
       birthday: 'required',
       password: {
@@ -72,5 +72,23 @@ $(document).ready(() => {
         equalTo: 'Mật khẩu nhập lại không trùng',
       },
     },
+  });
+  $('#loginform').validate({
+    rules: {
+      email: {
+        required: true,
+        regex: "^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$"
+      },
+      password: "required"
+    },
+    messages: {
+      email: {
+        required: 'Vui lòng nhập email',
+        regex: 'Vui lòng nhập email hợp lệ',
+      },
+      password: {
+        required: 'Vui lòng nhập mật khẩu'
+      }
+    }
   });
 });
