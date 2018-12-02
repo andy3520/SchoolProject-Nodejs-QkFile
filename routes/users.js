@@ -3,7 +3,8 @@ const express = require('express');
 const router = express.Router();
 const {
   poolData, pool_region, RegisterUser, userPool,
-  userData, cognitoUser, authenticationDetails, Signin, ValidateCurrentUser,
+  userData, cognitoUser, authenticationDetails, 
+  Signin, ValidateCurrentUser, GetAll, ForgotPassword,
 } = require('../controllers/cognito/index');
 
 /* GET users listing. */
@@ -51,4 +52,8 @@ router.get('/getUsers', (req, res) => {
     res.json(err); 
  })
 });
+
+router.get('/forgotPassword', (req, res) => {
+  
+})
 module.exports = router;
