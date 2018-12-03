@@ -78,7 +78,10 @@ exports.registerUser = (user) => new Promise((resolve, reject) => {
 
 exports.validateCurrentUser = () => new Promise((resolve, reject) => {
   const currentUser = userPool.getCurrentUser();
-  if (currentUser != null) {
+  console.log(`Info : ${currentUser}`);
+  if (currentUser == null) {
+    reject(currentUser);
+  } else {
     return (
       currentUser.getSession((err, session) => {
       console.log(session.idToken)

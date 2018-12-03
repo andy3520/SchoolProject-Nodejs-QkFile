@@ -43,9 +43,8 @@ router.get('/validate', (req, res) => {
     .then((result) => {
       res.json(result);
     }, (err) => {
-      res.json(err);
+      res.redirect('/');
     });
-//  }
 });
 
 // router.get('/getUsers', (req, res) => {
@@ -68,7 +67,7 @@ router.get('/forgotPassword/:email', (req, res) => {
   .then(result => {
     res.json(result);
   }).catch(err => {
-    res.send(err);
+    res.send(`<script>alert('${err}')</script>`) 
   })
 })
 
