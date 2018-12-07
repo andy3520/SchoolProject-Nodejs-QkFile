@@ -8,7 +8,8 @@ const bodyParser = require('body-parser');
 
 const indexRouter = require('./routes/index');
 const guestRouter = require('./routes/guestTest');
-const users = require('./routes/users');
+const userRouter = require('./routes/users');
+const authRouter = require('./routes/authenticate');
 
 const app = express();
 
@@ -27,12 +28,13 @@ app.use(sassMiddleware({
   dest: path.join(__dirname, 'public'),
   indentedSyntax: true, // true = .sass and false = .scss
   sourceMap: true,
-}));
+})); 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/guest', guestRouter);
-app.use('/users', users);
+app.use('/user', userRouter);
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

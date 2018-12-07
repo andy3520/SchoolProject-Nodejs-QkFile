@@ -4,6 +4,17 @@ const router = express.Router();
 const dynamoGuestFile = require('../controllers/dynamodb/dynamoGuestFile');
 const generateCode = require('../controllers/generateCode');
 const s3 = require('../controllers/s3');
+const COGNITO = require('../controllers/cognito/cognito');
+
+router.use((req, res, next) => {
+  COGNITO.validateCurrentUser()
+    .then(result => {
+      res.redirect('/user');
+    })
+    .catch(err => {
+      next('route');
+    });
+});
 
 router.get('/', (req, res) => {
   res.render('index');

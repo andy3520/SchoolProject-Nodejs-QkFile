@@ -167,7 +167,7 @@ exports.deleteUser = (cognitoUser, req) => (new Promise((resolve, reject) => {
 
 exports.signOut = () => new Promise((resolve, reject) => {
   var currentUser = userPool.getCurrentUser();
-  console.log(currentUser.username) 
+  console.log(currentUser.username); 
 
   var userForm = userData(currentUser.username);
   var cognitoUserCustom = cognitoUser(userForm);
@@ -176,19 +176,23 @@ exports.signOut = () => new Promise((resolve, reject) => {
 });
 
 exports.getAll = (poolData) => (new Promise((resolve, reject) => {
-  AWS.config.update({ region: 'us-west-2', 'accessKeyId': 'AKIAIN2TIOJKKK3MDNGQ', 'secretAccessKey': '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'}); 
+  AWS.config.update({
+    region: 'us-west-2',
+    'accessKeyId': 'AKIAIN2TIOJKKK3MDNGQ',
+    'secretAccessKey': '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'
+  });
   var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
   var params = {
-  UserPoolId: "us-west-2_YYCZS19k2",
-  
-  AttributesToGet: [
-    'email',
-    'phone_number',
-    /* more items */
-  ],
-};
-  cognitoidentityserviceprovider.listUsers(params, function(err, data) {
+    UserPoolId: "us-west-2_YYCZS19k2",
+
+    AttributesToGet: [
+      'email',
+      'phone_number',
+      /* more items */
+    ],
+  };
+  cognitoidentityserviceprovider.listUsers(params, function (err, data) {
     if (err) reject(err, err.stack); // an error occurred
-    else     resolve(data.Users);           // successful response
+    else resolve(data.Users);           // successful response
   });
-}))
+}));
