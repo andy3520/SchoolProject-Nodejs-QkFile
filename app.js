@@ -7,7 +7,6 @@ const sassMiddleware = require('node-sass-middleware');
 const bodyParser = require('body-parser');
 
 const indexRouter = require('./routes/index');
-const guestRouter = require('./routes/guestTest');
 const userRouter = require('./routes/users');
 const authRouter = require('./routes/authenticate');
 
@@ -20,7 +19,7 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser("meowmeow"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(sassMiddleware({
@@ -32,9 +31,8 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/guest', guestRouter);
-app.use('/user', userRouter);
 app.use('/auth', authRouter);
+app.use('/user', userRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

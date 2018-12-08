@@ -1,4 +1,11 @@
 section#login.login-section
+  if (loginmessage)
+    script.
+      $(document).ready(function() {
+        $('#errorModal').modal('show');
+        $('#errorMessage').html('#{loginmessage}');
+      });
+    script
   .container
     .row
       .col-md-12

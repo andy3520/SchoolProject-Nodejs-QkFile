@@ -36,6 +36,9 @@ html(lang='vi')
 
     // public css
     link(href='stylesheets/style.css', rel='stylesheet')
+    // jQuery (necessary for Bootstrap's JavaScript plugins)
+    script(src='assets/jquery/jquery-3.2.1.min.js')
+    script(src='assets/bootstrap/js/bootstrap.min.js')
   body
     // Pre Loader
     #loader
@@ -70,11 +73,7 @@ html(lang='vi')
     // Các modal
     include _resultModal
 
-    // jQuery (necessary for Bootstrap's JavaScript plugins)
-    script(src='assets/jquery/jquery-3.2.1.min.js')
-
     // Include all compiled plugins (below), or include individual files as needed
-    script(src='assets/bootstrap/js/bootstrap.min.js')
     script(src='assets/easing/jquery.easing.min.js')
     script(src='assets/isotope/jquery.isotope.js')
     script(src='assets/jquery/imagesloaded.pkgd.min.js')

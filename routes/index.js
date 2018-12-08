@@ -6,18 +6,13 @@ const generateCode = require('../controllers/generateCode');
 const s3 = require('../controllers/s3');
 const COGNITO = require('../controllers/cognito/cognito');
 
-router.use((req, res, next) => {
-  COGNITO.validateCurrentUser()
-    .then(result => {
-      res.redirect('/user');
-    })
-    .catch(err => {
-      next('route');
-    });
-});
-
 router.get('/', (req, res) => {
-  res.render('index');
+  let loginmessage = req.query.loginmessage;
+  if (loginmessage != "" || loginmessage != undefined || loginmessage != null) {
+    res.render('index', {loginmessage: loginmessage});
+  } else {
+    res.render('index');
+  }
 });
 
 // Xử lý upload

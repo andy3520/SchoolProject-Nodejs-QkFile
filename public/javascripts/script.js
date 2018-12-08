@@ -125,9 +125,14 @@ $('form#findform').submit((e) => {
         }, 1200);
         let displayData = data.data;
         let sizeByte = Number(displayData.fileSize);
-        let sizeKB = sizeByte / 1024;
-        let displaySize = Math.round(sizeKB) < 1000 ? Math.round(sizeKB) + "KB" : Math.round(sizeKB / 1024) + "MB";
-        $('#codeResult').html(
+        let displaySize = "" ;
+        if (sizeByte > 1000) {
+          let sizeKB = sizeByte / 1024;
+          displaySize = Math.round(sizeKB) < 1000 ? Math.round(sizeKB) + "KB" : Math.round(sizeKB / 1024) + "MB";
+        } else {
+         displaySize = sizeByte + "Bytes"; 
+        }
+        $('#codeResult').html( 
           "CODE"
           + `<h3>${displayData.code}</h3>`
           + "FILENAME (click &darr; to download)"

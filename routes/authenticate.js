@@ -3,18 +3,43 @@ const express = require('express');
 const router = express.Router();
 const COGNITO = require('../controllers/cognito/cognito');
 
-
-router.get('/facebook', (req, res, next) => {
-  res.render('loginFacebook');
-});
-
 router.post('/login', (req, res) => {
   COGNITO.logIn(req.body.email, req.body.password)
     .then(result => {
+      // let token = result.idToken.jwtToken;
       res.redirect('/user');
     }, error => {
-      res.redirect('/#login');
-    }); 
+      if (error.code === "UserNotConfirmedException") {
+        res.redirect('/?loginmessage=Vui lòng xác nhận email#login');
+      } else if (error.code === "NotAuthorizedException") {
+        res.redirect('/?loginmessage=Sai tài khoản hoặc mật khẩu#login');
+      } else {
+        res.redirect('/?loginmessage=Tài khoản không tồn tại#login');
+      }
+    });
+});
+
+router.post('/register', (req, res) => {
+  COGNITO.registerUser(req.body)
+    .then((result) => {
+      res.json(result);
+    }, (err) => {
+      res.json(err);
+    });
+});
+
+
+router.get('/validate', (req, res) => {
+  COGNITO.validateCurrentUser()
+    .then((result) => {
+      res.json(result);
+    }, (err) => {
+      res.json(err);
+    });
+});
+
+router.get('/facebook', (req, res, next) => {
+  res.render('loginFacebook');
 });
 
 router.get('/forgotPassword/:email', (req, res) => {
@@ -23,7 +48,7 @@ router.get('/forgotPassword/:email', (req, res) => {
     .then(result => {
       res.json(result);
     }).catch(err => {
-      res.send(`<script>alert('${err}')</script>`)
+    res.send(`<script>alert('${err}')</script>`)
   })
 });
 
@@ -37,7 +62,6 @@ router.post('/forgotPassword/:email', (req, res) => {
       res.json(err);
     });
 });
-
 router.post('/updatepassword', (req, res) => {
   COGNITO.changePassword(req.body.email, req.body.oldPassword, req.body.newPassword)
     .then(result => {
@@ -45,33 +69,7 @@ router.post('/updatepassword', (req, res) => {
     })
     .catch(err => {
       res.json(err);
-    }); 
-});
-
-router.post('/register', (req, res) => {
-  COGNITO.registerUser(req.body)
-    .then((result) => {
-      res.json(result);
-    }, (err) => {
-      res.json(err);
     });
 });
-// router.get('/validate', (req, res) => {
-//   COGNITO.validateCurrentUser()
-//     .then((result) => {
-//       res.redirect('/users');
-//     }, (err) => {
-//       res.redirect('/#login');
-//     });
-// });
-
-// router.get('/getUsers', (req, res) => {
-//   COGNITO.getAll(config.poolData)
-//   .then(result => {
-//     res.json(result);
-//   }, err => {
-//     res.json(err); 
-//   })
-// });
 
 module.exports = router;
