@@ -5,55 +5,57 @@ const AWS = require('aws-sdk');
 const request = require('request');
 const jwkToPem = require('jwk-to-pem');
 const jwt = require('jsonwebtoken');
+const config = require('../../config/env.js');
 
 global.fetch = require('node-fetch');
 
-exports.userData = (req, userPool) => (
+exports.pool_region = 'us-west-2';
+
+const userPool = new AmazonCognitoIdentity.CognitoUserPool(config.poolData);
+
+var userData = (email) => (
   {
-    Username: req.body.email,
+    Username: email,
     Pool: userPool,
   }
 );
 
-exports.pool_region = 'us-west-2';
+var cognitoUser = userData => new AmazonCognitoIdentity.CognitoUser(userData);
 
-exports.userPool = poolData => new AmazonCognitoIdentity.CognitoUserPool(poolData);
-
-exports.cognitoUser = userData => new AmazonCognitoIdentity.CognitoUser(userData);
-
-exports.authenticationDetails = req => new AmazonCognitoIdentity.AuthenticationDetails(
+var authenticationDetails = (email, password) => new AmazonCognitoIdentity.AuthenticationDetails(
   {
-    Username: req.body.email,
-    Password: req.body.password, 
+    Username: email,
+    Password: password, 
   },
 );
 
-exports.registerUser = (userPool, req) => new Promise((resolve, reject) => {
+exports.registerUser = (user) => new Promise((resolve, reject) => {
+  
   const attributeList = [];
   return (
     attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({
       Name: 'name',
-      Value: req.body.name
+      Value: user.name
     })),
     attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({
       Name: 'gender',
-      Value: req.body.gender
+      Value: user.gender
     })),
     attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({
       Name: 'birthdate',
-      Value: req.body.birthday
+      Value: user.birthday
     })),
     attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({
       Name: 'address',
-      Value: req.body.address
+      Value: user.address
     })),
     attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({
       Name: 'email',
-      Value: req.body.email
+      Value: user.email
     })),
     attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({
       Name: 'phone_number',
-      Value: '+84'+req.body.phone.substring(1,req.body.phone.length)
+      Value: '+84'+user.phone.substring(1,user.phone.length)
     })),
     attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({
       Name: 'custom:user_role',
@@ -61,10 +63,10 @@ exports.registerUser = (userPool, req) => new Promise((resolve, reject) => {
     })),
     attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({
         Name: 'nickname',
-        Value: req.body.username
+        Value: user.username
       }
     )),
-    userPool.signUp(req.body.email, req.body.password, attributeList, null, (err, result) => {
+    userPool.signUp(user.email, user.password, attributeList, null, (err, result) => {
       if (err) {
         reject(err);
       } else {
@@ -74,11 +76,15 @@ exports.registerUser = (userPool, req) => new Promise((resolve, reject) => {
   );
 });
 
-exports.validateCurrentUser = userPool => new Promise((resolve, reject) => {
-  const cognitoUser = userPool.getCurrentUser();
-  if (cognitoUser != null) {
+exports.validateCurrentUser = () => new Promise((resolve, reject) => {
+  const currentUser = userPool.getCurrentUser();
+  console.log(`Info : ${currentUser}`);
+  if (currentUser == null) {
+    reject(currentUser);
+  } else {
     return (
-      cognitoUser.getSession((err, session) => {
+      currentUser.getSession((err, session) => {
+      console.log(session.idToken)
         if (err) reject(err);
         else resolve(session.isValid());
       })
@@ -86,27 +92,30 @@ exports.validateCurrentUser = userPool => new Promise((resolve, reject) => {
   }
 });
 
-exports.signin = (cognitoUser, authenticationDetails) => new Promise((resolve, reject) => (
-  cognitoUser.authenticateUser(authenticationDetails, {
+exports.logIn = (email, password) => new Promise((resolve, reject) => {
+  let userForm = userData(email);
+  let cognitoUserCustom = cognitoUser(userForm);
+  let authenticationDetailsCustom = authenticationDetails(email, password);
+  return cognitoUserCustom.authenticateUser(authenticationDetailsCustom, {
     onSuccess: (result) => {
-      const accessToken = result.getAccessToken().getJwtToken();
-      const idToken = result.idToken.jwtToken;
-      console.log(accessToken);
-      console.log(idToken);
-      console.log(result);
+      // const accessToken = result.getAccessToken().getJwtToken();
+      // const idToken = result.idToken.jwtToken;
+      resolve(result);
     },
     onFailure: (err) => {
-      console.log(err);
+      reject(err);
     },
   })
-));
+});
 
-exports.changePassword = (cognitoUser, req) => (new Promise((resolve, reject) => (
-  cognitoUser.changePassword(req.body.oldPassword, req.body.newPassword, (err, result) => {
+exports.changePassword = (email, oldPassword, newPassword) => (new Promise((resolve, reject) => {
+  var userForm = userData(email);
+  var cognitoUserCustom = cognitoUser(userForm);
+  cognitoUserCustom.changePassword(oldPassword, newPassword, (err, result) => {
     if (err) reject(err);
     else resolve(result);
   })
-)));
+}));
 
 exports.updateInfo = (cognitoUser, req) => (new Promise((resolve, reject) => {
   const attributes = [];
@@ -123,34 +132,50 @@ exports.updateInfo = (cognitoUser, req) => (new Promise((resolve, reject) => {
   })  
 }));
 
-exports.ForgotPassword = (cognitoUser, req) => (new Promse((resolve, reject) => {
-  cognitoUser.forgotPassword({
-  onSuccess: (result) => {
-    resolve(result);
-  },
-  onFailure: (err)  => {
-    reject(err);
-  },
-  inputVerificationCode(){
-    var verificationCode = prompt('Please input verification code','');
-    var newPassword = req.body.password;
-    cognitoUser.confirmPassword(verificationCode, newPassword, this);
-  }});
-}));
+exports.forgotPassword = (email) => new Promise((resolve, reject) => {
+  var userForm = userData(email);
+  var cognitoUserCustom = cognitoUser(userForm);
+  cognitoUserCustom.forgotPassword({
+    onSuccess: (result) => {
+      resolve(result);
+    },
+    onFailure: (err)  => {
+      reject(err);
+    },
+  });
+});
 
-exports.DeleteUser = (cognitoUser, req) => (new Promise((resolve, reject) => {
+exports.confirmPassword = (email, code, newPassword) => new Promise ((resolve, reject) => {
+  var userForm = userData(email);
+  var cognitoUserCustom = cognitoUser(userForm);
+  resolve(cognitoUserCustom.confirmPassword(code, newPassword, {
+    onSuccess: (result) => {
+      resolve(result);
+    },
+    onFailure: (err) => {
+      reject(err);
+    }
+  }));
+})
+
+exports.deleteUser = (cognitoUser, req) => (new Promise((resolve, reject) => {
   cognitoUser.deleteUser((err, result) => {
     if(err) reject(err);
     else resolve(result);
   });
 }));
 
-exports.SignOut = (cognitoUser) => {
-  if(cognitoUser != null)
-    cognitoUser.signOut();
-}
+exports.signOut = () => new Promise((resolve, reject) => {
+  var currentUser = userPool.getCurrentUser();
+  console.log(currentUser.username) 
 
-exports.GetAll = (poolData) => (new Promise((resolve, reject) => {
+  var userForm = userData(currentUser.username);
+  var cognitoUserCustom = cognitoUser(userForm);
+  if(cognitoUserCustom != null)
+    cognitoUserCustom.signOut();
+});
+
+exports.getAll = (poolData) => (new Promise((resolve, reject) => {
   AWS.config.update({ region: 'us-west-2', 'accessKeyId': 'AKIAIN2TIOJKKK3MDNGQ', 'secretAccessKey': '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'}); 
   var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
   var params = {
