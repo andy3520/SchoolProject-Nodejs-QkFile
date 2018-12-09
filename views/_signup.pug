@@ -1,4 +1,26 @@
 section#signup.signup-section
+  if (signuperrormessage)
+    script.
+      var c = 1;
+      if (c === 1) {
+        $(document).ready(function () {
+          $('#errorModal').modal('show');
+          c++;
+          $('#errorMessage').html('#{signuperrormessage}');
+        });
+      }
+  else if (signupmessage)
+    script.
+      var c = 1;
+      if (c === 1) {
+        $(document).ready(function () {
+          $('img#iconSuccess').css('display', 'block');
+          setTimeout(() => { $('img#iconSuccess').attr('src', 'images/success-icon-0.png'); },1200);
+          $('#resultModal').modal('show');
+          c++;
+          $('#codeResult').html('#{signupmessage}');
+        });
+      }
   .container-fluid
     .row
       .col-md-12

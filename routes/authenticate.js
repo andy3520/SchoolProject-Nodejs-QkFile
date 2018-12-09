@@ -22,9 +22,13 @@ router.post('/login', (req, res) => {
 router.post('/register', (req, res) => {
   COGNITO.registerUser(req.body)
     .then((result) => {
-      res.json(result);
+      res.redirect('/?signupmessage=Đăng kí thành công. Vui lòng kiểm tra và xác nhận email#login');
     }, (err) => {
-      res.json(err);
+      if (err.code === "UsernameExistsException") {
+        res.redirect('/?signuperrormessage=Email này đã được đăng kí#signup');
+      } else {
+        res.redirect('/?signuperrormessage=Lỗi đăng kí không thành công#signup');
+      }
     });
 });
 

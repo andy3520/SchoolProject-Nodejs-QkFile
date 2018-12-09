@@ -8,9 +8,17 @@ const COGNITO = require('../controllers/cognito/cognito');
 
 router.get('/', (req, res) => {
   let loginmessage = req.query.loginmessage;
-  if (loginmessage != "" || loginmessage != undefined || loginmessage != null) {
+  let signuperrormessage = req.query.signuperrormessage;
+  let signupmessage = req.query.signupmessage;
+  if (loginmessage) {
     res.render('index', {loginmessage: loginmessage});
+  } else if (signuperrormessage === "Email này đã được đăng kí") {
+    res.render('index', {signuperrormessage: signuperrormessage});
+  } else if (signupmessage) {
+    console.log(signupmessage); 
+    res.render('index', {signupmessage: signupmessage});
   } else {
+    console.log("asdfasdf");
     res.render('index');
   }
 });

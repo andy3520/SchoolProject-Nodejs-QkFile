@@ -1,11 +1,14 @@
 section#login.login-section
   if (loginmessage)
     script.
-      $(document).ready(function() {
-        $('#errorModal').modal('show');
-        $('#errorMessage').html('#{loginmessage}');
-      });
-    script
+      var c = 1;
+      if (c===1){
+        $(document).ready(function () {
+          $('#errorModal').modal('show');
+          c++;
+          $('#errorMessage').html('#{loginmessage}');
+        });
+      }
   .container
     .row
       .col-md-12
