@@ -18,7 +18,7 @@ router.get('/account', (req, res) => {
 
 router.get('/signout', (req, res) => {
   if (req.session.user && req.cookies.user_sid) {
-    res.clearCookie('user/user_sid');
+    res.clearCookie('user_sid');
   }
     COGNITO.signOut();
     res.redirect('/#login');
