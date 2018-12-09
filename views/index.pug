@@ -36,45 +36,44 @@ html(lang='vi')
 
     // public css
     link(href='stylesheets/style.css', rel='stylesheet')
+    // jQuery (necessary for Bootstrap's JavaScript plugins)
+    script(src='assets/jquery/jquery-3.2.1.min.js')
+    script(src='assets/bootstrap/js/bootstrap.min.js')
   body
     // Pre Loader
     #loader
 
     // Header
-    include _header
+    include guest/_header
 
     // Upload form
-    include _upload
+    include guest/_upload
 
     // Find file
-    include _findfile
+    include guest/_findfile
 
     // Login
-    include  _login
+    include  guest/_login
 
     // Sign up
-    include _signup
+    include guest/_signup
 
     // How to use
-    include _howtouse
+    include guest/_howtouse
 
     // Pricing
-    include _pricing
+    include guest/_pricing
 
     // Contact
-    include _contact
+    include guest/_contact
 
     // Footer
-    include _footer
+    include guest/_footer
 
     // Các modal
-    include _resultModal
-
-    // jQuery (necessary for Bootstrap's JavaScript plugins)
-    script(src='assets/jquery/jquery-3.2.1.min.js')
+    include guest/_resultModal
 
     // Include all compiled plugins (below), or include individual files as needed
-    script(src='assets/bootstrap/js/bootstrap.min.js')
     script(src='assets/easing/jquery.easing.min.js')
     script(src='assets/isotope/jquery.isotope.js')
     script(src='assets/jquery/imagesloaded.pkgd.min.js')

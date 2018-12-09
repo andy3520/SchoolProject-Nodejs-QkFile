@@ -4,9 +4,22 @@ const router = express.Router();
 const dynamoGuestFile = require('../controllers/dynamodb/dynamoGuestFile');
 const generateCode = require('../controllers/generateCode');
 const s3 = require('../controllers/s3');
+const COGNITO = require('../controllers/cognito/cognito');
 
 router.get('/', (req, res) => {
-  res.render('index');
+  let loginmessage = req.query.loginmessage;
+  let signuperrormessage = req.query.signuperrormessage;
+  let signupmessage = req.query.signupmessage;
+  if (loginmessage) {
+    res.render('index', {loginmessage: loginmessage});
+  } else if (signuperrormessage === "Email này đã được đăng kí") {
+    res.render('index', {signuperrormessage: signuperrormessage});
+  } else if (signupmessage) {
+    console.log(signupmessage); 
+    res.render('index', {signupmessage: signupmessage});
+  } else {
+    res.render('index');
+  }
 });
 
 // Xử lý upload

@@ -1,4 +1,14 @@
 section#login.login-section
+  if (loginmessage)
+    script.
+      var c = 1;
+      if (c===1){
+        $(document).ready(function () {
+          $('#errorModal').modal('show');
+          c++;
+          $('#errorMessage').html('#{loginmessage}');
+        });
+      }
   .container
     .row
       .col-md-12
@@ -10,7 +20,7 @@ section#login.login-section
               .outer-box.text-center
                 // Contact Form Start
                 .form-box.clearfix
-                  form#loginform.shake.scroll-reveal(data-toggle='validator' action='/users/login' method='post')
+                  form#loginform.shake.scroll-reveal(data-toggle='validator' action='/auth/login' method='post')
                     .row
                       .form-group.col-xs-12
                         label(class="error" for="username" style="display:none;")

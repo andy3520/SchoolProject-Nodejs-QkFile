@@ -78,15 +78,13 @@ exports.registerUser = (user) => new Promise((resolve, reject) => {
 
 exports.validateCurrentUser = () => new Promise((resolve, reject) => {
   const currentUser = userPool.getCurrentUser();
-  console.log(`Info : ${currentUser}`);
   if (currentUser == null) {
     reject(currentUser);
   } else {
     return (
       currentUser.getSession((err, session) => {
-      console.log(session.idToken)
         if (err) reject(err);
-        else resolve(session.isValid());
+        else resolve(session);
       })
     );
   }
@@ -94,11 +92,11 @@ exports.validateCurrentUser = () => new Promise((resolve, reject) => {
 
 exports.logIn = (email, password) => new Promise((resolve, reject) => {
   let userForm = userData(email);
-  let cognitoUserCustom = cognitoUser(userForm);
   let authenticationDetailsCustom = authenticationDetails(email, password);
+  let cognitoUserCustom = cognitoUser(userForm);
   return cognitoUserCustom.authenticateUser(authenticationDetailsCustom, {
     onSuccess: (result) => {
-      // const accessToken = result.getAccessToken().getJwtToken();
+      const accessToken = result.getAccessToken().getJwtToken();
       // const idToken = result.idToken.jwtToken;
       resolve(result);
     },
@@ -167,7 +165,6 @@ exports.deleteUser = (cognitoUser, req) => (new Promise((resolve, reject) => {
 
 exports.signOut = () => new Promise((resolve, reject) => {
   var currentUser = userPool.getCurrentUser();
-  console.log(currentUser.username) 
 
   var userForm = userData(currentUser.username);
   var cognitoUserCustom = cognitoUser(userForm);
@@ -176,19 +173,23 @@ exports.signOut = () => new Promise((resolve, reject) => {
 });
 
 exports.getAll = (poolData) => (new Promise((resolve, reject) => {
-  AWS.config.update({ region: 'us-west-2', 'accessKeyId': 'AKIAIN2TIOJKKK3MDNGQ', 'secretAccessKey': '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'}); 
+  AWS.config.update({
+    region: 'us-west-2',
+    'accessKeyId': 'AKIAIN2TIOJKKK3MDNGQ',
+    'secretAccessKey': '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'
+  });
   var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
   var params = {
-  UserPoolId: "us-west-2_YYCZS19k2",
-  
-  AttributesToGet: [
-    'email',
-    'phone_number',
-    /* more items */
-  ],
-};
-  cognitoidentityserviceprovider.listUsers(params, function(err, data) {
+    UserPoolId: "us-west-2_YYCZS19k2",
+
+    AttributesToGet: [
+      'email',
+      'phone_number',
+      /* more items */
+    ],
+  };
+  cognitoidentityserviceprovider.listUsers(params, function (err, data) {
     if (err) reject(err, err.stack); // an error occurred
-    else     resolve(data.Users);           // successful response
+    else resolve(data.Users);           // successful response
   });
-}))
+}));

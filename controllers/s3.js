@@ -41,6 +41,8 @@ exports.upload = req => new Promise((resolve, reject) => {
   form.on('file', (name, file) => {
     if (file.size <= 0) {
       reject({err: 'Lỗi file size <=0B không hợp lệ'});
+    } else if (file.size > 20971520) {
+      reject({err: 'File quá lớn, vui lòng đăng nhập để upload file > 20MB'});
     } else {
       const params = {
         Bucket: config.Bucket,
