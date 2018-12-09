@@ -1,3 +1,4 @@
+@import "./style";
 $background-color: #f3f3f3;
 $theme-color: #fdc318;
 $active-color: #3fa46a;
@@ -215,4 +216,12 @@ $active-color: #3fa46a;
     border: 1px solid #fdc318 !important;
     color: #fdc318 !important;
   }
+}
+
+/////////////////////////////////////////////////////////////////////////
+.find-btn{
+  background-color: #fff;
+}
+.upload-btn{
+  background-color: #fff;
 }

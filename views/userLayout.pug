@@ -25,9 +25,9 @@ html(lang='vi')
         if(username)
           h3 Hello #{username}
       ul
-        a(href="/user/upload")
+        a(href="/user/uploadandfind")
           li.icon-upload(tabindex='0')
-            span.pl-1 Upload file
+            span.pl-1 Upload/Find file
         a(href="/user")
           li.icon-dashboard(tabindex='0')
             span.pl-1 Quản lý file
@@ -45,9 +45,12 @@ html(lang='vi')
             span.pl-1 Đăng xuất
     main
       block content
+      include user/_resultModal
     // Optional JavaScript
     // jQuery first, then Popper.js, then Bootstrap JS
-    script(src='javascripts/jquery-3.3.1.slim.min.js')
+    script(src='javascripts/jquery-3.3.1.min.js')
     script(src='javascripts/popper.min.js')
     script(src='javascripts/bootstrap.min.js')
     script(src='javascripts/userScript.js')
+    script(type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js")
+    script(src='javascripts/signupValidator.js')
