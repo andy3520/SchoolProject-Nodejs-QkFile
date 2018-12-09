@@ -3,16 +3,6 @@ const express = require('express');
 const router = express.Router();
 const COGNITO = require('../controllers/cognito/cognito');
 
-// router.use((req, res, next) => {
-//   COGNITO.validateCurrentUser()
-//     .then(result => {
-//       next('route');
-//     })
-//     .catch(err => {
-//       res.redirect('/#login');
-//     });
-// });
-
 router.get('/', (req, res) => {
   res.render('_userFile');
 });
@@ -26,8 +16,11 @@ router.get('/account', (req, res) => {
 });
 
 router.get('/signout', (req, res) => {
-  COGNITO.signOut();
-  res.redirect('/');
+  if (req.session.user && req.cookies.user_sid) {
+    res.clearCookie('user_sid');
+  }
+    COGNITO.signOut();
+    res.redirect('/#login');
 });
 
 module.exports = router;

@@ -18,7 +18,6 @@ router.get('/', (req, res) => {
     console.log(signupmessage); 
     res.render('index', {signupmessage: signupmessage});
   } else {
-    console.log("asdfasdf");
     res.render('index');
   }
 });

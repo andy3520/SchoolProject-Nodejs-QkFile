@@ -72,6 +72,8 @@ main {
         background-image: url("../images/tools.svg"); }
       .menu ul li.icon-upload {
         background-image: url("../images/upload.svg"); }
+      .menu ul li.icon-signout {
+        background-image: url("../images/signout.svg"); }
       .menu ul li:hover {
         background-color: rgba(0, 0, 0, 0.1); }
       .menu ul li:focus {

@@ -7,6 +7,8 @@ router.post('/login', (req, res) => {
   COGNITO.logIn(req.body.email, req.body.password)
     .then(result => {
       // let token = result.idToken.jwtToken;
+      req.session.user = result.idToken.payload;
+      // console.log(JSON.stringify(result.idToken.payload));
       res.redirect('/user');
     }, error => {
       if (error.code === "UserNotConfirmedException") {
