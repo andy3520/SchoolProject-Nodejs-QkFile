@@ -81,7 +81,7 @@ router.post('/find', (req, res) => {
 
 // Tải file về
 router.get('/download/:filename', (req, res) => {
-  console.log(req.params.filename);
+  //console.log(req.params.filename);
   s3.download(req.params.filename, res);
 });
 
