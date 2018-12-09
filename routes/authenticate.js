@@ -11,10 +11,15 @@ router.post('/login', (req, res) => {
       // console.log(JSON.stringify(result.idToken.payload));
       res.redirect('/user');
     }, error => {
+      console.log(error);
       if (error.code === "UserNotConfirmedException") {
         res.redirect('/?loginmessage=Vui lòng xác nhận email#login');
       } else if (error.code === "NotAuthorizedException") {
-        res.redirect('/?loginmessage=Sai tài khoản hoặc mật khẩu#login');
+        if (error.message === "User is disabled") {
+          res.redirect('/?loginmessage=Tài khoản bạn đã bị khóa vui lòng liên hệ qkfile@gmail.com để được hỗ trợ#login');
+        } else {
+          res.redirect('/?loginmessage=Sai tài khoản hoặc mật khẩu#login');
+        }
       } else {
         res.redirect('/?loginmessage=Tài khoản không tồn tại#login');
       }

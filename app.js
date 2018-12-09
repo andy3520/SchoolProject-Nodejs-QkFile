@@ -69,7 +69,15 @@ app.get('/user', (req, res,next) => {
   next();
 });
 
+app.get('/user/*', (req, res,next) => {
+  if (!req.cookies.user_sid || !req.session.user) {
+    res.redirect('/?loginmessage=Vui lòng đăng nhập#login');
+  }
+  next();
+});
+
 app.post('/auth', sessionChecker);
+app.post('/auth/*', sessionChecker);
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
