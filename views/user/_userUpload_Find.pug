@@ -1,0 +1,32 @@
+extends ../userLayout
+
+block content
+  .main-upload.container-fluid.w-100.h-100.pt-3.pb-3
+    .card.w-100.h-100
+      .container-fluid
+        h1.text-color-theme.text-center.mt-5.title-upload Upload
+        .row
+          form#uploadform(action="/user/upload" method="post" enctype="multipart/form-data").col-lg-10.offset-lg-1
+            .form-group
+              .file-upload
+                .file-select
+                  #fileName.file-select-button Choose File
+                  #noFile.file-select-name No file chosen...
+                  input#chooseFile(type='file' name='file')
+            .form-group
+              input#findpass.form-control.input-code(type='password', placeholder='Password(optional)' name='pass')
+              if(email)
+                input#email.form-control.input-code(type='hidden' name='email' value=email)
+            .w-100.text-center
+              input#uploadAjax(type="submit" value="Upload").btn.upload-btn
+      .clearfix
+      .container-fluid
+        h1.text-color-theme.text-center.mt-5.title Find File
+        .row
+          form#findform(action='/find' method='post').col-lg-10.offset-lg-1
+            .form-group
+              input#findcode-find.border-color-y.form-control.margin-bottom-1.input-code(type='text', placeholder='Enter File Code' name='code')
+            .form-group
+              input#pass-find.border-color-y.form-control.input-code(type='password', placeholder='Enter password if exist' name='pass')
+            .w-100.text-center
+              input(type="submit" value="Find").btn.find-btn

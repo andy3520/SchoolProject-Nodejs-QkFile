@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
   } else if (signuperrormessage === "Email này đã được đăng kí") {
     res.render('index', {signuperrormessage: signuperrormessage});
   } else if (signupmessage) {
-    console.log(signupmessage); 
+    console.log(signupmessage);
     res.render('index', {signupmessage: signupmessage});
   } else {
     res.render('index');

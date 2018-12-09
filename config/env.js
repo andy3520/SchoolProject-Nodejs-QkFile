@@ -7,7 +7,6 @@ const env = {
   poolData : {
     UserPoolId: 'us-west-2_YYCZS19k2',
     ClientId: '447t3hs1nsi0t7ode1oi9af587',
-    // Storage: new AmazonCognitoIdentity.CookieStorage({domain: "localhost:3000", expires:30})
   }
 };
 

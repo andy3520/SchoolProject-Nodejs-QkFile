@@ -24,6 +24,7 @@ exports.upload = req => new Promise((resolve, reject) => {
     fileSize: 0,
     fileType: '',
     pass: '',
+    email: ''
   };
 
   // Lấy field pass
@@ -34,6 +35,9 @@ exports.upload = req => new Promise((resolve, reject) => {
         value = ' ';
       }
       fileUpload.pass = value;
+    }
+    if (name === 'email') {
+      fileUpload.email = value;
     }
   });
 

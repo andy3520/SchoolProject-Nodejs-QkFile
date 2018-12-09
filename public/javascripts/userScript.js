@@ -12,7 +12,7 @@ $('#chooseFile').bind('change', () => {
 
 // function đổi form upload sang màu xanh
 function changeToGreen(filename) {
-  $('.title').addClass('text-color-active');
+  $('.title-upload').addClass('text-color-active');
   $('.file-upload').addClass('active');
   $('.upload-btn').addClass('active');
   $('.transform-color').addClass('active');
@@ -23,7 +23,7 @@ function changeToGreen(filename) {
 
 // function đổi form upload sang màu vàng
 function changeToYellow() {
-  $('.title').removeClass('text-color-active');
+  $('.title-upload').removeClass('text-color-active');
   $('.file-upload').removeClass('active');
   $('.upload-btn').removeClass('active');
   $('#findcode').removeClass('active');
