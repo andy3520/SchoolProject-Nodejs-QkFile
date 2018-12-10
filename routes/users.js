@@ -7,7 +7,15 @@ const generateCode = require('../controllers/generateCode');
 const s3 = require('../controllers/s3');
 
 router.get('/', (req, res) => {
-  res.render('user/_userFile');
+  let files = [];
+  dynamoUser.getFileByEmail(req.session.user.email)
+    .then((result) => {
+      files = result;
+      res.render('user/_userFile',{files: files});
+    })
+    .catch((err) => {
+      res.render('user/_userFile',{error: err})
+    });
 });
 
 router.get('/uploadandfind', (req, res) => {
@@ -85,16 +93,6 @@ router.post('/update', (req, res) => {
   COGNITO.updateInfo(req.session.user.email, req)
     .then((result) => {
       res.redirect('/user/account');
-    })
-    .catch((err) => {
-      res.json(err);
-    });
-});
-
-router.get('/files', (req, res) => {
-  dynamoUser.getFileByEmail(req.session.user.email)
-    .then((files) => {
-      res.json(files);
     })
     .catch((err) => {
       res.json(err);

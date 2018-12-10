@@ -6,7 +6,9 @@ block content
       .container-fluid.h-100.d-flex.flex-column
         if(files)
           for f in files
-            p f
+            p(style="color:red;")= f.fileName
+        else if(error)
+          p= error
         nav(aria-label='Page navigation file').w-100.mt-auto
           ul.pagination.justify-content-center.mb-0
             li.page-item
