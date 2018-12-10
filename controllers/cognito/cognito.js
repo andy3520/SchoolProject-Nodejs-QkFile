@@ -90,20 +90,24 @@ exports.validateCurrentUser = () => new Promise((resolve, reject) => {
   }
 });
 
+let cognitoUserCustom = null;
 exports.logIn = (email, password) => new Promise((resolve, reject) => {
   let userForm = userData(email);
   let authenticationDetailsCustom = authenticationDetails(email, password);
-  let cognitoUserCustom = cognitoUser(userForm);
+   cognitoUserCustom = cognitoUser(userForm);
   return cognitoUserCustom.authenticateUser(authenticationDetailsCustom, {
     onSuccess: (result) => {
-      // const accessToken = result.getAccessToken().getJwtToken();
-      // const idToken = result.idToken.jwtToken;
+      cognitoUserCustom['tokens'] = {
+        accessToken: result.getAccessToken().getJwtToken(),
+        idToken: result.getIdToken().getJwtToken(),
+        refreshToken: result.getRefreshToken().getToken()
+      };
       resolve(result);
     },
     onFailure: (err) => {
       reject(err);
     },
-  })
+  });
 });
 
 exports.changePassword = (email, oldPassword, newPassword) => (new Promise((resolve, reject) => {
@@ -116,27 +120,64 @@ exports.changePassword = (email, oldPassword, newPassword) => (new Promise((reso
 }));
 
 exports.updateInfo = (email, req) => (new Promise((resolve, reject) => {
-  // let currentUserFromPool = userData(email);
   // let cognitoUserUpdate = cognitoUser(currentUserFromPool);
-  let cognitoUserUpdate = userPool.getCurrentUser();
-  console.log("current user :"+JSON.stringify(cognitoUserUpdate));
-  const attributes = [];
-  Object.keys(req.body).forEach((key) => {
-    const attribute = {
-      Name: key,
-      Value: req.body[key],
-    }; 
-    attributes.push(attribute);
-  });
-  cognitoUserUpdate.updateAttributes(attributes, (err, result) => {
-    if (err) {
-      console.log(JSON.stringify("err:"+err));
-      reject(err);
+  
+  const AccessToken = new AmazonCognitoIdentity.CognitoAccessToken({ AccessToken: cognitoUserCustom.tokens.accessToken });
+  const IdToken = new AmazonCognitoIdentity.CognitoIdToken({ IdToken: cognitoUserCustom.tokens.idToken });
+  const RefreshToken = new AmazonCognitoIdentity.CognitoRefreshToken({ RefreshToken: cognitoUserCustom.tokens.refreshToken });
+  
+  const sessionData = {
+    IdToken: IdToken,
+    AccessToken: AccessToken,
+    RefreshToken: RefreshToken
+  };
+
+  const userSession = new AmazonCognitoIdentity.CognitoUserSession(sessionData);
+
+  let currentUserFromPool = userData(email);
+
+  const cognitoUser = new AmazonCognitoIdentity.CognitoUser(currentUserFromPool);
+  cognitoUser.setSignInUserSession(userSession);
+
+  cognitoUser.getSession(function (err, session) { // You must run this to verify that session (internally)
+    if (session.isValid()) {
+      const attributes = [];
+      const user = {
+        nickname: req.body.nickname,
+        phone_number: req.body.phone_number,
+        name: req.body.name,
+        gender: req.body.gender,
+        birthdate: req.body.birthdate,
+        address: req.body.address
+      };
+      let phone = null;
+      Object.keys(req.body).forEach((key) => {
+        if (key === "phone_number") {
+          phone = "+84"+req.body[key].substr(1,req.body[key].length);
+        }
+        const attribute = {
+          Name: key,
+          Value: key === "phone_number" ? phone : req.body[key],
+        };
+        attributes.push(attribute);
+      });
+      cognitoUser.updateAttributes(attributes, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          req.session.user.nickname = user.nickname;
+          req.session.user.phone_number = user.phone_number;
+          req.session.user.name = user.name;
+          req.session.user.gender = user.gender;
+          req.session.user.birthdate = user.birthdate;
+          req.session.user.address.formatted = user.address;
+          resolve(result);
+        }
+      });
     } else {
-      console.log(JSON.stringify(result));
-      resolve(result);
+      reject(err);
     }
-  })
+  });
 }));
 
 exports.forgotPassword = (email) => new Promise((resolve, reject) => {

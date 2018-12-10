@@ -162,7 +162,7 @@ main {
         top: 55%;
         transform: translate3d(-50%, -50%, 0); }
     .menu ul li {
-      padding: 1em 1em 1em 3em;
+      padding: 0.5em 1em 0.5em 3em;
       font-size: 1.3em; }
     .menu:focus {
       transform: translate3d(0, 0, 0);
