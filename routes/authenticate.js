@@ -8,6 +8,7 @@ router.post('/login', (req, res) => {
     .then(result => {
       // let token = result.idToken.jwtToken;
       req.session.user = result.idToken.payload;
+      req.session.user.phone_number = "0" + req.session.user.phone_number.substr(3, req.session.user.phone_number.length);
       // console.log(JSON.stringify(result.idToken.payload));
       res.redirect('/user');
     }, error => {

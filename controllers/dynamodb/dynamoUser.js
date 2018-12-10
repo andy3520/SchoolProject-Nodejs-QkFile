@@ -46,17 +46,17 @@ exports.getFileByEmail = email => new Promise((resolve, reject) => {
   const docClient = new AWS.DynamoDB.DocumentClient();
   const params = {
     TableName: 'GuestFile',
-    KeyConditionExpression: "#em = :email",
+    FilterExpression: "#em = :em",
     ExpressionAttributeNames: {
-      "#em" : "email"
+      "#em": "email"
     },
     ExpressionAttributeValues: {
-      ":email" : String(email)
+      ":em": String(email)
     }
   };
 
   docClient.scan(params, onScan);
-  
+
   function onScan(err, data) {
     if (err) {
       reject(err);
@@ -64,13 +64,14 @@ exports.getFileByEmail = email => new Promise((resolve, reject) => {
       resolve(data.Items);
     }
   }
-/*  
-      // continue scanning if we have more movies, because
-      // scan can retrieve a maximum of 1MB of data
-      if (typeof data.LastEvaluatedKey != "undefined") {
-        console.log("Scanning for more...");
-        params.ExclusiveStartKey = data.LastEvaluatedKey;
-        docClient.scan(params, onScan);
-      }
-    }*/
+
+  /*  
+        // continue scanning if we have more movies, because
+        // scan can retrieve a maximum of 1MB of data
+        if (typeof data.LastEvaluatedKey != "undefined") {
+          console.log("Scanning for more...");
+          params.ExclusiveStartKey = data.LastEvaluatedKey;
+          docClient.scan(params, onScan);
+        }
+      }*/
 });

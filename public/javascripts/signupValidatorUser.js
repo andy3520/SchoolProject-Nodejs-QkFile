@@ -1,0 +1,60 @@
+$.validator.addMethod(
+  "regex",
+  function (value, element, regexp) {
+    let re = new RegExp(regexp);
+    return this.optional(element) || re.test(value);
+  },
+  ""
+);
+$(document).ready(() => {
+  $('#signupform').validate({
+    rules: {
+      email: {
+        required: true,
+        regex: "^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$"
+      },
+      nickname: {
+        required: true,
+        regex: "^[a-zA-Z0-9]{5,}$"
+      },
+      phone_number: {
+        required: true,
+        regex: "^0[0-9]{9,10}$"
+      },
+      name: {
+        required: true,
+        regex: "^[a-zA-ZàáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹýÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝ\\s]{5,}$"
+      },
+      gender: 'required',
+      address: {
+        required: true,
+        regex: "^[a-zA-Z0-9àáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹýÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝ\\s,/]{15,}$",
+      },
+      birthdate: 'required'
+    },
+    messages: {
+      email: {
+        required: 'Vui lòng nhập email',
+        regex: 'Vui lòng nhập email hợp lệ',
+      },
+      nickname: {
+        required: 'Vui lòng nhập username',
+        regex: 'Username hợp lệ có ít nhất 5 kí tự chữ hoặc số'
+      },
+      name: {
+        required: 'Vui lòng nhập tên',
+        regex: 'Tên hợp lệ có ít nhất 5 kí tự chữ, không chứa số và kí tự đặc biệt'
+      },
+      phone_number: {
+        required: 'Vui lòng nhập số điện thoại',
+        regex: 'Vui lòng nhập sđt hợp lệ'
+      },
+      gender: 'Vui lòng chọn giới tính',
+      address: {
+        required: 'Vui lòng nhập địa chỉ',
+        regex: 'Địa chỉ ít nhất 15 kí tự và không có kí tự đặc biệt'
+      },
+      birthdate: 'Vui lòng chọn ngày sinh',
+    }
+  });
+});

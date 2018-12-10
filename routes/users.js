@@ -15,14 +15,8 @@ router.get('/uploadandfind', (req, res) => {
   res.render('user/_userUpload_Find',{email: email});
 });
 
-let c = 0;
 router.get('/account', (req, res) => {
   let user = req.session.user;
-  if (c < 1) {
-    user.phone_number = "0"+user.phone_number.substr(3,user.phone_number.length);
-    c++;
-  }
-  console.log()
   res.render('user/_userAccount', {user: user});
 });
 
@@ -91,6 +85,16 @@ router.post('/update', (req, res) => {
   COGNITO.updateInfo(req.session.user.email, req)
     .then((result) => {
       res.redirect('/user/account');
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
+router.get('/files', (req, res) => {
+  dynamoUser.getFileByEmail(req.session.user.email)
+    .then((files) => {
+      res.json(files);
     })
     .catch((err) => {
       res.json(err);

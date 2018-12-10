@@ -150,11 +150,10 @@ exports.updateInfo = (email, req) => (new Promise((resolve, reject) => {
         birthdate: req.body.birthdate,
         address: req.body.address
       };
-      let phone = null;
+      
       Object.keys(req.body).forEach((key) => {
-        if (key === "phone_number") {
-          phone = "+84"+req.body[key].substr(1,req.body[key].length);
-        }
+        let originPhone = req.body["phone_number"];
+        let phone = "+84"+originPhone.substr(1,originPhone.length);
         const attribute = {
           Name: key,
           Value: key === "phone_number" ? phone : req.body[key],

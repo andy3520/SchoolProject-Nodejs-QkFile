@@ -4,6 +4,9 @@ block content
   .main-file.container-fluid.w-100.h-100.pt-3.pb-3
     .card.w-100.h-100
       .container-fluid.h-100.d-flex.flex-column
+        if(files)
+          for f in files
+            p f
         nav(aria-label='Page navigation file').w-100.mt-auto
           ul.pagination.justify-content-center.mb-0
             li.page-item
