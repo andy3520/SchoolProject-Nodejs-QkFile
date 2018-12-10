@@ -89,3 +89,19 @@ exports.download = (fileName, res) => {
   // Truyền stream xuống client
   s3.getObject(params).createReadStream().pipe(res);
 };
+
+exports.delete = fileName => new Promise((resolve,reject)=> {
+  // Schema params get file
+  const params = {
+    Bucket: config.Bucket,
+    Key: String(fileName),
+  };
+
+  s3.deleteObject(params, (err, data) => {
+    if (err) {
+      reject(err);
+    } else {
+      resolve(data);
+    }
+  });
+});

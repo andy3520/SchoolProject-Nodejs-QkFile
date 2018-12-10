@@ -5,19 +5,34 @@ block content
     .card.w-100.h-100
       .container-fluid.h-100.d-flex.flex-column
         if(files)
-          for f in files
-            p(style="color:red;")= f.fileName
+          .table-responsive-md
+            table(style="color:black;").table.table-striped
+              thead
+                tr
+                  th(scope='col') Code
+                  th(scope='col') File Name (Click Name To Download)
+                  th(scope='col') Password
+                  th(scope='col') Size
+                  th(scope='col') Type
+                  th(scope='col') Action
+              tbody
+              for f in paginate
+                - var size = f.fileSize > 1000 ? Math.round(f.fileSize/1000) : f.fileSize + "Bytes"
+                tr
+                  th= f.code
+                  th
+                    a(target='_blank', href='/download/'+f.fileName)= f.fileName
+                  td= f.pass !== " " ? f.pass : "Không có pass"
+                  td= size > 1000 ? Math.round(size /1000)+ "MB" : size + "KB"
+                  td= f.fileType
+                  th
+                    a(href='/user/delete?fileName='+f.fileName) Xóa
+          if(files.length > 10)
+          nav(aria-label='Page navigation file').w-100.mt-auto
+            ul.pagination.justify-content-center.mb-0
+                - var pagNum = Math.ceil(files.length/10)
+                - for(var x = 1 ; x <= pagNum ; x++)
+                  li.page-item
+                    a.page-link(href='user/?page='+x)= x
         else if(error)
           p= error
-        nav(aria-label='Page navigation file').w-100.mt-auto
-          ul.pagination.justify-content-center.mb-0
-            li.page-item
-              a.page-link(href='#') Previous
-            li.page-item
-              a.page-link(href='#') 1
-            li.page-item
-              a.page-link(href='#') 2
-            li.page-item
-              a.page-link(href='#') 3
-            li.page-item
-              a.page-link(href='#') Next

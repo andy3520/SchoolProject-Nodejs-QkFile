@@ -6,16 +6,56 @@ const dynamoUser = require('../controllers/dynamodb/dynamoUser');
 const generateCode = require('../controllers/generateCode');
 const s3 = require('../controllers/s3');
 
+let files = [];
 router.get('/', (req, res) => {
-  let files = [];
-  dynamoUser.getFileByEmail(req.session.user.email)
-    .then((result) => {
-      files = result;
-      res.render('user/_userFile',{files: files});
-    })
-    .catch((err) => {
-      res.render('user/_userFile',{error: err})
-    });
+  let start = 0;
+  let end = 10;
+  if (req.query.page) {
+    let page = Number(req.query.page);
+    if (page === 1) {
+      let paginate = files.slice(start, end);
+      res.render('user/_userFile',{files: files, paginate: paginate});
+    } else {
+      end = end * page;
+      start = end - 10; 
+      let paginate = files.slice(start, end);
+      res.render('user/_userFile',{files: files, paginate: paginate});
+    }
+  } else {
+    if (sessionFile === false && req.session.files) {
+      files = req.session.files;
+      files.sort((a, b) => {
+        let fNameA = a.fileName;
+        let fNameB = b.fileName;
+        let createA = fNameA.substr(0,13);
+        let createB = fNameB.substr(0, 13);
+        return parseInt(createB) - parseInt(createA);
+      });
+      let paginate = files.slice(start, end);
+      res.render('user/_userFile',{files: files, paginate: paginate});
+    } else {
+      console.log("Load lại");
+      sessionFile = false;
+      dynamoUser.getFileByEmail(req.session.user.email)
+        .then((result) => {
+          console.log(result.length);
+          files = result;
+          files.sort((a, b) => {
+            let fNameA = a.fileName;
+            let fNameB = b.fileName;
+            let createA = fNameA.substr(0,13);
+            let createB = fNameB.substr(0, 13);
+            return parseInt(createB) - parseInt(createA);
+          });
+          let paginate = files.slice(start, end);
+          req.session.files = result;
+          res.render('user/_userFile',{files: files, paginate: paginate});
+        })
+        .catch((err) => {
+          res.render('user/_userFile',{error: err})
+        });
+    }
+  }
 });
 
 router.get('/uploadandfind', (req, res) => {
@@ -40,6 +80,7 @@ router.get('/signout', (req, res) => {
   res.redirect('/#login');
 });
 
+let sessionFile = false;
 router.post('/upload', (req, res) => {
   // Schema data file để thêm vào dynamo
   const fileUpload = {
@@ -76,6 +117,7 @@ router.post('/upload', (req, res) => {
         .then((item) => {
           // Thêm thành công sẽ trả về code tìm file
           // console.log("Lưu dynamo run"+JSON.stringify(item));
+          sessionFile = true;
           res.status(200).json({code: `Code tìm kiếm: ${item.code}`});
         })
         .catch(() => {
@@ -96,6 +138,16 @@ router.post('/update', (req, res) => {
     })
     .catch((err) => {
       res.json(err);
+    });
+});
+
+router.get('/delete', (req, res) => {
+  s3.delete(req.query.fileName)
+    .then(data => {
+      res.redirect('/?deleteMessage=Xóa thành công');
+    })
+    .catch(err => {
+      res.redirect('/?deleteMessageError='+JSON.stringify(err));
     });
 });
 

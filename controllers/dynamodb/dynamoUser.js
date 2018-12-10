@@ -47,6 +47,7 @@ exports.getFileByEmail = email => new Promise((resolve, reject) => {
   const params = {
     TableName: 'GuestFile',
     FilterExpression: "#em = :em",
+    ScanIndexForward: false,
     ExpressionAttributeNames: {
       "#em": "email"
     },
