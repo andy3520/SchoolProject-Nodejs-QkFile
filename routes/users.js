@@ -14,12 +14,12 @@ router.get('/', (req, res) => {
     let page = Number(req.query.page);
     if (page === 1) {
       let paginate = files.slice(start, end);
-      res.render('user/_userFile',{files: files, paginate: paginate});
+      res.render('user/_userFile',{files: files, paginate: paginate, username: req.session.user.email});
     } else {
       end = end * page;
       start = end - 10; 
       let paginate = files.slice(start, end);
-      res.render('user/_userFile',{files: files, paginate: paginate});
+      res.render('user/_userFile',{files: files, paginate: paginate, username: req.session.user.email});
     }
   } else {
     if (sessionFile === false && req.session.files) {
@@ -32,7 +32,7 @@ router.get('/', (req, res) => {
         return parseInt(createB) - parseInt(createA);
       });
       let paginate = files.slice(start, end);
-      res.render('user/_userFile',{files: files, paginate: paginate});
+      res.render('user/_userFile',{files: files, paginate: paginate, username: req.session.user.email});
     } else {
       console.log("Load lại");
       sessionFile = false;
@@ -49,7 +49,7 @@ router.get('/', (req, res) => {
           });
           let paginate = files.slice(start, end);
           req.session.files = result;
-          res.render('user/_userFile',{files: files, paginate: paginate});
+          res.render('user/_userFile',{files: files, paginate: paginate, username: req.session.user.email});
         })
         .catch((err) => {
           res.render('user/_userFile',{error: err})
@@ -60,12 +60,12 @@ router.get('/', (req, res) => {
 
 router.get('/uploadandfind', (req, res) => {
   let email = req.session.user.email;
-  res.render('user/_userUpload_Find',{email: email});
+  res.render('user/_userUpload_Find',{email: email, username: req.session.user.email});
 });
 
 router.get('/account', (req, res) => {
   let user = req.session.user;
-  res.render('user/_userAccount', {user: user});
+  res.render('user/_userAccount', {user: user, username: req.session.user.email});
 });
 
 router.get('/signout', (req, res) => {
@@ -137,14 +137,28 @@ router.post('/update', (req, res) => {
       res.redirect('/user/account');
     })
     .catch((err) => {
-      res.json(err);
+      res.redirect('/user/account?accountMessage=Dữ liệu cập nhật không hợp lệ')
     });
 });
 
 router.get('/delete', (req, res) => {
   s3.delete(req.query.fileName)
     .then(data => {
-      res.redirect('/?deleteMessage=Xóa thành công');
+      dynamoUser.deleteFile(req.query.code)
+        .then(result => {
+          sessionFile = true;
+          let item = null; 
+            req.session.files.forEach((f) => {
+            if (f.code === req.query.code)
+              return item = f;
+          });
+          let index = req.session.files.indexOf(item);
+          req.session.files.splice(index,1);
+          res.redirect('/?deleteMessage=Xóa thành công');
+        })
+        .catch(err => {
+          res.redirect('/?deleteMessageError=' + JSON.stringify(err));
+        });
     })
     .catch(err => {
       res.redirect('/?deleteMessageError='+JSON.stringify(err));

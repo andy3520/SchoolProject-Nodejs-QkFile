@@ -17,16 +17,20 @@ block content
                   th(scope='col') Action
               tbody
               for f in paginate
-                - var size = f.fileSize > 1000 ? Math.round(f.fileSize/1000) : f.fileSize + "Bytes"
+                - var size = f.fileSize
                 tr
                   th= f.code
                   th
                     a(target='_blank', href='/download/'+f.fileName)= f.fileName
                   td= f.pass !== " " ? f.pass : "Không có pass"
-                  td= size > 1000 ? Math.round(size /1000)+ "MB" : size + "KB"
+                  if(size<= 1000)
+                    td #{size + "Bytes"}
+                  else
+                    - size = Math.round(size/1000)
+                    td #{size > 1000 ? Math.round(size /1000)+ "MB" : size + "KB"}
                   td= f.fileType
                   th
-                    a(href='/user/delete?fileName='+f.fileName) Xóa
+                    a(href='/user/delete?fileName='+f.fileName+'&code='+f.code) Xóa
           if(files.length > 10)
           nav(aria-label='Page navigation file').w-100.mt-auto
             ul.pagination.justify-content-center.mb-0

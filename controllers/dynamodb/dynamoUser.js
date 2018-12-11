@@ -76,3 +76,24 @@ exports.getFileByEmail = email => new Promise((resolve, reject) => {
         }
       }*/
 });
+
+exports.deleteFile = code => new Promise((resolve, reject) => {
+  const docClient = new AWS.DynamoDB.DocumentClient();
+  const params = {
+    TableName: 'GuestFile',
+    Key: {
+      code: String(code),
+    },
+  };
+
+  docClient.delete(params, (err, data) => {
+    if (err) {
+      // Thất bại
+      // console.log(`dynamoGuestFile.js getFile error ${err}`);
+      reject(err);
+    } else {
+      // Thành công trả thông tin file về
+      resolve(data);
+    }
+  });
+});

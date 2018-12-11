@@ -23,7 +23,9 @@ html(lang='vi')
         img(src='../images/qkfile.ico')
         h2 QKFile
         if(username)
-          h3 Hello #{username}
+          - username = username.split("@");
+          - display = username[0];
+          h3 #{display}
       ul
         a(href="/user/uploadandfind")
           li.icon-upload(tabindex='0')
