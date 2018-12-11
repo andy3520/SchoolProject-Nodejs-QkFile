@@ -13,7 +13,7 @@ AWS.config.update({
 const s3 = new AWS.S3();
 
 // Upload file
-exports.upload = req => new Promise((resolve, reject) => {
+exports.upload = (req,maxSize) => new Promise((resolve, reject) => {
   // Get file và các trường trong form bằng formidable
   const form = new formidable.IncomingForm();
   form.parse(req);
@@ -45,8 +45,9 @@ exports.upload = req => new Promise((resolve, reject) => {
   form.on('file', (name, file) => {
     if (file.size <= 0) {
       reject({err: 'Lỗi file size <=0B không hợp lệ'});
-    } else if (file.size > 20971520) {
-      reject({err: 'File quá lớn, vui lòng đăng nhập để upload file > 20MB'});
+    } else if (file.size > maxSize) {
+      let MB = maxSize/1000/1024;
+      reject({err: 'File lớn hơn mức quy định là '+MB+" MB"});
     } else {
       const params = {
         Bucket: config.Bucket,

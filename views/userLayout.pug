@@ -16,6 +16,9 @@ html(lang='vi')
     link(href='stylesheets/userMenu.css', rel='stylesheet')
     link(href='stylesheets/userStyle.css', rel='stylesheet')
     title Hello, world!
+    script(src='javascripts/jquery-3.3.1.min.js')
+    script(src='javascripts/popper.min.js')
+    script(src='javascripts/bootstrap.min.js')
   body
     nav.menu(tabindex='0')
       .smartphone-menu-trigger
@@ -50,9 +53,6 @@ html(lang='vi')
       include user/_resultModal
     // Optional JavaScript
     // jQuery first, then Popper.js, then Bootstrap JS
-    script(src='javascripts/jquery-3.3.1.min.js')
-    script(src='javascripts/popper.min.js')
-    script(src='javascripts/bootstrap.min.js')
     script(src='javascripts/userScript.js')
     script(type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js")
     script(src='javascripts/signupValidatorUser.js')

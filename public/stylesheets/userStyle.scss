@@ -225,3 +225,7 @@ $active-color: #3fa46a;
 .upload-btn{
   background-color: #fff;
 }
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0,0,0,0.3);
+}

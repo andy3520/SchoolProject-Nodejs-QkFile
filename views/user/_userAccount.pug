@@ -2,6 +2,29 @@ extends ../userLayout
 
 block content
   .main-account.container-fluid.w-100.h-100.pt-3.pb-3
+    if (updatefail)
+      script.
+        var c = 1;
+        if (c === 1) {
+          $(document).ready(function () {
+            $('#errorModal').modal('show');
+            c++;
+            $('#errorMessage').html('#{updatefail}');
+          });
+        }
+    if (updatesuccess)
+      script.
+        var c = 1;
+        if (c === 1) {
+          $(document).ready(function () {
+            $('img#iconSuccess').css('display', 'block');
+            setTimeout(() => {
+              $('img#iconSuccess').attr('src', 'images/success-icon-0.png');},1200);
+            $('#resultModal').modal('show');
+            c++;
+            $('#codeResult').html('#{updatesuccess}');
+          });
+        }
     .card.w-100.h-100
       h2.text-color-theme.text-center.mt-5 Tài khoản
       if(user)

@@ -57,4 +57,34 @@ $(document).ready(() => {
       birthdate: 'Vui lòng chọn ngày sinh',
     }
   });
+  $('#changepasswordform').validate({
+    rules: {
+      oldpassword: {
+        required: true,
+        regex: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$",
+      },
+      password: {
+        required: true,
+        regex: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$",
+      },
+      confirmpass: {
+        required: true,
+        equalTo: '#password',
+      }
+    },
+    messages: {
+      oldpassword: {
+        required: 'Vui lòng nhập mật khẩu',
+        regex: 'Mật khẩu có ít nhất 8 kí tự bao gồm in hoa, in thường và số',
+      },
+      password: {
+        required: 'Vui lòng nhập mật khẩu',
+        regex: 'Mật khẩu có ít nhất 8 kí tự bao gồm in hoa, in thường và số',
+      },
+      confirmpass: {
+        required: 'Vui lòng nhập lại mật khẩu',
+        equalTo: 'Mật khẩu nhập lại không trùng',
+      }
+    }
+  });
 });

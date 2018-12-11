@@ -2,11 +2,35 @@ extends ../userLayout
 
 block content
   .main-file.container-fluid.w-100.h-100.pt-3.pb-3
+    if (deleteerror)
+      script.
+        var c = 1;
+        if (c === 1) {
+          $(document).ready(function () {
+            $('#errorModal').modal('show');
+            c++;
+            $('#errorMessage').html('#{deleteerror}');
+          });
+        }
+    if (deletesuccess)
+      script.
+        var c = 1;
+        if (c === 1) {
+          $(document).ready(function () {
+            $('img#iconSuccess').css('display', 'block');
+            setTimeout(() => {
+              $('img#iconSuccess').attr('src', 'images/success-icon-0.png');
+            },1200);
+            $('#resultModal').modal('show');
+            c++;
+            $('#codeResult').html('#{deletesuccess}');
+          });
+        }
     .card.w-100.h-100
       .container-fluid.h-100.d-flex.flex-column
         if(files)
           .table-responsive-md
-            table(style="color:black;").table.table-striped
+            table(style="color:black;").table.table-striped.table-bordered
               thead
                 tr
                   th(scope='col') Code
@@ -34,9 +58,11 @@ block content
           if(files.length > 10)
           nav(aria-label='Page navigation file').w-100.mt-auto
             ul.pagination.justify-content-center.mb-0
-                - var pagNum = Math.ceil(files.length/10)
-                - for(var x = 1 ; x <= pagNum ; x++)
-                  li.page-item
-                    a.page-link(href='user/?page='+x)= x
+              - var pagNum = Math.ceil(files.length/10)
+              - for(var x = 1 ; x <= pagNum ; x++)
+                li.page-item
+                  a.page-link(href='user/?page='+x)= x
+              li.page-item
+                  .page-link.disabled Tổng cộng: #{files.length} file
         else if(error)
           p= error

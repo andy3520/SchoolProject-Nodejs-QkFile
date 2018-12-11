@@ -2,4 +2,45 @@ extends ../userLayout
 
 block content
   .main-file.container-fluid.w-100.h-100.pt-3.pb-3
+    if (changefail)
+      script.
+        var c = 1;
+        if (c === 1) {
+          $(document).ready(function () {
+            $('#errorModal').modal('show');
+            c++;
+            $('#errorMessage').html('#{changefail}');
+          });
+        }
+    if (changesuccess)
+      script.
+        var c = 1;
+        if (c === 1) {
+          $(document).ready(function () {
+            $('img#iconSuccess').css('display', 'block');
+            setTimeout(() => {
+              $('img#iconSuccess').attr('src', 'images/success-icon-0.png');
+            },
+            1200);
+            $('#resultModal').modal('show');
+            c++;
+            $('#codeResult').html('#{changesuccess}');
+          });
+        }
     .card.w-100.h-100
+      h1.text-color-theme.text-center.mt-5.title-upload Đổi mật khẩu
+      form#changepasswordform.mt-3(data-toggle='validator' action='/user/changepassword' method='post').px-5.mx-lg-5
+        .form-group
+          label(class="error" for="oldpassword" style="display:none;")
+        .form-group
+          input#oldpassword.border-color-y.form-control.input-code(type='password' placeholder='Mật khẩu hiện tại' name="oldpassword")
+        .form-group
+          label(class="error" for="password" style="display:none;")
+        .form-group
+          input#password.border-color-y.form-control.input-code(type='password' placeholder='Mật khẩu mới' name="password")
+        .form-group
+          label(class="error" for="confirmpass" style="display:none;")
+        .form-group
+          input#confirmpass.border-color-y.form-control.input-code(type='password' placeholder='Nhập lại mật khẩu mới' name="confirmpass")
+        .form-group
+          input(type="submit" value="Save").btn.upload-btn.d-block.mx-auto

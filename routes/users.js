@@ -14,12 +14,12 @@ router.get('/', (req, res) => {
     let page = Number(req.query.page);
     if (page === 1) {
       let paginate = files.slice(start, end);
-      res.render('user/_userFile',{files: files, paginate: paginate, username: req.session.user.email});
+      res.render('user/_userFile',{files: files, paginate: paginate, username: req.session.user.email, deleteerror: req.query.deleteerror, deletesuccess: req.query.deletesuccess});
     } else {
       end = end * page;
       start = end - 10; 
       let paginate = files.slice(start, end);
-      res.render('user/_userFile',{files: files, paginate: paginate, username: req.session.user.email});
+      res.render('user/_userFile',{files: files, paginate: paginate, username: req.session.user.email, deleteerror: req.query.deleteerror, deletesuccess: req.query.deletesuccess});
     }
   } else {
     if (sessionFile === false && req.session.files) {
@@ -32,7 +32,7 @@ router.get('/', (req, res) => {
         return parseInt(createB) - parseInt(createA);
       });
       let paginate = files.slice(start, end);
-      res.render('user/_userFile',{files: files, paginate: paginate, username: req.session.user.email});
+      res.render('user/_userFile',{files: files, paginate: paginate, username: req.session.user.email, deleteerror: req.query.deleteerror, deletesuccess: req.query.deletesuccess});
     } else {
       console.log("Load lại");
       sessionFile = false;
@@ -49,7 +49,7 @@ router.get('/', (req, res) => {
           });
           let paginate = files.slice(start, end);
           req.session.files = result;
-          res.render('user/_userFile',{files: files, paginate: paginate, username: req.session.user.email});
+          res.render('user/_userFile',{files: files, paginate: paginate, username: req.session.user.email, deleteerror: req.query.deleteerror, deletesuccess: req.query.deletesuccess});
         })
         .catch((err) => {
           res.render('user/_userFile',{error: err})
@@ -65,7 +65,7 @@ router.get('/uploadandfind', (req, res) => {
 
 router.get('/account', (req, res) => {
   let user = req.session.user;
-  res.render('user/_userAccount', {user: user, username: req.session.user.email});
+  res.render('user/_userAccount', {user: user, username: req.session.user.email, updatesuccess: req.query.updatesuccess, updatefail: req.query.updatefail});
 });
 
 router.get('/signout', (req, res) => {
@@ -104,7 +104,7 @@ router.post('/upload', (req, res) => {
     });
 
   // Upload file lên s3
-  s3.upload(req)
+  s3.upload(req,50000000)
     .then((file) => {
       // Upload thành công sẽ trả về thông tin file, truyền thông tin vào schema
       fileUpload.fileName = file.fileName;
@@ -134,10 +134,10 @@ router.post('/upload', (req, res) => {
 router.post('/update', (req, res) => {
   COGNITO.updateInfo(req.session.user.email, req)
     .then((result) => {
-      res.redirect('/user/account');
+      res.redirect('/user/account?updatesuccess=Cập nhật thông tin thành công');
     })
     .catch((err) => {
-      res.redirect('/user/account?accountMessage=Dữ liệu cập nhật không hợp lệ')
+      res.redirect('/user/account?updatefail=Dữ liệu cập nhật không hợp lệ')
     });
 });
 
@@ -154,14 +154,28 @@ router.get('/delete', (req, res) => {
           });
           let index = req.session.files.indexOf(item);
           req.session.files.splice(index,1);
-          res.redirect('/?deleteMessage=Xóa thành công');
+          res.redirect('/user?deletesuccess=Xóa thành công'); 
         })
         .catch(err => {
-          res.redirect('/?deleteMessageError=' + JSON.stringify(err));
+          res.redirect('/user?deleteerror=' + JSON.stringify(err));
         });
     })
     .catch(err => {
-      res.redirect('/?deleteMessageError='+JSON.stringify(err));
+      res.redirect('/user?deleteerror='+JSON.stringify(err));
+    });
+});
+
+router.get('/changepassword', (req, res) => {
+  res.render('user/_userChangePass',{username : req.session.user.email, changesuccess: req.query.changesuccess, changefail: req.query.changefail});
+});
+
+router.post('/changepassword', (req, res) => {
+  COGNITO.changePassword(req.session.user.email, req.body.oldpassword, req.body.password)
+    .then(result => {
+      res.redirect('/user/changepassword?changesuccess=Đổi mật khẩu thành công');
+    })
+    .catch(err => {
+      res.redirect('/user/changepassword?changefail=Sai mật khẩu hiện tại');
     });
 });
 

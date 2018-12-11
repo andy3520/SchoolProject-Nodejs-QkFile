@@ -45,7 +45,7 @@ router.post('/upload', (req, res) => {
     });
 
   // Upload file lên s3
-  s3.upload(req)
+  s3.upload(req,20000000)
     .then((file) => {
       // Upload thành công sẽ trả về thông tin file, truyền thông tin vào schema
       fileUpload.fileName = file.fileName;
@@ -66,6 +66,9 @@ router.post('/upload', (req, res) => {
     })
     .catch((err) => {
       // Bắt lỗi file rỗng ở đây
+      if (err.err === "File lớn hơn mức quy định là 20 MB") {
+        res.status(411).json({err: err.err+", vui lòng đăng nhập để tăng dung lượng giới hạn lên 50MB"});
+      }
       res.status(411).json({err: err.err});
     });
 });

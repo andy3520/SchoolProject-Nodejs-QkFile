@@ -13,7 +13,7 @@ exports.pool_region = 'us-west-2';
 
 const userPool = new AmazonCognitoIdentity.CognitoUserPool(config.poolData);
 
-var userData = (email) => (
+let userData = (email) => (
   {
     Username: email,
     Pool: userPool
@@ -111,12 +111,36 @@ exports.logIn = (email, password) => new Promise((resolve, reject) => {
 });
 
 exports.changePassword = (email, oldPassword, newPassword) => (new Promise((resolve, reject) => {
-  var userForm = userData(email);
-  var cognitoUserCustom = cognitoUser(userForm);
-  cognitoUserCustom.changePassword(oldPassword, newPassword, (err, result) => {
-    if (err) reject(err);
-    else resolve(result);
-  })
+  const AccessToken = new AmazonCognitoIdentity.CognitoAccessToken({ AccessToken: cognitoUserCustom.tokens.accessToken });
+  const IdToken = new AmazonCognitoIdentity.CognitoIdToken({ IdToken: cognitoUserCustom.tokens.idToken });
+  const RefreshToken = new AmazonCognitoIdentity.CognitoRefreshToken({ RefreshToken: cognitoUserCustom.tokens.refreshToken });
+
+  const sessionData = {
+    IdToken: IdToken,
+    AccessToken: AccessToken,
+    RefreshToken: RefreshToken
+  };
+
+  const userSession = new AmazonCognitoIdentity.CognitoUserSession(sessionData);
+
+  let currentUserFromPool = userData(email);
+
+  const cognitoUser = new AmazonCognitoIdentity.CognitoUser(currentUserFromPool);
+  cognitoUser.setSignInUserSession(userSession);
+
+  cognitoUser.getSession(function (err, session) { // You must run this to verify that session (internally)
+    if (session.isValid()) {
+      cognitoUser.changePassword(oldPassword, newPassword, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    } else {
+      reject(err);
+    }
+  });
 }));
 
 exports.updateInfo = (email, req) => (new Promise((resolve, reject) => {
