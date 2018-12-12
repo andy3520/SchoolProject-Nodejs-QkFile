@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 let session = require('express-session');
 const logger = require('morgan');
-const sassMiddleware = require('node-sass-middleware');
+// const sassMiddleware = require('node-sass-middleware');
 
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/users');
