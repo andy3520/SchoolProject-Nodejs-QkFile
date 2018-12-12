@@ -42,15 +42,14 @@ html(lang='vi')
         a(href="/user/changepassword")
           li.icon-customers(tabindex='0')
             span.pl-1 Đổi mật khẩu
-        a(href="/user/upgrade")
-          li.icon-settings(tabindex='0')
-            span.pl-1 Nâng cấp
+        //a(href="/user/upgrade")
+        //  li.icon-settings(tabindex='0')
+        //    span.pl-1 Nâng cấp
         a(href="/user/signout")
           li.icon-signout(tabindex='0')
             span.pl-1 Đăng xuất
     main
       block content
-      include user/_resultModal
     // Optional JavaScript
     // jQuery first, then Popper.js, then Bootstrap JS
     script(src='javascripts/userScript.js')
