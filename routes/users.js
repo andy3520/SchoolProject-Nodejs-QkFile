@@ -179,4 +179,22 @@ router.post('/changepassword', (req, res) => {
     });
 });
 
+router.get('/forgot', (req, res) => {
+  COGNITO.forgotPassword(req.body.email)
+  .then(result => {
+    console.log('Success');
+  }).catch(err => {
+    console.log(err);
+  })
+})
+
+router.post('/confirmPassword', (req, res) => {
+  COGNITO.confirmPassword(req.body.email, req.body.code, req.body.newPassword)
+  .then(result => {
+    res.json(result);
+  })
+  .catch(err => {
+    res.json(err);
+  })
+})
 module.exports = router;
