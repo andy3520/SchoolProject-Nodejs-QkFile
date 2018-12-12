@@ -1,0 +1,52 @@
+extends userLayout
+
+block content
+  .main-file.container-fluid.w-100.h-100.pt-3.pb-3
+    if (banerror)
+      script.
+        var c = 1;
+        if (c === 1) {
+          $(document).ready(function () {
+            $('#errorModal').modal('show');
+            c++;
+            $('#errorMessage').html('#{banerror}');
+          });
+        }
+    if (bansuccess)
+      script.
+        var c = 1;
+        if (c === 1) {
+          $(document).ready(function () {
+            $('img#iconSuccess').css('display', 'block');
+            setTimeout(() => {
+              $('img#iconSuccess').attr('src', 'images/success-icon-0.png');
+            },1200);
+            $('#resultModal').modal('show');
+            c++;
+            $('#codeResult').html('#{bansuccess}');
+          });
+        }
+    .card.w-100.h-100
+      .container-fluid.h-100.d-flex.flex-column
+        if(users)
+          .table-responsive-md
+            table(style="color:black;").table.table-striped.table-bordered
+              thead
+                tr
+                  th(scope='col') Email
+                  th(scope='col') UserStatus
+                  th(scope='col') Enabled
+                  th(scope='col') UserCreateDate
+                  th(scope='col') Action
+              tbody
+              for u in users
+                tr
+                  th= u.Attributes[0].Value
+                  td= u.UserStatus
+                  td= u.Enabled
+                  td= u.UserCreateDate
+                  th
+                    if(u.Enabled===true)
+                      a(href='/admin/disable?username='+u.Username style="color:red;") Disable
+                    else
+                      a(href='/admin/enable?username='+u.Username style="color:green;") Enable

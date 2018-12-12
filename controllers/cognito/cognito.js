@@ -230,13 +230,6 @@ exports.confirmPassword = (email, code, newPassword) => new Promise((resolve, re
   });
 });
 
-exports.deleteUser = (cognitoUser, req) => (new Promise((resolve, reject) => {
-  cognitoUser.deleteUser((err, result) => {
-    if (err) reject(err);
-    else resolve(result);
-  });
-}));
-
 exports.signOut = () => {
   var currentUser = userPool.getCurrentUser();
 
@@ -246,7 +239,15 @@ exports.signOut = () => {
     cognitoUserCustom.signOut();
 };
 
-exports.getAll = (poolData) => (new Promise((resolve, reject) => {
+
+exports.deleteUser = (cognitoUser, req) => (new Promise((resolve, reject) => {
+  cognitoUser.deleteUser((err, result) => {
+    if (err) reject(err);
+    else resolve(result);
+  });
+}));
+
+exports.getAll = () => (new Promise((resolve, reject) => {
   AWS.config.update({
     region: 'us-west-2',
     'accessKeyId': 'AKIAIN2TIOJKKK3MDNGQ',
@@ -257,13 +258,45 @@ exports.getAll = (poolData) => (new Promise((resolve, reject) => {
     UserPoolId: "us-west-2_YYCZS19k2",
 
     AttributesToGet: [
-      'email',
-      'phone_number',
-      /* more items */
+      'email'
     ],
   };
   cognitoidentityserviceprovider.listUsers(params, function (err, data) {
     if (err) reject(err, err.stack); // an error occurred
     else resolve(data.Users);           // successful response
+  });
+}));
+
+exports.disableUser = (username) => (new Promise((resolve, reject) => {
+  AWS.config.update({
+    region: 'us-west-2',
+    'accessKeyId': 'AKIAIN2TIOJKKK3MDNGQ',
+    'secretAccessKey': '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'
+  });
+  var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
+  var params = {
+    UserPoolId: "us-west-2_YYCZS19k2",
+    Username: username
+  };
+  cognitoidentityserviceprovider.adminDisableUser(params, function (err, data) {
+    if (err) reject(err); // an error occurred
+    else resolve(data);           // successful response
+  });
+}));
+
+exports.enableUser = (username) => (new Promise((resolve, reject) => {
+  AWS.config.update({
+    region: 'us-west-2',
+    'accessKeyId': 'AKIAIN2TIOJKKK3MDNGQ',
+    'secretAccessKey': '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'
+  });
+  var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
+  var params = {
+    UserPoolId: "us-west-2_YYCZS19k2",
+    Username: username
+  };
+  cognitoidentityserviceprovider.adminEnableUser(params, function (err, data) {
+    if (err) reject(err); // an error occurred
+    else resolve(data);           // successful response
   });
 }));

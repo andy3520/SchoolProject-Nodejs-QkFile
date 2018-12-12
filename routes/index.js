@@ -129,5 +129,61 @@ router.post('/confirmpass', (req, res) => {
     });
 });
 
+let admin = 'admin';
+let pass = 'Sudo123';
+let adminSesion = false;
+
+router.get('/admin', (req, res) => {
+  if (adminSesion === true) {
+    let users = [];
+    COGNITO.getAll()
+      .then((data) => {
+        users = data;
+        res.render('admin/_adminMange',{users: users});
+      });
+  } else {
+    res.render('admin/index');
+  }
+});
+
+router.post('/admin', (req, res) => {
+  if (req.body.admin === admin && req.body.password === pass) {
+    adminSesion = true;
+    let users = [];
+    COGNITO.getAll()
+      .then((data) => {
+        users = data;
+        res.render('admin/_adminMange',{users: users});
+      });
+  } else {
+    res.render('admin/index',{adminmessage: "Sai tài khoản hoặc mật khẩu"});
+  }
+});
+
+router.get('/admin/signout', (req, res) => {
+  adminSesion = false;
+  res.redirect('/admin');
+});
+
+router.get('/admin/disable', (req, res) => {
+  COGNITO.disableUser(req.query.username)
+    .then(() => {
+      res.redirect('/admin')
+    })
+    .catch(() => {
+      res.redirect('/admin')
+    });
+});
+
+router.get('/admin/enable', (req, res) => {
+  COGNITO.enableUser(req.query.username)
+    .then(() => {
+      res.redirect('/admin')
+    })
+    .catch(() => {
+      res.redirect('/admin')
+    });
+});
+
 module.exports = router;
   

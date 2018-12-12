@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,aAAa;EACX,MAAM,EAAE,gBAAgB",
+"sources": ["styleAdmin.scss"],
+"names": [],
+"file": "styleAdmin.css"
+}

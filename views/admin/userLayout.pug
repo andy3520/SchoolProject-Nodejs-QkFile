@@ -1,0 +1,43 @@
+doctype html
+html(lang='vi')
+  head
+    // Required meta tags
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    // The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags
+    title User-QKFILE
+    //Favicon
+    base(href="/public")
+    link(rel="icon" href="images/qkfile.ico")
+
+    // Custom css
+    link(href='stylesheets/bootstrap.min.css', rel='stylesheet')
+    link(href='stylesheets/userMenu.css', rel='stylesheet')
+    link(href='stylesheets/userStyle.css', rel='stylesheet')
+    title Hello, world!
+    script(src='javascripts/jquery-3.3.1.min.js')
+    script(src='javascripts/popper.min.js')
+    script(src='javascripts/bootstrap.min.js')
+  body
+    nav.menu(tabindex='0')
+      .smartphone-menu-trigger
+      header.avatar
+        img(src='../images/qkfile.ico')
+        h2 QKFile
+        h2 Admin
+      ul
+        a(href="/admin")
+          li.icon-users(tabindex='0')
+            span.pl-1 Quản lý
+        a(href="/admin/signout")
+          li.icon-signout(tabindex='0')
+            span.pl-1 Đăng xuất
+    main
+      block content
+      include ../user/_resultModal
+    // Optional JavaScript
+    // jQuery first, then Popper.js, then Bootstrap JS
+    script(src='javascripts/userScript.js')
+    script(type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js")
+    script(src='javascripts/signupValidatorUser.js')

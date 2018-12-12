@@ -1,0 +1,32 @@
+section#login.login-section
+  if (adminmessage)
+    script.
+      var c = 1;
+      if (c===1){
+        $(document).ready(function () {
+          $('#errorModal').modal('show');
+          c++;
+          $('#errorMessage').html('#{adminmessage}');
+        });
+      }
+  .container
+    .row
+      .col-md-12
+        .section-title
+          h2.font-weight.color-y Admin
+        .section.contact-us.container-fluid
+          .row
+            .col-xs-12.col-md-8.col-md-offset-2
+              .outer-box.text-center.mr-5.ml-5
+                // Contact Form Start
+                .form-box.clearfix
+                  form#loginform.shake.scroll-reveal(data-toggle='validator' action='/admin' method='post')
+                    .form-group
+                      label(class="error" for="admin" style="display:none;")
+                      input#admin.border-color-y.form-control.input-code(type='text' placeholder='Admin' name='admin')
+                    .form-group
+                      label(class="error" for="adminpass" style="display:none;")
+                      input#adminpass.border-color-y.form-control.input-code(type='password' placeholder='Password' name='password')
+                    .form-group
+                      input(type="submit" value="Login").btn.upload-btn.center-block
+.clearfix
