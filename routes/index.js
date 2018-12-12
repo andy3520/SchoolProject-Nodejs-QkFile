@@ -101,5 +101,31 @@ router.get('/download/:filename', (req, res) => {
   s3.download(req.params.filename, res);
 });
 
+router.post('/forgetpass', (req, res) => {
+  COGNITO.forgotPassword(req.body.email)
+    .then(data => {
+      res.json({email: req.body.email});
+    })
+    .catch(err => {
+      if (err.code === "UserNotFoundException") {
+        res.status(404).json({message: "Email không tồn tại"});
+      } else if (err.code === "InvalidParameterException") {
+        res.status(403).json({message: "Email chưa xác nhận không thể gửi yêu cầu quên mật khẩu"});
+      } else {
+        res.status(429).json({message: "Giới hạn yêu cầu reset, vui lòng thử lại sau"})
+      }
+    });
+});
+
+router.post('/confirmpass', (req, res) => {
+  COGNITO.confirmPassword(req.body.email, req.body.code, req.body.password)
+    .then(data => {
+      res.json(data);
+    })
+    .catch(err => {
+      res.status(400).json(err);
+    });
+});
+
 module.exports = router;
   

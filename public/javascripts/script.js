@@ -127,8 +127,8 @@ $('form#findform').submit((e) => {
         let sizeByte = Number(displayData.fileSize);
         let displaySize = "" ;
         if (sizeByte > 1000) {
-          let sizeKB = sizeByte / 1024;
-          displaySize = Math.round(sizeKB) < 1000 ? Math.round(sizeKB) + "KB" : Math.round(sizeKB / 1024) + "MB";
+          let sizeKB = sizeByte / 1000;
+          displaySize = Math.round(sizeKB) < 1000 ? Math.round(sizeKB) + "KB" : Math.round(sizeKB / 1000) + "MB";
         } else {
          displaySize = sizeByte + "Bytes"; 
         }
@@ -158,6 +158,101 @@ $('form#findform').submit((e) => {
   }
 });
 
+$('#forgetpass').click(() => {
+  $('#forgetModal').modal('show');
+});
+
+$('form#forgetForm').submit((e) => {
+  e.preventDefault();
+  let emailRequest = $('input#emailForget');
+  var patt = new RegExp("^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$");
+  if (!(emailRequest.val().length === 0) && patt.test($('#emailForget').val())) {
+    $('#forgetModal').modal('hide');
+    $('#preloadModal').modal({
+      backdrop: 'static',
+      keyboard: false,
+    });
+    const data = {};
+    data.email = emailRequest.val();
+    $.ajax({
+      type: 'POST',
+      contentType: 'application/json',
+      url: $('form#forgetForm').attr('action'),
+      data: JSON.stringify(data),
+      success: (data) => {
+        $('#preloadModal').modal('hide');
+        $('form#forgetForm').trigger("reset");
+        $('#confirmModal').modal('show');
+        $('input#emailConfirm').val(data.email);
+      },
+      error: (data) => {
+        $('#preloadModal').modal('hide');
+        $('#forgetModal').modal('hide');
+        $('form#forgetForm').trigger("reset");
+        $('#errorModal').modal('show');
+        
+        let mess = $.parseJSON(data.responseText);
+        $('#errorMessage').html(
+          `${data.status} - ${mess.message}`
+        );
+      },
+      cache: false,
+      processData: false,
+    });
+  }
+});
+
+$('form#confirmForm').submit((e) => {
+  e.preventDefault();
+  let emailConfirm = $('input#emailConfirm');
+  let code = $('input#codeConfirm');
+  let password = $('input#newPassword');
+  let patPass = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$");
+  let patEmail = new RegExp("^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$");
+  if (!(password.val().length === 0) && !(code.val().length === 0) && !(emailConfirm.val().length === 0) && patEmail.test(emailConfirm.val()) && patPass.test(password.val())) {
+    $('#confirmModal').modal('hide');
+    $('#preloadModal').modal({
+      backdrop: 'static',
+      keyboard: false,
+    });
+    const data = {};
+    data.email = emailConfirm.val();
+    data.code = code.val();
+    data.pass = password.val();
+    $.ajax({
+      type: 'POST',
+      contentType: 'application/json',
+      url: $('form#confirmForm').attr('action'),
+      data: JSON.stringify(data),
+      success: (data) => {
+        $('#preloadModal').modal('hide');
+        $('form#confirmForm').trigger("reset");
+        $('#resultModal').modal('show');
+        $('img#iconSuccess').css('display', 'block');
+        // Ngưng icon success nhấp nháy
+        setTimeout(() => {
+          $('img#iconSuccess').attr('src', 'images/success-icon-0.png');
+        }, 1200);
+        // Hiển thị code trả về
+        $('#codeResult').html(JSON.stringify(data));
+      },
+      error: (data) => {
+        $('#preloadModal').modal('hide');
+        $('form#confirmForm').trigger("reset");
+        $('#errorModal').modal('show');
+        // let mess = $.parseJSON(data.responseText);
+        // $('#errorMessage').html(
+        //   `${data.status} - ${mess.message}`
+        // );
+        $('#errorMessage').html(
+          JSON.stringify(data.err)
+        );
+      },
+      cache: false,
+      processData: false,
+    });
+  }
+});
 
 // Fix lỗi bootstrap modal làm bể layout
 $(document.body).on('hide.bs.modal,hidden.bs.modal', function () {

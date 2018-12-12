@@ -104,7 +104,7 @@ router.post('/upload', (req, res) => {
     });
 
   // Upload file lên s3
-  s3.upload(req,50000000)
+  s3.upload(req,50000000 )
     .then((file) => {
       // Upload thành công sẽ trả về thông tin file, truyền thông tin vào schema
       fileUpload.fileName = file.fileName;

@@ -46,7 +46,7 @@ exports.upload = (req,maxSize) => new Promise((resolve, reject) => {
     if (file.size <= 0) {
       reject({err: 'Lỗi file size <=0B không hợp lệ'});
     } else if (file.size > maxSize) {
-      let MB = maxSize/1000/1024;
+      let MB = maxSize/1000/1000;
       reject({err: 'File lớn hơn mức quy định là '+MB+" MB"});
     } else {
       const params = {

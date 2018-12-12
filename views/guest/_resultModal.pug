@@ -19,12 +19,37 @@
         .container-fluid
           h2.color-y.text-center Quên mật khẩu
           .row
-            form#forgetForm.mx-auto.col-12(data-toggle='validator' action='/forgetPass' method='post')
-              .form-group
-                label(class="error" for="emailForget" style="display:none;")
+            form#forgetForm.mx-auto.col-12(data-toggle='validator' action='/forgetpass' method='post')
+              .form-group.text-center
+                label#emailError(class="error" for="emailForget" style="display:none;")
                 input#emailForget.border-color-y.form-control(type='text' placeholder='Email' name='email')
               .form-group
                 input#sendmail(type="submit" value="Send email").btn.upload-btn.center-block
+          #testjson
+
+#confirmModal.modal.fade(role='dialog')
+  .modal-dialog(style="margin-top:30vh")
+    // Modal content
+    .modal-content
+      .modal-body.custom-modal
+        .container-fluid
+          h2.color-y.text-center Đổi mật khẩu
+          .row
+            form#confirmForm.mx-auto.col-12( action='/confirmpass' method='post')
+              .form-group.text-center
+                label(class="error" for="emailForget" style="display:none;")
+                input#emailConfirm.border-color-y.form-control(type='email' placeholder='Email' name='email' disabled='disabled')
+              .form-group.text-center
+                label(class="error" for="codeConfirm" style="display:none;")
+                input#codeConfirm.border-color-y.form-control(type='text' placeholder='Code' name='code')
+              .form-group.text-center
+                label(class="error" for="newPassword" style="display:none;")
+                input#newPassword.border-color-y.form-control(type='password' placeholder='New Password' name='password')
+              .form-group.text-center
+                label(class="error" for="confirmPass" style="display:none;")
+                input#confirmPass.border-color-y.form-control(type='password' placeholder='Confirm Password' name='confirmpass')
+              .form-group
+                input#sendConfirm(type="submit" value="Đổi mật khẩu").btn.upload-btn.center-block
 
 #preloadModal.modal.fade(role='dialog')
   .modal-dialog
