@@ -1,6 +1,6 @@
 {
 "version": 3,
-"mappings": "AAAA,aAAa;EACX,MAAM,EAAE,gBAAgB",
+"mappings": "AAAA,aAAa,CACX,MAAM,CAAE,gBAAgB",
 "sources": ["styleAdmin.scss"],
 "names": [],
 "file": "styleAdmin.css"
