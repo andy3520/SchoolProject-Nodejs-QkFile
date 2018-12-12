@@ -118,12 +118,14 @@ router.post('/forgetpass', (req, res) => {
 });
 
 router.post('/confirmpass', (req, res) => {
-  COGNITO.confirmPassword(req.body.email, req.body.code, req.body.password)
+  console.log(req.body);
+  COGNITO.confirmPassword(req.body.email, req.body.code, req.body.pass)
     .then(data => {
-      res.json(data);
+      res.status(200).json({message: "Đổi mật khẩu thành công"});
     })
     .catch(err => {
-      res.status(400).json(err);
+      console.log(JSON.stringify(err));
+      res.status(400).json({message: "Code xác nhận không chính xác vui lòng thử lại"});
     });
 });
 

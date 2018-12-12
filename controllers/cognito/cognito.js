@@ -217,17 +217,18 @@ exports.forgotPassword = (email) => new Promise((resolve, reject) => {
 });
 
 exports.confirmPassword = (email, code, newPassword) => new Promise((resolve, reject) => {
-  var userForm = userData(email);
-  var cognitoUserCustom = cognitoUser(userForm);
-  resolve(cognitoUserCustom.confirmPassword(code, newPassword, {
+  let userForm = userData(email);
+  let cognitoUserCustom = cognitoUser(userForm);
+  console.log(newPassword);
+  cognitoUserCustom.confirmPassword(code, newPassword, {
     onSuccess: (result) => {
       resolve(result);
     },
     onFailure: (err) => {
       reject(err);
     }
-  }));
-})
+  });
+});
 
 exports.deleteUser = (cognitoUser, req) => (new Promise((resolve, reject) => {
   cognitoUser.deleteUser((err, result) => {
@@ -236,14 +237,14 @@ exports.deleteUser = (cognitoUser, req) => (new Promise((resolve, reject) => {
   });
 }));
 
-exports.signOut = () => new Promise((resolve, reject) => {
+exports.signOut = () => {
   var currentUser = userPool.getCurrentUser();
 
   var userForm = userData(currentUser.username);
   var cognitoUserCustom = cognitoUser(userForm);
   if (cognitoUserCustom != null)
     cognitoUserCustom.signOut();
-});
+};
 
 exports.getAll = (poolData) => (new Promise((resolve, reject) => {
   AWS.config.update({

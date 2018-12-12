@@ -34,7 +34,6 @@ router.get('/', (req, res) => {
       let paginate = files.slice(start, end);
       res.render('user/_userFile',{files: files, paginate: paginate, username: req.session.user.email, deleteerror: req.query.deleteerror, deletesuccess: req.query.deletesuccess});
     } else {
-      console.log("Load lại");
       sessionFile = false;
       dynamoUser.getFileByEmail(req.session.user.email)
         .then((result) => {
@@ -69,14 +68,15 @@ router.get('/account', (req, res) => {
 });
 
 router.get('/signout', (req, res) => {
+  COGNITO.signOut();
   if (req.session.user && req.cookies.user_sid) {
     res.clearCookie('user_sid');
   }
   req.session.destroy((err) => {
-    if (err) 
+    if (err) {
       console.log(err);
+    }
   });
-  COGNITO.signOut();
   res.redirect('/#login');
 });
 

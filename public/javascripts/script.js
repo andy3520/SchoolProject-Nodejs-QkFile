@@ -234,19 +234,13 @@ $('form#confirmForm').submit((e) => {
           $('img#iconSuccess').attr('src', 'images/success-icon-0.png');
         }, 1200);
         // Hiển thị code trả về
-        $('#codeResult').html(JSON.stringify(data));
+        $('#codeResult').html(data.message);
       },
       error: (data) => {
         $('#preloadModal').modal('hide');
-        $('form#confirmForm').trigger("reset");
-        $('#errorModal').modal('show');
-        // let mess = $.parseJSON(data.responseText);
-        // $('#errorMessage').html(
-        //   `${data.status} - ${mess.message}`
-        // );
-        $('#errorMessage').html(
-          JSON.stringify(data.err)
-        );
+        $('#confirmModal').modal('show');
+        let mess = $.parseJSON(data.responseText);
+        $('#errorConfirm').html(`${data.status} - ${mess.message}`);
       },
       cache: false,
       processData: false,
