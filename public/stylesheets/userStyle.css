@@ -305,6 +305,12 @@ h2#errorMessage {
 .error {
   color: red; }
 
+input#sendmail {
+  background: #fff; }
+
+input#sendmail:hover {
+  background: #fdc318; }
+
 .text-color-theme {
   color: #fdc318; }
 

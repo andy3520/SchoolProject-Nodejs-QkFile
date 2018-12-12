@@ -11,6 +11,21 @@
               h2#codeResult.text-center(style="padding:10px;overflow-wrap: break-word;" )
         button#hideModalUpload.btn.btn-default.custom-btn-modal.center-block(type='button', data-dismiss='modal') Ok
 
+#forgetModal.modal.fade(role='dialog')
+  .modal-dialog(style="margin-top:30vh")
+    // Modal content
+    .modal-content
+      .modal-body.custom-modal
+        .container-fluid
+          h2.color-y.text-center Quên mật khẩu
+          .row
+            form#forgetForm.mx-auto.col-12(data-toggle='validator' action='/forgetPass' method='post')
+              .form-group
+                label(class="error" for="emailForget" style="display:none;")
+                input#emailForget.border-color-y.form-control(type='text' placeholder='Email' name='email')
+              .form-group
+                input#sendmail(type="submit" value="Send email").btn.upload-btn.center-block
+
 #preloadModal.modal.fade(role='dialog')
   .modal-dialog
     // Modal content

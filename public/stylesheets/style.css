@@ -300,9 +300,15 @@ h2#errorMessage {
   font-weight: 800; }
 
 .des-download {
-  margin-top: 10vh !important; }
+  margin-top: 5vh !important; }
 
 .error {
   color: red; }
+
+input#sendmail {
+  background: #fff; }
+
+input#sendmail:hover {
+  background: #fdc318; }
 
 /*# sourceMappingURL=style.css.map */
