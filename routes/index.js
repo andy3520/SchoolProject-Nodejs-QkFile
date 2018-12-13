@@ -39,37 +39,37 @@ router.post('/upload', (req, res) => {
       // Thành công sẽ thêm code attribute vào schema
       fileUpload.code = code;
       // console.log(code);
+      // Upload file lên s3
+      s3.upload(req,20000000)
+        .then((file) => {
+          // Upload thành công sẽ trả về thông tin file, truyền thông tin vào schema
+          fileUpload.fileName = file.fileName;
+          fileUpload.fileSize = file.fileSize;
+          fileUpload.fileType = file.fileType;
+          fileUpload.pass = file.pass;
+          // Sau khi schema đã thêm đầy đủ, create object ở dynamodb
+          dynamoGuestFile.createFile(fileUpload)
+            .then((item) => {
+              // Thêm thành công sẽ trả về code tìm file
+              // console.log("Lưu dynamo run"+JSON.stringify(item));
+              res.status(200).json({code: `Code tìm kiếm: ${item.code}`});
+            })
+            .catch(() => {
+              // Thêm thất bại trả về error
+              res.status(500).json({err: 'Không thể thêm file vào database'});
+            });
+        })
+        .catch((err) => {
+          // Bắt lỗi file rỗng ở đây
+          if (err.err === "File lớn hơn mức quy định là 20 MB") {
+            res.status(411).json({err: err.err+", vui lòng đăng nhập để tăng dung lượng giới hạn lên 50MB"});
+          } else {
+            res.status(411).json({err: err.err});
+          }
+        });
     })
     .catch(() => {
       res.status(500).json({err: 'Hệ thống không thể generate code'});
-    });
-
-  // Upload file lên s3
-  s3.upload(req,20000000)
-    .then((file) => {
-      // Upload thành công sẽ trả về thông tin file, truyền thông tin vào schema
-      fileUpload.fileName = file.fileName;
-      fileUpload.fileSize = file.fileSize;
-      fileUpload.fileType = file.fileType;
-      fileUpload.pass = file.pass;
-      // Sau khi schema đã thêm đầy đủ, create object ở dynamodb
-      dynamoGuestFile.createFile(fileUpload)
-        .then((item) => {
-          // Thêm thành công sẽ trả về code tìm file
-          // console.log("Lưu dynamo run"+JSON.stringify(item));
-          res.status(200).json({code: `Code tìm kiếm: ${item.code}`});
-        })
-        .catch(() => {
-          // Thêm thất bại trả về error
-          res.status(500).json({err: 'Không thể thêm file vào database'});
-        });
-    })
-    .catch((err) => {
-      // Bắt lỗi file rỗng ở đây
-      if (err.err === "File lớn hơn mức quy định là 20 MB") {
-        res.status(411).json({err: err.err+", vui lòng đăng nhập để tăng dung lượng giới hạn lên 50MB"});
-      }
-      res.status(411).json({err: err.err});
     });
 });
 
