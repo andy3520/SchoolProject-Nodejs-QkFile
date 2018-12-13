@@ -2,6 +2,7 @@ const AWS = require('aws-sdk');
 const formidable = require('formidable');
 const fs = require('fs');
 const config = require('../config/env');
+const resetKey = require('./resetKey');
 
 // Config AWS
 AWS.config.update({
@@ -15,6 +16,7 @@ const s3 = new AWS.S3();
 // Upload file
 exports.upload = (req,maxSize) => new Promise((resolve, reject) => {
   // Get file và các trường trong form bằng formidable
+  resetKey.resetS3Key();
   const form = new formidable.IncomingForm();
   form.parse(req);
   // Schema thông tin file upload
@@ -80,6 +82,7 @@ exports.upload = (req,maxSize) => new Promise((resolve, reject) => {
 // Download file từ s3, trả về stream, open save dialog
 exports.download = (fileName, res) => {
   // Schema params get file
+  resetKey.resetS3Key();
   const params = {
     Bucket: config.Bucket,
     Key: String(fileName),
@@ -92,6 +95,7 @@ exports.download = (fileName, res) => {
 };
 
 exports.delete = fileName => new Promise((resolve,reject)=> {
+  resetKey.resetS3Key();
   // Schema params get file
   const params = {
     Bucket: config.Bucket,

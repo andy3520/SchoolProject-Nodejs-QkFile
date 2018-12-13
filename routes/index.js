@@ -5,8 +5,10 @@ const dynamoGuestFile = require('../controllers/dynamodb/dynamoGuestFile');
 const generateCode = require('../controllers/generateCode');
 const s3 = require('../controllers/s3');
 const COGNITO = require('../controllers/cognito/cognito');
+const resetKey = require('../controllers/resetKey');
 
 router.get('/', (req, res) => {
+  resetKey.resetS3Key();
   let loginmessage = req.query.loginmessage;
   let signuperrormessage = req.query.signuperrormessage;
   let signupmessage = req.query.signupmessage;
@@ -24,6 +26,7 @@ router.get('/', (req, res) => {
 
 // Xử lý upload
 router.post('/upload', (req, res) => {
+  resetKey.resetS3Key();
   // Schema data file để thêm vào dynamo
   const fileUpload = {
     code: '',
@@ -75,6 +78,7 @@ router.post('/upload', (req, res) => {
 
 // Tìm file trong dynamodb và hiển thị thông tin trước khi download
 router.post('/find', (req, res) => {
+  resetKey.resetS3Key();
   // Tìm file
   if (req.body.code === undefined || req.body.code === "") {
     res.status(401).json({err: "Vui lòng nhập mã tìm kiếm"});
@@ -97,11 +101,13 @@ router.post('/find', (req, res) => {
 
 // Tải file về
 router.get('/download/:filename', (req, res) => {
+  resetKey.resetS3Key();
   console.log(req.params.filename);
   s3.download(req.params.filename, res);
 });
 
 router.post('/forgetpass', (req, res) => {
+  resetKey.resetS3Key();
   COGNITO.forgotPassword(req.body.email)
     .then(data => {
       res.json({email: req.body.email});
@@ -118,6 +124,7 @@ router.post('/forgetpass', (req, res) => {
 });
 
 router.post('/confirmpass', (req, res) => {
+  resetKey.resetS3Key();
   console.log(req.body);
   COGNITO.confirmPassword(req.body.email, req.body.code, req.body.pass)
     .then(data => {

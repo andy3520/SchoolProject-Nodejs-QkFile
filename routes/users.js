@@ -5,9 +5,11 @@ const COGNITO = require('../controllers/cognito/cognito');
 const dynamoUser = require('../controllers/dynamodb/dynamoUser');
 const generateCode = require('../controllers/generateCode');
 const s3 = require('../controllers/s3');
+const resetKey = require('../controllers/resetKey');
 
 let files = [];
 router.get('/', (req, res) => {
+  resetKey.resetS3Key();
   let start = 0;
   let end = 10;
   if (req.query.page) {
@@ -58,16 +60,19 @@ router.get('/', (req, res) => {
 });
 
 router.get('/uploadandfind', (req, res) => {
+  resetKey.resetS3Key();
   let email = req.session.user.email;
   res.render('user/_userUpload_Find',{email: email, username: req.session.user.email});
 });
 
 router.get('/account', (req, res) => {
+  resetKey.resetS3Key();
   let user = req.session.user;
   res.render('user/_userAccount', {user: user, username: req.session.user.email, updatesuccess: req.query.updatesuccess, updatefail: req.query.updatefail});
 });
 
 router.get('/signout', (req, res) => {
+  resetKey.resetS3Key();
   COGNITO.signOut()
     .then(() => {
       if (req.session.user && req.cookies.user_sid) {
@@ -95,6 +100,7 @@ router.get('/signout', (req, res) => {
 
 let sessionFile = false;
 router.post('/upload', (req, res) => {
+  resetKey.resetS3Key();
   // Schema data file để thêm vào dynamo
   const fileUpload = {
     code: '',
@@ -145,6 +151,7 @@ router.post('/upload', (req, res) => {
 });
 
 router.post('/update', (req, res) => {
+  resetKey.resetS3Key();
   COGNITO.updateInfo(req.session.user.email, req)
     .then((result) => {
       res.redirect('/user/account?updatesuccess=Cập nhật thông tin thành công');
@@ -155,6 +162,7 @@ router.post('/update', (req, res) => {
 });
 
 router.get('/delete', (req, res) => {
+  resetKey.resetS3Key();
   s3.delete(req.query.fileName)
     .then(data => {
       dynamoUser.deleteFile(req.query.code)
@@ -179,10 +187,12 @@ router.get('/delete', (req, res) => {
 });
 
 router.get('/changepassword', (req, res) => {
+  resetKey.resetS3Key();
   res.render('user/_userChangePass',{username : req.session.user.email, changesuccess: req.query.changesuccess, changefail: req.query.changefail});
 });
 
 router.post('/changepassword', (req, res) => {
+  resetKey.resetS3Key();
   COGNITO.changePassword(req.session.user.email, req.body.oldpassword, req.body.password)
     .then(result => {
       res.redirect('/user/changepassword?changesuccess=Đổi mật khẩu thành công');

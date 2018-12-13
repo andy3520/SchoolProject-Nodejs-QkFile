@@ -252,13 +252,12 @@ exports.deleteUser = (cognitoUser, req) => (new Promise((resolve, reject) => {
 }));
 
 exports.getAll = () => (new Promise((resolve, reject) => {
-  const AWSCOG = require('aws-sdk');
-  AWSCOG.config.update({
+  AWS.config.update({
     region: 'us-west-2',
     'accessKeyId': 'AKIAIN2TIOJKKK3MDNGQ',
     'secretAccessKey': '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'
   });
-  var cognitoidentityserviceprovider = new AWSCOG.CognitoIdentityServiceProvider();
+  var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
   var params = {
     UserPoolId: "us-west-2_YYCZS19k2",
 
@@ -273,13 +272,12 @@ exports.getAll = () => (new Promise((resolve, reject) => {
 }));
 
 exports.disableUser = (username) => (new Promise((resolve, reject) => {
-  const AWSCOG = require('aws-sdk');     
-  AWSCOG.config.update({
+  AWS.config.update({
     region: 'us-west-2',
     'accessKeyId': 'AKIAIN2TIOJKKK3MDNGQ',
     'secretAccessKey': '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'
   });
-  var cognitoidentityserviceprovider = new AWSCOG.CognitoIdentityServiceProvider();
+  var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
   var params = {
     UserPoolId: "us-west-2_YYCZS19k2",
     Username: username
@@ -291,13 +289,12 @@ exports.disableUser = (username) => (new Promise((resolve, reject) => {
 }));
 
 exports.enableUser = (username) => (new Promise((resolve, reject) => {
-  const AWSCOG = require('aws-sdk'); 
-  AWSCOG.config.update({
+  AWS.config.update({
     region: 'us-west-2',
     'accessKeyId': 'AKIAIN2TIOJKKK3MDNGQ',
     'secretAccessKey': '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'
   });
-  var cognitoidentityserviceprovider = new AWSCOG.CognitoIdentityServiceProvider();
+  var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
   var params = {
     UserPoolId: "us-west-2_YYCZS19k2",
     Username: username
