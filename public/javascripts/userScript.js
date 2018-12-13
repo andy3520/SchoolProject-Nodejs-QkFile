@@ -56,7 +56,7 @@ null !== uploadField && (uploadField.onchange = function() {
     });
     setTimeout(() => {
       $("#preloadModal").modal('hide');
-    },1000);
+    },500);
     const e = {};
     e.code = o.val(), e.pass = a.val(), "" !== e.pass && void 0 !== e.pass || (e.pass = " "), 
       $.ajax({
@@ -90,6 +90,4 @@ null !== uploadField && (uploadField.onchange = function() {
       processData: !1
     })
   }
-}), $(document.body).on("hide.bs.modal,hidden.bs.modal", function () {
-  $("body").css("padding-right", "0"), $("#modal-dialog").removeClass("des-download")
 });
