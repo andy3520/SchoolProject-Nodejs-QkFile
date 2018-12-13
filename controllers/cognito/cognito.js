@@ -226,19 +226,23 @@ exports.confirmPassword = (email, code, newPassword) => new Promise((resolve, re
     }
   });
 });
-//
-// exports.signOut = () => {
-//   var currentUser = userPool.getCurrentUser();
-//
-//   var userForm = userData(currentUser.username);
-//   var cognitoUserCustom = cognitoUser(userForm);
-//   if (cognitoUserCustom != null)
-//     cognitoUserCustom.signOut();
-// };
 
-exports.signOut = () => {
-  cognitoUser.signOut();
-};
+exports.signOut = () => new Promise( (resolve,reject)=>{
+  var currentUser = userPool.getCurrentUser();
+  if (currentUser != null) {
+    var userForm = userData(currentUser.username);
+    var cognitoUserCustom = cognitoUser(userForm);
+    if (cognitoUserCustom != null) {
+      cognitoUserCustom.signOut();
+      resolve();
+    } else {
+      reject();
+    }
+  } else {
+    reject();
+  }
+});
+
 
 exports.deleteUser = (cognitoUser, req) => (new Promise((resolve, reject) => {
   cognitoUser.deleteUser((err, result) => {

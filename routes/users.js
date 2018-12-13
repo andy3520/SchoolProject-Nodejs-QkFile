@@ -68,16 +68,29 @@ router.get('/account', (req, res) => {
 });
 
 router.get('/signout', (req, res) => {
-  COGNITO.signOut();
-  if (req.session.user && req.cookies.user_sid) {
-    res.clearCookie('user_sid');
-  }
-  req.session.destroy((err) => {
-    if (err) {
-      console.log(err);
-    }
-  });
-  res.redirect('/#login');
+  COGNITO.signOut()
+    .then(() => {
+      if (req.session.user && req.cookies.user_sid) {
+        res.clearCookie('user_sid');
+      }
+      req.session.destroy((err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+      res.redirect('/#login');
+    })
+    .catch(() => {
+      if (req.session.user && req.cookies.user_sid) {
+        res.clearCookie('user_sid');
+      }
+      req.session.destroy((err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+      res.redirect('/#login');
+    });
 });
 
 let sessionFile = false;
