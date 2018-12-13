@@ -54,8 +54,12 @@ null !== uploadField && (uploadField.onchange = function() {
       backdrop: "static",
       keyboard: !1
     });
+    setTimeout(() => {
+      $("#preloadModal").modal('hide');
+    },1000);
     const e = {};
-    e.code = o.val(), e.pass = a.val(), "" !== e.pass && void 0 !== e.pass || (e.pass = " "), $.ajax({
+    e.code = o.val(), e.pass = a.val(), "" !== e.pass && void 0 !== e.pass || (e.pass = " "), 
+      $.ajax({
       type: "POST",
       contentType: "application/json",
       url: $("form#findform").attr("action"),
