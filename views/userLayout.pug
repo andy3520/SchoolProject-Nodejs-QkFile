@@ -28,7 +28,7 @@ html(lang='vi')
         if(username)
           - username = username.split("@");
           - display = username[0];
-          h3 #{display}
+          h3(style="word-break: break-all;") #{display}
       ul
         a(href="/user/uploadandfind")
           li.icon-upload(tabindex='0')
