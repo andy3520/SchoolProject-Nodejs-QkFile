@@ -7,6 +7,7 @@ const s3 = require('../controllers/s3');
 const COGNITO = require('../controllers/cognito/cognito');
 
 router.get('/', (req, res) => {
+  adminSesion = false;
   let loginmessage = req.query.loginmessage;
   let signuperrormessage = req.query.signuperrormessage;
   let signupmessage = req.query.signupmessage;
@@ -162,6 +163,7 @@ router.post('/admin', (req, res) => {
 
 router.get('/admin/signout', (req, res) => {
   adminSesion = false;
+  req.session.destroy();
   res.redirect('/admin');
 });
 
@@ -184,6 +186,8 @@ router.get('/admin/enable', (req, res) => {
       res.redirect('/admin')
     });
 });
+
+exports.adminSesion = adminSesion;
 
 module.exports = router;
   

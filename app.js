@@ -47,8 +47,10 @@ app.use(session({
 
 let sessionChecker = (req, res, next) => {
   if (req.session.user && req.cookies.user_sid) {
+    indexRouter.adminSesion = false;
     res.redirect('/user');
   } else {
+    indexRouter.adminSesion = false;
     next();
   }
 };
@@ -64,6 +66,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/user', (req, res,next) => {
+  indexRouter.adminSesion = false;
   if (!req.cookies.user_sid || !req.session.user) {
     res.redirect('/?loginmessage=Vui lòng đăng nhập#login');
   }
@@ -71,6 +74,7 @@ app.get('/user', (req, res,next) => {
 });
 
 app.get('/user/*', (req, res,next) => {
+  indexRouter.adminSesion = false;
   if (!req.cookies.user_sid || !req.session.user) {
     res.redirect('/?loginmessage=Vui lòng đăng nhập#login');
   }
@@ -85,6 +89,7 @@ app.use('/auth', authRouter);
 app.use('/user', userRouter);
 
 app.use('/*', (req, res) => {
+  indexRouter.adminSesion = false;
   res.render('error');
 });
 
