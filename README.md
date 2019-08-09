@@ -1,1 +1,2 @@
-# congnghemoi-iuh
+# QKFile - School Project
+Sharing and manage file use nodejs and aws
